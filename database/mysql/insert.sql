@@ -3,6 +3,8 @@ use garlic;
 # I had to use the absolute path as the database itself is saved in another location
 # which has no relation to the location the data-files are stored in
 
+# the data used can be found here: https://github.com/astwys/Garlic/tree/master/database/mysql/data
+
 set foreign_key_checks = 0;
 
 #u_users
