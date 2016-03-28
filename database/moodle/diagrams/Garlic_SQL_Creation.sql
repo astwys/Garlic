@@ -84,9 +84,9 @@ DROP TABLE IF EXISTS `garlic`.`a_articles` ;
 
 CREATE TABLE IF NOT EXISTS `garlic`.`a_articles` (
   `a_p_id` INT NOT NULL COMMENT '',
+  `a_c_clove` INT NULL COMMENT '',
   `a_title` VARCHAR(200) NOT NULL COMMENT '',
   `a_r_rank` INT NULL COMMENT '',
-  `a_c_clove` INT NULL COMMENT '',
   PRIMARY KEY (`a_p_id`)  COMMENT '',
   INDEX `fk_a_articles_r_rankings1_idx` (`a_r_rank` ASC)  COMMENT '',
   INDEX `fk_a_articles_c_clove1_idx` (`a_c_clove` ASC)  COMMENT '',
@@ -148,9 +148,9 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `garlic`.`v_votes` ;
 
 CREATE TABLE IF NOT EXISTS `garlic`.`v_votes` (
-  `v_date` DATETIME NOT NULL COMMENT '',
+  `v_p_post` INT NOT NULL COMMENT '',                                        
   `v_upvote` TINYINT(1) NOT NULL COMMENT '',
-  `v_p_post` INT NOT NULL COMMENT '',
+  `v_date` DATETIME NOT NULL COMMENT '',
   PRIMARY KEY (`v_date`, `v_p_post`)  COMMENT '',
   INDEX `fk_v_votes_p_posts1_idx` (`v_p_post` ASC)  COMMENT '',
   CONSTRAINT `fk_v_votes_p_posts1`
