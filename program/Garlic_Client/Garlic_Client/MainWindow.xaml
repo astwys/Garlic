@@ -5,8 +5,147 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Garlic_Client"
         mc:Ignorable="d"
-        Title="Garlic" Height="350" Width="525">
+        Title="Garlic" Height="500" Width="550">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="178*"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="73*"/>
+                <RowDefinition Height="35*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="353*"/>
+                <ColumnDefinition Width="139*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="0"
+                       FontSize="50"
+                       FontWeight="Medium"
+                       Padding="10 10 0 0">
+                Garlic
+            </TextBlock>
+
+            <Grid Grid.Column="0"
+                  Grid.Row="1"
+                  Margin="12 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="88*"/>
+                    <ColumnDefinition Width="88*"/>
+                    <ColumnDefinition Width="88*"/>
+                    <ColumnDefinition Width="88*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="superhot"
+                        Grid.Column="0">
+                    <TextBlock FontSize="15">
+                        Superhot
+                    </TextBlock>
+                </Button>
+                <Button x:Name="hot"
+                        Grid.Column="1">
+                    <TextBlock FontSize="15">
+                        Hot
+                    </TextBlock>
+                </Button>
+                <Button x:Name="rising"
+                        Grid.Column="2">
+                    <TextBlock FontSize="15">
+                        Rising
+                    </TextBlock>
+                </Button>
+                <Button x:Name="upcoming"
+                        Grid.Column="3">
+                    <TextBlock FontSize="15">
+                        Upcoming
+                    </TextBlock>
+                </Button>
+            </Grid>
+            <!-- navigation buttons grid -->
+            <ComboBox x:Name="cloves_combobox"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     Margin="0 0 10 0">
+            </ComboBox>
+        </Grid>
+        <!-- outer header grid -->
+        <ListBox x:Name="posts"
+                 Grid.Column="0"
+                 Grid.Row="1">
+            <!-- Posts to add -->
+        </ListBox>
+        <Grid Grid.Column="1"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="118*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="112*"/>
+                <RowDefinition Height="34*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="76*"/>
+                <ColumnDefinition Width="76*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="write"
+                    Grid.Column="0"
+                    Grid.Row="0">
+                <TextBlock FontSize="15">Write</TextBlock>
+            </Button>
+            <Button x:Name="admin"
+                    Grid.Column="1"
+                    Grid.Row="0">
+                <TextBlock FontSize="15">Admin</TextBlock>
+                <!-- should be disabled if not admin-->
+            </Button>
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="2"
+                       FontSize="15"
+                       FontWeight="Medium">
+                Description
+            </TextBlock>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="2"
+                       Grid.ColumnSpan="2">
+                <!-- text from the db -->
+            </TextBlock>
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="3"
+                       Grid.ColumnSpan="2"
+                       FontSize="15"
+                       FontWeight="Medium">
+                Admins
+            </TextBlock>
+            <ListBox x:Name="admins"
+                     Grid.Column="0"
+                     Grid.Row="4"
+                     Grid.ColumnSpan="2">
+                <!-- list box with all the admins - not selectable -->
+            </ListBox>
+
+            <Button x:Name="subscribe"
+                    Grid.Column="0"
+                    Grid.Row="6"
+                    Grid.ColumnSpan="2">
+                <TextBlock FontSize="15">
+                    Subscribe
+                </TextBlock>
+            </Button>
+
+        </Grid>
+        <!-- grid sidemenu -->
     </Grid>
+    <!-- outer grid -->
 </Window>
