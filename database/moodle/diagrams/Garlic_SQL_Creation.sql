@@ -25,8 +25,8 @@ DROP TABLE IF EXISTS `garlic`.`u_users` ;
 
 CREATE TABLE IF NOT EXISTS `garlic`.`u_users` (
   `u_username` VARCHAR(20) NOT NULL COMMENT '',
-  `u_email` VARCHAR(50) NOT NULL COMMENT '',
   `u_password` VARCHAR(100) NOT NULL COMMENT '',
+  `u_email` VARCHAR(50) NOT NULL COMMENT '',
   PRIMARY KEY (`u_username`)  COMMENT '')
 ENGINE = InnoDB;
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `garlic`.`p_posts` (
     FOREIGN KEY (`p_u_username`)
     REFERENCES `garlic`.`u_users` (`u_username`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -84,9 +84,9 @@ DROP TABLE IF EXISTS `garlic`.`a_articles` ;
 
 CREATE TABLE IF NOT EXISTS `garlic`.`a_articles` (
   `a_p_id` INT NOT NULL COMMENT '',
+  `a_c_clove` INT NULL COMMENT '',
   `a_title` VARCHAR(200) NOT NULL COMMENT '',
   `a_r_rank` INT NULL COMMENT '',
-  `a_c_clove` INT NULL COMMENT '',
   PRIMARY KEY (`a_p_id`)  COMMENT '',
   INDEX `fk_a_articles_r_rankings1_idx` (`a_r_rank` ASC)  COMMENT '',
   INDEX `fk_a_articles_c_clove1_idx` (`a_c_clove` ASC)  COMMENT '',
@@ -94,17 +94,17 @@ CREATE TABLE IF NOT EXISTS `garlic`.`a_articles` (
     FOREIGN KEY (`a_p_id`)
     REFERENCES `garlic`.`p_posts` (`p_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_a_articles_r_rankings1`
     FOREIGN KEY (`a_r_rank`)
     REFERENCES `garlic`.`r_rankings` (`r_rank`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_a_articles_c_clove1`
     FOREIGN KEY (`a_c_clove`)
     REFERENCES `garlic`.`c_clove` (`c_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -122,12 +122,12 @@ CREATE TABLE IF NOT EXISTS `garlic`.`c_comments` (
     FOREIGN KEY (`c_p_id`)
     REFERENCES `garlic`.`p_posts` (`p_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_c_comments_p_posts2`
     FOREIGN KEY (`c_p_commentOf`)
     REFERENCES `garlic`.`p_posts` (`p_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -148,16 +148,16 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `garlic`.`v_votes` ;
 
 CREATE TABLE IF NOT EXISTS `garlic`.`v_votes` (
-  `v_date` DATETIME NOT NULL COMMENT '',
+  `v_p_post` INT NOT NULL COMMENT '',                                        
   `v_upvote` TINYINT(1) NOT NULL COMMENT '',
-  `v_p_post` INT NOT NULL COMMENT '',
+  `v_date` DATETIME NOT NULL COMMENT '',
   PRIMARY KEY (`v_date`, `v_p_post`)  COMMENT '',
   INDEX `fk_v_votes_p_posts1_idx` (`v_p_post` ASC)  COMMENT '',
   CONSTRAINT `fk_v_votes_p_posts1`
     FOREIGN KEY (`v_p_post`)
     REFERENCES `garlic`.`p_posts` (`p_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -177,12 +177,12 @@ CREATE TABLE IF NOT EXISTS `garlic`.`csm_connectedsocialmedias` (
     FOREIGN KEY (`csm_sm_name`)
     REFERENCES `garlic`.`sm_socialmedias` (`sm_name`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_sm_socialmedias_has_u_users_u_users1`
     FOREIGN KEY (`csm_u_username`)
     REFERENCES `garlic`.`u_users` (`u_username`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -201,12 +201,12 @@ CREATE TABLE IF NOT EXISTS `garlic`.`s_subscriptions` (
     FOREIGN KEY (`s_c_clove`)
     REFERENCES `garlic`.`c_clove` (`c_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_c_clove_has_u_users_u_users1`
     FOREIGN KEY (`s_u_username`)
     REFERENCES `garlic`.`u_users` (`u_username`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -225,12 +225,12 @@ CREATE TABLE IF NOT EXISTS `garlic`.`ad_admins` (
     FOREIGN KEY (`ad_u_username`)
     REFERENCES `garlic`.`u_users` (`u_username`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_u_users_has_c_clove_c_clove1`
     FOREIGN KEY (`ad_c_clove`)
     REFERENCES `garlic`.`c_clove` (`c_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
