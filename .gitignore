@@ -43,6 +43,10 @@ TestResult.xml
 [Rr]eleasePS/
 dlldata.c
 
+# database files
+*.mdf
+*.ldf
+
 # DNX
 project.lock.json
 artifacts/
