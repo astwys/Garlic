@@ -74,7 +74,7 @@ lines terminated by '\n'
 ignore 1 rows;
 
 #c_comments
-load data infile '/Users/michael/school/3EHIF/DBI/Garlic/database/mysql/data/co_comments.csv'
+load data infile '/Users/michael/school/3EHIF/DBI/Garlic/database/mysql/data/c_comments.csv'
 into table c_comments
 fields terminated by ','
 lines terminated by '\n'
