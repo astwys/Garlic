@@ -11,20 +11,20 @@ create view vUserVotes as
 	 	                            		on p.p_id = v.v_p_post)
 		 		on a.a_p_id = p.p_id
  				where u.u_username like p.p_u_username
-		 ) as uu_articles_upvotes,
+		 ) as uu_articles_votes,
 		(
 		select count(*)
 	 	from c_comments c inner join (p_posts p inner join v_votes v
 	 	                            		on p.p_id = v.v_p_post)
 	 		on c.c_p_id = p.p_id
 			where u.u_username like p.p_u_username
-		 ) as uu_comments_upvotes,
+		 ) as uu_comments_votes,
 		(
 		 select count(*)
 		 from v_votes v inner join p_posts p
 		 	on v.v_p_post = p.p_id
 		 	where u.u_username like p.p_u_username
-		 ) as uu_total_upvotes
+		 ) as uu_total_votes
 	from u_users u;
 
 select * from vUserVotes;
@@ -66,3 +66,22 @@ create view vUserRankings as
 	from u_users u;
 
 select * from vUserRankings;
+
+
+# get the article count + comment count on each article per clove
+# no idea how to actually do it, its just an idea
+drop view if exists vCountArticlesCommentsPerClove;
+create view vCountArticlesCommentsPerClove as
+	select c.c_name,
+	(
+	 select count(*)
+	 from a_articles a
+	 where a.a_c_clove = c.c_id
+	 ) as acc_articles,
+	(
+	 select count(*)
+	 from 
+	 )
+	from c_clove c;
+
+select * from vCountArticlesCommentsPerClove;
