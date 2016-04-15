@@ -287,3 +287,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
+#floobits
+*.floo
