@@ -237,3 +237,142 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
+
+###############
+###############
+#### VIEWS ####
+###############
+###############
+
+# get all votes from articles / comments as well as the total of votes of a user
+# If you want to evaluate how many votes a user got on his / her articles / comments / articles + comments
+# username, upvotes on articles, downvotes on articles, upvotes on comments, downvotes on comments
+drop view if exists vUserVotes;
+create view vUserVotes as
+  select u.u_username as uu_user,
+    (
+      select count(*)
+      from a_articles a inner join (p_posts p inner join v_votes v
+                                    on p.p_id = v.v_p_post and v.v_upvote = 1)
+        on a.a_p_id = p.p_id
+        where u.u_username like p.p_u_username
+     ) as uu_articles_upvotes,
+    (
+      select count(*)
+      from a_articles a inner join (p_posts p inner join v_votes v
+                                    on p.p_id = v.v_p_post and v.v_upvote = 0)
+        on a.a_p_id = p.p_id
+        where u.u_username like p.p_u_username
+     ) as uu_articles_downvotes,
+    (
+    select count(*)
+    from c_comments c inner join (p_posts p inner join v_votes v
+                                    on p.p_id = v.v_p_post and v.v_upvote = 1)
+      on c.c_p_id = p.p_id
+      where u.u_username like p.p_u_username
+     ) as uu_comments_upvotes,
+    (
+    select count(*)
+    from c_comments c inner join (p_posts p inner join v_votes v
+                                    on p.p_id = v.v_p_post and v.v_upvote = 0)
+      on c.c_p_id = p.p_id
+      where u.u_username like p.p_u_username
+     ) as uu_comments_downvotes
+  from u_users u;
+
+select * from vUserVotes;
+
+# Used to find out how many articles a user has in the different ranking sections + total number of articles with a ranking
+drop view if exists vUserRankings;
+create view vUserRankings as
+  select u.u_username,
+  (
+   select count(*)
+   from p_posts p inner join a_articles a
+      on p.p_id = a.a_p_id
+    where a.a_r_rank between 1 and 499 and p.p_u_username like u.u_username
+   ) as ur_superhot,
+  (
+   select count(*)
+   from p_posts p inner join a_articles a
+      on p.p_id = a.a_p_id
+    where a.a_r_rank between 500 and 999 and p.p_u_username like u.u_username
+   ) as ur_hot,
+  (
+   select count(*)
+   from p_posts p inner join a_articles a
+      on p.p_id = a.a_p_id
+    where a.a_r_rank between 1000 and 1499 and p.p_u_username like u.u_username
+   ) as ur_rising,
+  (
+   select count(*)
+   from p_posts p inner join a_articles a
+      on p.p_id = a.a_p_id
+    where a.a_r_rank between 1500 and 2000 and p.p_u_username like u.u_username
+   ) as ur_upcoming,
+  (
+   select count(*)
+   from p_posts p inner join a_articles a
+      on p.p_id = a.a_p_id
+    where p.p_u_username like u.u_username
+   ) as ur_total
+  from u_users u;
+
+select * from vUserRankings;
+
+
+# Get every post with the user who created it + total votes + total upvotes + total downvotes
+drop view if exists vPostInfo;
+create view vPostInfo as
+  select p.p_id,
+  (
+   select u.u_username
+   from u_users u
+   where u.u_username = p.p_u_username
+   ) as pi_user,
+  (
+    select count(*)
+    from v_votes v
+    where v.v_p_post = p.p_id and v.v_upvote = 1
+   ) as pi_upvotes,
+  (
+    select count(*)
+    from v_votes v
+    where v.v_p_post = p.p_id and v.v_upvote = 0
+   ) as pi_downvotes,
+  (
+   select count(*)
+   from v_votes v
+   where v.v_p_post = p.p_id
+   ) as pi_total_votes
+  from p_posts p
+  order by p.p_id asc;
+
+select * from vPostInfo;
+
+
+# For each clove get the number of subscriptions + number of admins and the number of posts
+drop view if exists vCloveInfo;
+create view vCloveInfo as
+  select c.c_name as ci_cloveName,
+  (
+   select count(*)
+   from s_subscriptions s
+   where s.s_c_clove = c.c_id
+   ) as ci_subscribers,
+  (
+   select count(*)
+   from ad_admins ad
+   where ad.ad_c_clove = c.c_id
+   ) as ci_admins,
+  (
+   select count(*)
+   from a_articles a
+   where a.a_c_clove = c.c_id
+   ) as ci_articles
+  from c_clove c;
+
+select * from vCloveInfo;
