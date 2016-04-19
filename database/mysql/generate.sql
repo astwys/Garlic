@@ -283,8 +283,6 @@ create view vUserVotes as
      ) as uu_comments_downvotes
   from u_users u;
 
-select * from vUserVotes;
-
 # Used to find out how many articles a user has in the different ranking sections + total number of articles with a ranking
 drop view if exists vUserRankings;
 create view vUserRankings as
@@ -321,9 +319,6 @@ create view vUserRankings as
    ) as ur_total
   from u_users u;
 
-select * from vUserRankings;
-
-
 # Get every post with the user who created it + total votes + total upvotes + total downvotes
 drop view if exists vPostInfo;
 create view vPostInfo as
@@ -351,9 +346,6 @@ create view vPostInfo as
   from p_posts p
   order by p.p_id asc;
 
-select * from vPostInfo;
-
-
 # For each clove get the number of subscriptions + number of admins and the number of posts
 drop view if exists vCloveInfo;
 create view vCloveInfo as
@@ -374,5 +366,3 @@ create view vCloveInfo as
    where a.a_c_clove = c.c_id
    ) as ci_articles
   from c_clove c;
-
-select * from vCloveInfo;
