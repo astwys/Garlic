@@ -94,6 +94,7 @@
     <Compile Include="c_cloves.cs">
       <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="GarlicDatabaseEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

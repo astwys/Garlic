@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
 using System.Data.SqlClient;
+using Garlic_Client.models;
 
 namespace Garlic_Client {
     /// <summary>
@@ -21,6 +22,7 @@ namespace Garlic_Client {
     /// </summary>
     public partial class MainWindow : Window {
         public MainWindow () {
+            mw_model.mainwindow = this;
             InitializeComponent();
         }
     }
