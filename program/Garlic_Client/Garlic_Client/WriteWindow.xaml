@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Garlic_Client"
         xmlns:model="clr-namespace:Garlic_Client.models"
         mc:Ignorable="d"
-        Title="Write down your thoughts" Height="500" Width="550">
+        Title="Write down your thoughts" Height="500" Width="550"
+        Closed="Window_Closed">
     <Window.Resources>
         <model:mw_model x:Key="mw"/>
     </Window.Resources>
@@ -109,7 +110,8 @@
                     Content="Cancle"
                     FontSize="15"
                     Margin="10 10 0 0"
-                    IsCancel="True"/>
+                    IsCancel="True"
+                    Click="writecancle_Click"/>
 
         </Grid>
         <!-- outer content grid -->
