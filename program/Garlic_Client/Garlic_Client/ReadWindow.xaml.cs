@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Garlic_Client.models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Garlic_Client {
     /// </summary>
     public partial class ReadWindow : Window {
         public ReadWindow () {
+            mw_model.readwindow = this;
             InitializeComponent();
         }
     }

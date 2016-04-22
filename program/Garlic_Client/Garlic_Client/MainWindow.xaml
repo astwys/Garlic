@@ -121,7 +121,8 @@
                             <TextBlock DockPanel.Dock="Left"
                                        Text="{Binding Path=Title}"
                                        FontSize="15"
-                                       FontWeight="Medium"/>
+                                       FontWeight="Medium"
+                                       MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
                             <Button DockPanel.Dock="Right"
                                     Content="{Binding Path=Upvotes}"
                                     HorizontalAlignment="Right"/>

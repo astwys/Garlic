@@ -25,5 +25,18 @@ namespace Garlic_Client {
             mw_model.mainwindow = this;
             InitializeComponent();
         }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string article = ((TextBlock)sender).Text;
+            mw_model.ArticleTitle = article;
+
+            Console.WriteLine(mw_model.ArticleTitle);
+
+            //Console.WriteLine(mw.ArticleText());
+            ReadWindow read = new ReadWindow(); 
+            read.Show();
+            read.Topmost = true;
+        }
     }
 }
