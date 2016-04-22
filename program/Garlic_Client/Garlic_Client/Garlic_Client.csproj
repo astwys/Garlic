@@ -50,9 +50,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,8 +82,55 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ad_admins.cs">
+      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="a_articles.cs">
+      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="csm_connectedsocialmedias.cs">
+      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_cloves.cs">
+      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="GarlicDatabaseEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GarlicDatabaseEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GarlicDatabaseEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GarlicDatabaseEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GarlicDatabaseEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="models\mw_model.cs" />
+    <Compile Include="p_posts.cs">
+      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="ReadWindow.xaml.cs">
       <DependentUpon>ReadWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="r_rankings.cs">
+      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sm_socialmedias.cs">
+      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="u_users.cs">
+      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="v_votes.cs">
+      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WriteWindow.xaml.cs">
+      <DependentUpon>WriteWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -82,16 +140,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="garlicDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>garlicDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ReadWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WriteWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,17 +171,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="garlicDataSet.xsc">
-      <DependentUpon>garlicDataSet.xsd</DependentUpon>
+    <EntityDeploy Include="GarlicDatabaseEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GarlicDatabaseEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="GarlicDatabaseEntities.edmx.diagram">
+      <DependentUpon>GarlicDatabaseEntities.edmx</DependentUpon>
     </None>
-    <None Include="garlicDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>garlicDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="garlicDataSet.xss">
-      <DependentUpon>garlicDataSet.xsd</DependentUpon>
-    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -137,6 +191,16 @@
   <ItemGroup>
     <Content Include="garlic.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GarlicDatabaseEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GarlicDatabaseEntities.edmx</DependentUpon>
+      <LastGenOutput>GarlicDatabaseEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="GarlicDatabaseEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GarlicDatabaseEntities.edmx</DependentUpon>
+      <LastGenOutput>GarlicDatabaseEntities.cs</LastGenOutput>
     </Content>
     <Content Include="garlic_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -155,7 +219,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

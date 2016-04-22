@@ -11,13 +11,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Garlic_Client.models;
 
 namespace Garlic_Client {
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window {
-        public Window1 () {
+    public partial class WriteWindow : Window {
+        public WriteWindow () {
+            // TODO up to now only allows one window to be open - change to have multiple > see TODO in model
+            mw_model.writewindow = this;
             InitializeComponent();
         }
     }

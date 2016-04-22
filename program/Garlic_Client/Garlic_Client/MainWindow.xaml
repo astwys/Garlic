@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Garlic_Client"
         mc:Ignorable="d"
-        Title="Garlic" Height="500" Width="550">
-    <Grid>
+        Title="Garlic" Height="500" Width="550" MinHeight="500" MinWidth="550"
+        xmlns:model="clr-namespace:Garlic_Client.models">
+    <Window.Resources>
+        <model:mw_model x:Key="mw"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource mw}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="178*"/>
             <ColumnDefinition Width="70*"/>
@@ -33,7 +37,15 @@
                        Padding="10 10 0 0">
                 Garlic
             </TextBlock>
-
+            <!-- Title -->
+            <TextBlock Grid.Column="1"
+                       Foreground="DarkGray"
+                       VerticalAlignment="Bottom"
+                       Padding="0 0 0 5">
+                <!-- TODO bind the name of the user -->
+                Hello _user_
+            </TextBlock>
+            <!-- usersname -->
             <Grid Grid.Column="0"
                   Grid.Row="1"
                   Margin="12 0 0 0">
@@ -71,17 +83,65 @@
             </Grid>
             <!-- navigation buttons grid -->
             <ComboBox x:Name="cloves_combobox"
-                     Grid.Column="1"
-                     Grid.Row="1"
-                     Margin="0 0 10 0">
+                      Grid.Column="1"
+                      Grid.Row="1"
+                      Margin="0 0 10 0"
+                      ItemsSource="{Binding Path=AllCloves}"
+                      SelectedValuePath="c_id"
+                      SelectedIndex="0">
+                <ComboBox.SelectedValue>
+                    <Binding Path="SelectedClove"
+                             Mode="OneWayToSource"
+                             BindsDirectlyToSource="True"/>
+                </ComboBox.SelectedValue>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=c_name}"
+                                   FontSize="15"
+                                   FontWeight="Medium"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
+            <!-- Clove Selection -->
         </Grid>
         <!-- outer header grid -->
         <ListBox x:Name="posts"
                  Grid.Column="0"
-                 Grid.Row="1">
-            <!-- Posts to add -->
+                 Grid.Row="1"
+                 ItemsSource="{Binding Path=SelectedCloveArticles}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <!-- TODO make the DockPanels Width 100% so that the vote buttons are docked to the right-->
+                        <DockPanel Grid.Row="0">
+                            <TextBlock DockPanel.Dock="Left"
+                                       Text="{Binding Path=Title}"
+                                       FontSize="15"
+                                       FontWeight="Medium"/>
+                            <Button DockPanel.Dock="Right"
+                                    Content="{Binding Path=Upvotes}"
+                                    HorizontalAlignment="Right"/>
+                        </DockPanel>
+                        <DockPanel Grid.Row="1">
+                            <TextBlock DockPanel.Dock="Left"
+                                       FontSize="12"
+                                       Foreground="Gray"
+                                       Text="{Binding Path=Author}"
+                                       Padding="10 0 0 0"/>
+
+                            <Button DockPanel.Dock="Right"
+                                    Content="{Binding Path=Downvotes}"
+                                    FlowDirection="RightToLeft"/>
+                        </DockPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
+        <!-- ListBox of articles -->
         <Grid Grid.Column="1"
               Grid.Row="1">
             <Grid.RowDefinitions>
@@ -98,7 +158,8 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="write"
                     Grid.Column="0"
-                    Grid.Row="0">
+                    Grid.Row="0"
+                    Command="{Binding WriteArtileCommand}">
                 <TextBlock FontSize="15">Write</TextBlock>
             </Button>
             <Button x:Name="admin"
@@ -117,7 +178,8 @@
             </TextBlock>
             <TextBlock Grid.Column="0"
                        Grid.Row="2"
-                       Grid.ColumnSpan="2">
+                       Grid.ColumnSpan="2"
+                       Text="{Binding Path=SelectedCloveDescription}">
                 <!-- text from the db -->
             </TextBlock>
 
@@ -128,12 +190,14 @@
                        FontWeight="Medium">
                 Admins
             </TextBlock>
-            <ListBox x:Name="admins"
-                     Grid.Column="0"
-                     Grid.Row="4"
-                     Grid.ColumnSpan="2">
-                <!-- list box with all the admins - not selectable -->
-            </ListBox>
+            <ItemsControl x:Name="admins"
+                          Grid.Column="0"
+                          Grid.Row="4"
+                          Grid.ColumnSpan="2"
+                          ItemsSource="{Binding Path=SelectedCloveAdmins}"
+                          DisplayMemberPath="u_username">
+                <!-- list box with all the admins -->
+            </ItemsControl>
 
             <Button x:Name="subscribe"
                     Grid.Column="0"
