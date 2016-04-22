@@ -287,3 +287,11 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
+#floobits
+*.floo
+
+#csharp database files
+*.mdf
+*.ldf
