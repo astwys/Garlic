@@ -97,6 +97,20 @@ namespace Garlic_Client.models {
             }
         }
 
+        // ReadWindow
+
+        public static string ArticleTitle { get; set; }
+
+        public string ArticleText {
+            get
+            {
+                return (from p in db.p_posts
+                        join a in db.a_articles on p.p_id equals a.a_p_post
+                        where a.a_title.Equals(ArticleTitle)
+                        select p.p_content).ToList().First().ToString();
+            }
+        }
+
         // ----- Mini Classes -----
 
         public class Article {

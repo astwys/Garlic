@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Garlic_Client"
+        xmlns:model="clr-namespace:Garlic_Client.models"
         mc:Ignorable="d"
         Title="Garlic Reader" Height="500" Width="500">
-    <Grid>
+    <Window.Resources>
+        <model:mw_model x:Key="mw" />
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource mw}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="178*"/>
             <ColumnDefinition Width="70*"/>
@@ -30,51 +34,9 @@
                        Grid.Row="0"
                        FontSize="50"
                        FontWeight="Medium"
-                       Padding="10 10 0 0">
-                Garlic
+                       Padding="10 10 0 0"
+                       Text="Garlic">
             </TextBlock>
-
-            <Grid Grid.Column="0"
-                  Grid.Row="1"
-                  Margin="12 0 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="88*"/>
-                    <ColumnDefinition Width="88*"/>
-                    <ColumnDefinition Width="88*"/>
-                    <ColumnDefinition Width="88*"/>
-                </Grid.ColumnDefinitions>
-
-                <Button x:Name="superhot"
-                        Grid.Column="0">
-                    <TextBlock FontSize="15">
-                        Superhot
-                    </TextBlock>
-                </Button>
-                <Button x:Name="hot"
-                        Grid.Column="1">
-                    <TextBlock FontSize="15">
-                        Hot
-                    </TextBlock>
-                </Button>
-                <Button x:Name="rising"
-                        Grid.Column="2">
-                    <TextBlock FontSize="15">
-                        Rising
-                    </TextBlock>
-                </Button>
-                <Button x:Name="upcoming"
-                        Grid.Column="3">
-                    <TextBlock FontSize="15">
-                        Upcoming
-                    </TextBlock>
-                </Button>
-            </Grid>
-            <!-- navigation buttons grid -->
-            <ComboBox x:Name="cloves_combobox"
-                     Grid.Column="1"
-                     Grid.Row="1"
-                     Margin="0 0 10 0">
-            </ComboBox>
         </Grid>
         <!-- inner grid -->
 
@@ -90,31 +52,34 @@
             <TextBlock Grid.Row="0"
                        FontSize="20"
                        FontWeight="Medium"
-                       Padding="5">
-                <!-- header from db -->Header
+                       Padding="5"
+                       Text="{Binding Path=ArticleTitle}">
             </TextBlock>
 
             <ScrollViewer Grid.Row="1">
                 <TextBlock FontSize="14"
                            Padding="5"
-                           TextWrapping="Wrap">
-                lökjasdölfkjsadflökjkajsdhföakjshdfölkjasöldfasfasdfgasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfkjasöldfjkalöskjdflöaksjdflökasjdflökjasdflökajsfölkajsfdlöakjsdfölkjalsdkjflaöskjdflöaksjdflaksjdfölaskjdfölaksjdflöakjsdfölkajsdflkjasdflökajsdflökjasdlöfkjasdölfkjasdflökjasdflökjasdflökjasdflökjasflökjasdflökjasdflökjasdflkjasdfölkjasdfölkjasdflklkjasdflökjasdfölkjasdflkjsadöflkjasdflkjasdflökjasdflökjasdlfkjasdflkjsadflökjasdflköjasflkjasflkjasdflökjasdflkjasdlfkjasdfölkjsadflköjasdlfökjasasdlfkjasödlfjkasdflökjasdflökjasdflökjasdfölkjasdflökjasdflökjasdfölkjasdflökjasdflökjasdflökjasdflökjasdflökjasdfölkja
+                           TextWrapping="Wrap"
+                           Text="{Binding Path=ArticleText}">
                 </TextBlock>
             </ScrollViewer>
 
             <ScrollViewer Grid.Row="2"
                           Padding="0 20 0 0">
-                <StackPanel> <!-- one expander per parent comment -->
+                <StackPanel>
+                    <!-- one expander per parent comment -->
                     <!-- each subcomment should be indented by 10 -->
-                    <Expander> <!-- main comment -->
+                    <Expander>
+                        <!-- main comment -->
                         <Expander.Header>
                             <TextBlock FontSize="14"
                                        TextWrapping="Wrap">
                                 jölaskdjflöaksjdfölakjsdfölkjasdflökjasdflkjasdflökjasdlfkjasdlöfkjasldköfjasldkfjaslödkjöalskdfjalskdjfalöskdjfaölsdkfj
                             </TextBlock>
                         </Expander.Header>
-                        
-                        <Expander Padding="10 0 0 0"> <!-- subcomment -->
+
+                        <Expander Padding="10 0 0 0">
+                            <!-- subcomment -->
                             <Expander.Header>
                                 <TextBlock FontSize="14"
                                        TextWrapping="Wrap">
