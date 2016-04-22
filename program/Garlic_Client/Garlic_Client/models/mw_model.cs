@@ -15,6 +15,7 @@ namespace Garlic_Client.models {
         public static MainWindow mainwindow;
         public static ReadWindow readwindow;
         public static WriteWindow writewindow;
+        public static LoginWindow loginwindow;
 
         // ----- Data Queries -----
 
@@ -97,7 +98,7 @@ namespace Garlic_Client.models {
             }
         }
 
-        // ReadWindow
+        // ----------- ReadWindow -----------
 
         public static string ArticleTitle { get; set; }
 
@@ -110,6 +111,26 @@ namespace Garlic_Client.models {
                         select p.p_content).ToList().First().ToString();
             }
         }
+
+
+
+        // ------------ LoginWindow -----------
+
+        public static string Username { get; set; }
+        public static string Password { get; set; }
+
+        public bool UserExists
+        {
+            get
+            {
+                if (db.u_users.Any(u => (u.u_username == Username) && (u.u_password == Password)))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
 
         // ----- Mini Classes -----
 
@@ -166,6 +187,7 @@ namespace Garlic_Client.models {
         public void WriteExecuted (object param) {
             WriteWindow ww = new WriteWindow();
             ww.Show();
+            ww.Topmost = true;
         }
         #endregion
 

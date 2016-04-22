@@ -110,6 +110,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GarlicDatabaseEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="models\mw_model.cs" />
     <Compile Include="p_posts.cs">
       <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
@@ -132,6 +135,10 @@
     <Compile Include="WriteWindow.xaml.cs">
       <DependentUpon>WriteWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

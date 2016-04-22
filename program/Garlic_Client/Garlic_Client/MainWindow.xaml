@@ -41,9 +41,8 @@
             <TextBlock Grid.Column="1"
                        Foreground="DarkGray"
                        VerticalAlignment="Bottom"
-                       Padding="0 0 0 5">
-                <!-- TODO bind the name of the user -->
-                Hello _user_
+                       Padding="0 0 0 5"
+                       Text="{Binding Username}">
             </TextBlock>
             <!-- usersname -->
             <Grid Grid.Column="0"
