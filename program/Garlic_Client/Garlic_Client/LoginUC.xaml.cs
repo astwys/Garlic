@@ -57,9 +57,8 @@ namespace Garlic_Client
 
                 if (MessageBox.Show("This user does not exist. Do you want to create an account?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
-                    //Grid.Children.Clear();
-                    //Grid.Children.Add(new RegisterUC());
-                    
+                    Content = null;
+                    Content = new RegisterUC();
                 }
                 else
                 {
@@ -70,8 +69,10 @@ namespace Garlic_Client
 
         private void register_click(Object sender, RoutedEventArgs e)
         {
-            //Grid.Children.Clear();
-            //Grid.Children.Add(new RegisterUC());
+            mw_model.Username = username.Text;
+
+            Content = null;
+            Content = new RegisterUC();
         }
 
         private void EnterKey(Object sender, KeyEventArgs e)

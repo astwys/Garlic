@@ -24,6 +24,7 @@ namespace Garlic_Client.models {
         // ----- Data Queries -----
 
         GarlicDatabaseEntities db = new GarlicDatabaseEntities();
+        DataContext dbdc = new DataContext()
 
         public IEnumerable<c_cloves> AllCloves {
             get {
@@ -99,6 +100,22 @@ namespace Garlic_Client.models {
                 }
 
                 return new ObservableCollection<Article>(articles);
+            }
+        }
+
+        private void subscribeToClove()
+        {
+           
+            // TODO update current database to include s_subsriptions
+            
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                db.u_users.
+                throw;
             }
         }
 
