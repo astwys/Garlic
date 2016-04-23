@@ -34,7 +34,7 @@ namespace Garlic_Client
         {
             if (e.Key == Key.Enter)
             {
-                //login_click(sender, e);
+                register_click(sender, e);
             }
         }
     }

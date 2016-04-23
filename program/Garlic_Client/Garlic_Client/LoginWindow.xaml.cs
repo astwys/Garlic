@@ -31,19 +31,5 @@ namespace Garlic_Client
             Grid.Children.Clear();
             Grid.Children.Add(new LoginUC());
         }
-
-        private void register_click (Object sender, RoutedEventArgs e)
-        {
-            Grid.Children.Clear();
-            Grid.Children.Add(new LoginUC());
-        }
-
-        private void EnterKey(Object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                //login_click(sender, e);
-            }
-        }
     }
 }
