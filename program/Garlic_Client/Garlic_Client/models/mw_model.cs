@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Garlic_Client.models {
     class mw_model : INotifyPropertyChanged {
@@ -16,6 +17,9 @@ namespace Garlic_Client.models {
         public static ReadWindow readwindow;
         public static WriteWindow writewindow;
         public static LoginWindow loginwindow;
+
+        //logged in user for quick access
+        public static string username;
 
         // ----- Data Queries -----
 
@@ -66,7 +70,7 @@ namespace Garlic_Client.models {
             }
         }
 
-        public IEnumerable<Article> SelectedCloveArticles { //extra class that contains number of up and downs
+        public ObservableCollection<Article> SelectedCloveArticles {
             get {
                 //create an Article object for each article in the selected clove
                 List<Article> articles = (from a in db.a_articles
@@ -94,7 +98,7 @@ namespace Garlic_Client.models {
                                              select v2).ToList().Count;
                 }
 
-                return articles;
+                return new ObservableCollection<Article>(articles);
             }
         }
 
@@ -229,14 +233,28 @@ namespace Garlic_Client.models {
             db.SaveChanges();
             //TODO I dont know why the auto-refresh is not working
             PropertyChanged(this, new PropertyChangedEventArgs("SelectedCloveArticles"));
+
+            writewindow.Close();
         }
 
         #endregion
 
         // TODO make this method to be called on writewindow close
-        private void OnWriteWindowClosed (object sender, CancelEventArgs e) {
+        public static void OnWriteWindowClosed () {
             writewindow = null;
         }
+
+
+
+
+
+
+        // Branch: WriteWindow   Author: Max   Start Date: 22/4/2016
+        // TODO OnMainWindowClose --> close all other windows
+
+
+
+
 
     }
 }

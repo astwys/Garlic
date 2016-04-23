@@ -23,5 +23,13 @@ namespace Garlic_Client {
             mw_model.writewindow = this;
             InitializeComponent();
         }
+
+        private void writecancle_Click (object sender, RoutedEventArgs e) {
+            this.Close();
+        }
+
+        private void Window_Closed (object sender, EventArgs e) {
+            mw_model.OnWriteWindowClosed();
+        }
     }
 }
