@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Garlic_Client.model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="garlicModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="a_articles">
           <Key>
             <PropertyRef Name="a_p_post" />
@@ -52,7 +52,7 @@
             <PropertyRef Name="p_id" />
           </Key>
           <Property Name="p_id" Type="int" Nullable="false" />
-          <Property Name="p_content" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="p_content" Type="nvarchar" MaxLength="4000" />
           <Property Name="p_date" Type="datetime" Nullable="false" />
           <Property Name="p_u_username" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
@@ -226,7 +226,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Garlic_ClientmodelStoreContainer">
+        <EntityContainer Name="garlicModelStoreContainer">
           <EntitySet Name="a_articles" EntityType="Self.a_articles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ad_admins" EntityType="Self.ad_admins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="c_cloves" EntityType="Self.c_cloves" Schema="dbo" store:Type="Tables" />
@@ -287,7 +287,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Garlic_Client.model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="garlicModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="a_articles">
           <Key>
             <PropertyRef Name="a_p_post" />
@@ -335,7 +335,7 @@
             <PropertyRef Name="p_id" />
           </Key>
           <Property Name="p_id" Type="Int32" Nullable="false" />
-          <Property Name="p_content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="p_content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="p_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="p_u_username" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="a_articles" Relationship="Self.FK_a_articles_p_posts" FromRole="p_posts" ToRole="a_articles" />
@@ -472,7 +472,7 @@
           <End Role="c_cloves" Type="Self.c_cloves" Multiplicity="*" />
           <End Role="u_users" Type="Self.u_users" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="GarlicDatabaseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="garlicEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="a_articles" EntityType="Self.a_articles" />
           <EntitySet Name="ad_admins" EntityType="Self.ad_admins" />
           <EntitySet Name="c_cloves" EntityType="Self.c_cloves" />
@@ -524,9 +524,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Garlic_ClientmodelStoreContainer" CdmEntityContainer="GarlicDatabaseEntities">
+        <EntityContainerMapping StorageEntityContainer="garlicModelStoreContainer" CdmEntityContainer="garlicEntities">
           <EntitySetMapping Name="a_articles">
-            <EntityTypeMapping TypeName="Garlic_Client.model.a_articles">
+            <EntityTypeMapping TypeName="garlicModel.a_articles">
               <MappingFragment StoreEntitySet="a_articles">
                 <ScalarProperty Name="a_title" ColumnName="a_title" />
                 <ScalarProperty Name="a_p_post" ColumnName="a_p_post" />
@@ -536,7 +536,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ad_admins">
-            <EntityTypeMapping TypeName="Garlic_Client.model.ad_admins">
+            <EntityTypeMapping TypeName="garlicModel.ad_admins">
               <MappingFragment StoreEntitySet="ad_admins">
                 <ScalarProperty Name="ad_c_clove" ColumnName="ad_c_clove" />
                 <ScalarProperty Name="ad_u_username" ColumnName="ad_u_username" />
@@ -544,7 +544,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="c_cloves">
-            <EntityTypeMapping TypeName="Garlic_Client.model.c_cloves">
+            <EntityTypeMapping TypeName="garlicModel.c_cloves">
               <MappingFragment StoreEntitySet="c_cloves">
                 <ScalarProperty Name="c_id" ColumnName="c_id" />
                 <ScalarProperty Name="c_name" ColumnName="c_name" />
@@ -554,7 +554,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="csm_connectedsocialmedias">
-            <EntityTypeMapping TypeName="Garlic_Client.model.csm_connectedsocialmedias">
+            <EntityTypeMapping TypeName="garlicModel.csm_connectedsocialmedias">
               <MappingFragment StoreEntitySet="csm_connectedsocialmedias">
                 <ScalarProperty Name="csm_sm_name" ColumnName="csm_sm_name" />
                 <ScalarProperty Name="csm_u_username" ColumnName="csm_u_username" />
@@ -563,7 +563,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_posts">
-            <EntityTypeMapping TypeName="Garlic_Client.model.p_posts">
+            <EntityTypeMapping TypeName="garlicModel.p_posts">
               <MappingFragment StoreEntitySet="p_posts">
                 <ScalarProperty Name="p_id" ColumnName="p_id" />
                 <ScalarProperty Name="p_content" ColumnName="p_content" />
@@ -573,7 +573,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="r_rankings">
-            <EntityTypeMapping TypeName="Garlic_Client.model.r_rankings">
+            <EntityTypeMapping TypeName="garlicModel.r_rankings">
               <MappingFragment StoreEntitySet="r_rankings">
                 <ScalarProperty Name="r_rank" ColumnName="r_rank" />
                 <ScalarProperty Name="r_context" ColumnName="r_context" />
@@ -581,14 +581,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sm_socialmedias">
-            <EntityTypeMapping TypeName="Garlic_Client.model.sm_socialmedias">
+            <EntityTypeMapping TypeName="garlicModel.sm_socialmedias">
               <MappingFragment StoreEntitySet="sm_socialmedias">
                 <ScalarProperty Name="sm_name" ColumnName="sm_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="u_users">
-            <EntityTypeMapping TypeName="Garlic_Client.model.u_users">
+            <EntityTypeMapping TypeName="garlicModel.u_users">
               <MappingFragment StoreEntitySet="u_users">
                 <ScalarProperty Name="u_username" ColumnName="u_username" />
                 <ScalarProperty Name="u_email" ColumnName="u_email" />
@@ -597,7 +597,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="v_votes">
-            <EntityTypeMapping TypeName="Garlic_Client.model.v_votes">
+            <EntityTypeMapping TypeName="garlicModel.v_votes">
               <MappingFragment StoreEntitySet="v_votes">
                 <ScalarProperty Name="v_date" ColumnName="v_date" />
                 <ScalarProperty Name="v_upvote" ColumnName="v_upvote" />
@@ -605,7 +605,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="co_comments" TypeName="Garlic_Client.model.co_comments" StoreEntitySet="co_comments">
+          <AssociationSetMapping Name="co_comments" TypeName="garlicModel.co_comments" StoreEntitySet="co_comments">
             <EndProperty Name="p_posts">
               <ScalarProperty Name="p_id" ColumnName="co_p_id" />
             </EndProperty>
@@ -613,7 +613,7 @@
               <ScalarProperty Name="p_id" ColumnName="co_p_commentOf" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="s_subsriptions" TypeName="Garlic_Client.model.s_subsriptions" StoreEntitySet="s_subsriptions">
+          <AssociationSetMapping Name="s_subsriptions" TypeName="garlicModel.s_subsriptions" StoreEntitySet="s_subsriptions">
             <EndProperty Name="c_cloves">
               <ScalarProperty Name="c_id" ColumnName="s_c_clove" />
             </EndProperty>

@@ -83,58 +83,72 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ad_admins.cs">
-      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+      <DependentUpon>GarlicEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="a_articles.cs">
-      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+      <DependentUpon>GarlicEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="csm_connectedsocialmedias.cs">
-      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+      <DependentUpon>GarlicEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="c_cloves.cs">
-      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+      <DependentUpon>GarlicEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DelegateCommand.cs" />
-    <Compile Include="GarlicDatabaseEntities.Context.cs">
+    <Compile Include="GarlicEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GarlicDatabaseEntities.Context.tt</DependentUpon>
+      <DependentUpon>GarlicEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="GarlicDatabaseEntities.cs">
+    <Compile Include="GarlicEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+      <DependentUpon>GarlicEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="GarlicDatabaseEntities.Designer.cs">
+    <Compile Include="GarlicEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GarlicDatabaseEntities.edmx</DependentUpon>
+      <DependentUpon>GarlicEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="LoginUC.xaml.cs">
+      <DependentUpon>LoginUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="p_posts.cs">
+      <DependentUpon>GarlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegisterUC.xaml.cs">
+      <DependentUpon>RegisterUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="models\mw_model.cs" />
-    <Compile Include="p_posts.cs">
-      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="ReadWindow.xaml.cs">
       <DependentUpon>ReadWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="r_rankings.cs">
-      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+      <DependentUpon>GarlicEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="sm_socialmedias.cs">
-      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+      <DependentUpon>GarlicEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="u_users.cs">
-      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+      <DependentUpon>GarlicEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="v_votes.cs">
-      <DependentUpon>GarlicDatabaseEntities.tt</DependentUpon>
+      <DependentUpon>GarlicEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="WriteWindow.xaml.cs">
       <DependentUpon>WriteWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="LoginUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RegisterUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,12 +192,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="GarlicDatabaseEntities.edmx">
+    <EntityDeploy Include="GarlicEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GarlicDatabaseEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>GarlicEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="GarlicDatabaseEntities.edmx.diagram">
-      <DependentUpon>GarlicDatabaseEntities.edmx</DependentUpon>
+    <None Include="GarlicEntities.edmx.diagram">
+      <DependentUpon>GarlicEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -199,15 +213,15 @@
     <Content Include="garlic.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GarlicDatabaseEntities.Context.tt">
+    <Content Include="GarlicEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GarlicDatabaseEntities.edmx</DependentUpon>
-      <LastGenOutput>GarlicDatabaseEntities.Context.cs</LastGenOutput>
+      <DependentUpon>GarlicEntities.edmx</DependentUpon>
+      <LastGenOutput>GarlicEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="GarlicDatabaseEntities.tt">
+    <Content Include="GarlicEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GarlicDatabaseEntities.edmx</DependentUpon>
-      <LastGenOutput>GarlicDatabaseEntities.cs</LastGenOutput>
+      <DependentUpon>GarlicEntities.edmx</DependentUpon>
+      <LastGenOutput>GarlicEntities.cs</LastGenOutput>
     </Content>
     <Content Include="garlic_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -6,40 +6,12 @@
         xmlns:local="clr-namespace:Garlic_Client"
         xmlns:model="clr-namespace:Garlic_Client.models"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="300" Width="300">
+        Title="LoginWindow" Height="300" Width="300"
+        Loaded="LoginUC_OnLoaded">
     <Window.Resources>
         <model:mw_model x:Key="mw" />
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource mw}}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <TextBlock Text="Login" 
-                   Grid.Column="0"
-                   Grid.Row="0"
-                   FontSize="50"
-                   FontWeight="Medium"
-                   Padding="10 10 0 0"/>
-        <StackPanel Grid.Row="1"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-            <TextBlock Text="Username:" />
-            <TextBox x:Name="username"
-                     Text="" 
-                     Width="100"/>
-            
-            <TextBlock Text="Password: " />
-            <PasswordBox x:Name="password"
-                         Width="100"/>
-        </StackPanel>
+    <Grid Name="Grid">
         
-        <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button x:Name="login" Content="Login" Click="login_click" Width="100" Margin="0 0 0 10"/>
-            <Button x:Name="register" Content="Register" Click="register_click" Width="100" Margin="0 0 0 10"/>
-
-        </StackPanel>
     </Grid>
 </Window>

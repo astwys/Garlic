@@ -19,8 +19,7 @@ namespace Garlic_Client.models {
         public static LoginWindow loginwindow;
 
         // ----- Data Queries -----
-
-        GarlicDatabaseEntities db = new GarlicDatabaseEntities();
+        garlicEntities db = new garlicEntities();
 
         public IEnumerable<c_cloves> AllCloves {
             get {
@@ -113,6 +112,20 @@ namespace Garlic_Client.models {
             }
         }
 
+        private void subscribeToClove()
+        {
+            
+            // TODO update current database to include s_subsriptions
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
         // ----------- ReadWindow -----------
 
         public static string ArticleTitle { get; set; }
@@ -134,16 +147,18 @@ namespace Garlic_Client.models {
         public static string Username { get; set; }
         public static string Password { get; set; }
 
-        public bool UserExists
+        public bool UserExists (string user, string pw)
         {
-            get
+            Cursor defaultCursor = Mouse.OverrideCursor;
+            Mouse.OverrideCursor = Cursors.Wait;
+
+            if (db.u_users.Any(u => (u.u_username == user) && (u.u_password == pw)))
             {
-                if (db.u_users.Any(u => (u.u_username == Username) && (u.u_password == Password)))
-                {
-                    return true;
-                }
-                return false;
+                Mouse.OverrideCursor = defaultCursor;
+                return true;
             }
+            Mouse.OverrideCursor = defaultCursor;
+            return false;
         }
 
 
@@ -177,6 +192,20 @@ namespace Garlic_Client.models {
             }
 
             public Article () { }
+        }
+
+        public class User
+        {
+            public string Username { get; set; }
+            public string Password { get; set; }
+            public string Email { get; set; }
+
+            public User (string username, string password, string email)
+            {
+                this.Username = username;
+                this.Password = password;
+                this.Email = email;
+            }
         }
 
         // ----- Events -----
@@ -246,6 +275,34 @@ namespace Garlic_Client.models {
             PropertyChanged(this, new PropertyChangedEventArgs("SelectedCloveArticles"));
 
             writewindow.Close();
+        }
+
+        public void NewUser (string username, string password, string email)
+        {
+            if (db.u_users.Any(u => (u.u_username == Username)))
+            {
+                MessageBox.Show("This username already exists, please choose another one.");
+                return;
+            }
+
+            u_users user = new u_users
+            {
+                u_username = username,
+                u_password = password,
+                u_email = email
+            };
+
+            db.u_users.Add(user);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Oops something went wrong. Please try again.");
+                throw;
+            }
         }
 
         #endregion
