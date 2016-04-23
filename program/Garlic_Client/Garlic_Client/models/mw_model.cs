@@ -219,12 +219,12 @@ namespace Garlic_Client.models {
                              select p.p_id).Max())+1;
             newpost.p_content = writewindow.writecontent.Text;
             newpost.p_date = DateTime.Now;
-            newpost.p_u_username = "Max"; //TODO change to the user logged in at the moment
+            newpost.p_u_username = mw_model.username;
 
             a_articles newarticle = new a_articles();
             newarticle.a_p_post = newpost.p_id;
             newarticle.a_title = (string)param;
-            newarticle.a_c_clove = (int)writewindow.cloves_combobox.SelectedIndex+1; //TODO using the index is highly unsecure > maybe other solution with selected value or so
+            newarticle.a_c_clove = (int)writewindow.cloves_combobox.SelectedIndex+1;
             newarticle.r_rankings = null;
 
             db.p_posts.Add(newpost);
@@ -243,18 +243,5 @@ namespace Garlic_Client.models {
         public static void OnWriteWindowClosed () {
             writewindow = null;
         }
-
-
-
-
-
-
-        // Branch: WriteWindow   Author: Max   Start Date: 22/4/2016
-        // TODO OnMainWindowClose --> close all other windows
-
-
-
-
-
     }
 }
