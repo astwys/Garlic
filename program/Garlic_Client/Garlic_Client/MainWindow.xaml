@@ -42,7 +42,7 @@
                        Foreground="DarkGray"
                        VerticalAlignment="Bottom"
                        Padding="0 0 0 5"
-                       Text="{Binding Username}">
+                       Text="{Binding Path=WelcomeMessage}">
             </TextBlock>
             <!-- usersname -->
             <Grid Grid.Column="0"
@@ -107,7 +107,7 @@
         <ListBox x:Name="posts"
                  Grid.Column="0"
                  Grid.Row="1"
-                 ItemsSource="{Binding Path=SelectedCloveArticles}">
+                 ItemsSource="{Binding Path=SelectedCloveArticles, UpdateSourceTrigger=PropertyChanged}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>

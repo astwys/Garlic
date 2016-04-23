@@ -30,13 +30,10 @@ namespace Garlic_Client {
         {
             string article = ((TextBlock)sender).Text;
             mw_model.ArticleTitle = article;
-
-            Console.WriteLine(mw_model.ArticleTitle);
-
-            //Console.WriteLine(mw.ArticleText());
             ReadWindow read = new ReadWindow(); 
             read.Show();
             read.Topmost = true;
+            read.Focus();
         }
     }
 }

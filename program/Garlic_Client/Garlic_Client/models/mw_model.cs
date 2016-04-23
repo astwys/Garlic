@@ -18,9 +18,6 @@ namespace Garlic_Client.models {
         public static WriteWindow writewindow;
         public static LoginWindow loginwindow;
 
-        //logged in user for quick access
-        public static string username;
-
         // ----- Data Queries -----
 
         GarlicDatabaseEntities db = new GarlicDatabaseEntities();
@@ -72,6 +69,9 @@ namespace Garlic_Client.models {
 
         public ObservableCollection<Article> SelectedCloveArticles {
             get {
+                //set cursor to waiting
+                Cursor defaultCursor = Mouse.OverrideCursor;
+                Mouse.OverrideCursor = Cursors.Wait;
                 //create an Article object for each article in the selected clove
                 List<Article> articles = (from a in db.a_articles
                                           where a.a_c_clove == this.selectedClove
@@ -98,7 +98,18 @@ namespace Garlic_Client.models {
                                              select v2).ToList().Count;
                 }
 
+                //set cursor back to normal
+                Mouse.OverrideCursor = defaultCursor;
+
                 return new ObservableCollection<Article>(articles);
+            }
+        }
+
+        // ----------- Main Window ----------
+
+        public string WelcomeMessage {
+            get {
+                return "Hello "+mw_model.Username + "!";
             }
         }
 
@@ -219,12 +230,12 @@ namespace Garlic_Client.models {
                              select p.p_id).Max())+1;
             newpost.p_content = writewindow.writecontent.Text;
             newpost.p_date = DateTime.Now;
-            newpost.p_u_username = "Max"; //TODO change to the user logged in at the moment
+            newpost.p_u_username = mw_model.Username;
 
             a_articles newarticle = new a_articles();
             newarticle.a_p_post = newpost.p_id;
             newarticle.a_title = (string)param;
-            newarticle.a_c_clove = (int)writewindow.cloves_combobox.SelectedIndex+1; //TODO using the index is highly unsecure > maybe other solution with selected value or so
+            newarticle.a_c_clove = (int)writewindow.cloves_combobox.SelectedIndex+1;
             newarticle.r_rankings = null;
 
             db.p_posts.Add(newpost);
@@ -243,18 +254,5 @@ namespace Garlic_Client.models {
         public static void OnWriteWindowClosed () {
             writewindow = null;
         }
-
-
-
-
-
-
-        // Branch: WriteWindow   Author: Max   Start Date: 22/4/2016
-        // TODO OnMainWindowClose --> close all other windows
-
-
-
-
-
     }
 }
