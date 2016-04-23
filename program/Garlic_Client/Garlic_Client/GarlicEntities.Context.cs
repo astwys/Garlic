@@ -13,10 +13,10 @@ namespace Garlic_Client
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GarlicDatabaseEntities : DbContext
+    public partial class garlicEntities : DbContext
     {
-        public GarlicDatabaseEntities()
-            : base("name=GarlicDatabaseEntities")
+        public garlicEntities()
+            : base("name=garlicEntities")
         {
         }
     

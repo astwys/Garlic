@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Garlic_Client.models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,34 @@ namespace Garlic_Client
 
         private void register_click(Object sender, RoutedEventArgs e)
         {
+            var curWindow = Window.GetWindow(this);
 
+            string user = username.Text;
+            string pw = password.Password;
+            string em = email.Text;
+
+            if (user == "" || pw == "" || em == "")
+            {
+                MessageBox.Show("Please enter a username, password and email address.");
+                return;
+            }
+
+            mw_model mw = new mw_model();
+            mw.NewUser(user, pw, em);
+
+            if (mw.UserExists(user, pw))
+            {
+                mw_model.Username = user;
+                mw_model.Password = pw;
+                MainWindow m = new MainWindow();
+                m.Show();
+                m.Topmost = true;
+                curWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Something went wrong while creating a new user account.");
+            }
         }
 
         private void EnterKey(Object sender, KeyEventArgs e)

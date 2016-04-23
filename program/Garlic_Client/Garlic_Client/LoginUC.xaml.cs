@@ -36,16 +36,17 @@ namespace Garlic_Client
 
             if (user == "" || pw == "")
             {
-                MessageBox.Show("Please enter a username and password");
+                MessageBox.Show("Please enter a username and password.");
                 return;
             }
 
-            mw_model.Username = user;
-            mw_model.Password = pw;
+            
 
 
-            if (mw.UserExists)
+            if (mw.UserExists(user, pw))
             {
+                mw_model.Username = user;
+                mw_model.Password = pw;
                 MainWindow m = new MainWindow();
                 m.Show();
                 m.Topmost = true;
