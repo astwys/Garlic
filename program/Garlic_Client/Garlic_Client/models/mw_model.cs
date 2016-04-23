@@ -127,10 +127,15 @@ namespace Garlic_Client.models {
         {
             get
             {
+                Cursor defaultCursor = Mouse.OverrideCursor;
+                Mouse.OverrideCursor = Cursors.Wait;
+
                 if (db.u_users.Any(u => (u.u_username == Username) && (u.u_password == Password)))
                 {
+                    Mouse.OverrideCursor = defaultCursor;
                     return true;
                 }
+                Mouse.OverrideCursor = defaultCursor;
                 return false;
             }
         }
