@@ -165,10 +165,9 @@
             <Button x:Name="admin"
                     Grid.Column="1"
                     Grid.Row="0"
-                    Content="Admin"
                     Click="admin_click"
                     IsEnabled="{Binding SelectedCloveIsAdmin}">
-                <!-- should be disabled if not admin-->
+                <TextBlock Text="Admin" FontSize="15"/>
             </Button>
 
             <TextBlock Grid.Column="0"
@@ -203,19 +202,17 @@
 
             <Button x:Name="subscribe"
                     Grid.Column="0"
-                    Grid.Row="6"
-                    Grid.ColumnSpan="2"
-                    HorizontalAlignment="Left"
-                    Content="Subscribe">
+                    Grid.Row="6">
+                <TextBlock Text="Subscribe"
+                           FontSize="15"/>
             </Button>
 
             <Button x:Name="newclove"
-                    Grid.Column="0"
+                    Grid.Column="1"
                     Grid.Row="6"
-                    Grid.ColumnSpan="2"
-                    HorizontalAlignment="Right"
-                    Content="New Clove"
                     Click="newclove_click">
+                <TextBlock Text="New Clove"
+                           FontSize="15"/>
             </Button>
 
         </Grid>
