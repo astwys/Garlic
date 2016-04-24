@@ -83,7 +83,6 @@ namespace Garlic_Client.models {
                                                select a).ToList();
                 //get the properties of the articles and store them in the Article objects
                 for (int i = 0; i < articlesDB.Count; i++) {
-                    articles[i].ArticleInDB = articlesDB[i];
                     articles[i].ID = articlesDB[i].a_p_post;
                     articles[i].Title = articlesDB[i].a_title;
                     articles[i].Author = articlesDB[i].p_posts.p_u_username;
@@ -214,7 +213,6 @@ namespace Garlic_Client.models {
         // ----- Mini Classes -----
 
         public class Article {
-            public a_articles ArticleInDB { get; set; }
             private string title;
             public string Title {
                 get {
@@ -233,8 +231,7 @@ namespace Garlic_Client.models {
             public int Upvotes { get; set; }
             public int Downvotes { get; set; }
 
-            public Article (a_articles article, int id, int upvotes, int downvotes) {
-                this.ArticleInDB = article;
+            public Article (int id, int upvotes, int downvotes) {
                 this.ID = id;
                 this.Upvotes = upvotes;
                 this.Downvotes = downvotes;

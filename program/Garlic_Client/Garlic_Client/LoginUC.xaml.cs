@@ -49,7 +49,6 @@ namespace Garlic_Client
                 mw_model.Password = pw;
                 MainWindow m = new MainWindow();
                 m.Show();
-                m.Topmost = true;
                 curWindow.Close();
             }
             else
