@@ -35,5 +35,16 @@ namespace Garlic_Client {
             read.Topmost = true;
             read.Focus();
         }
+
+        private void admin_click (object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void newclove_click (object sender, RoutedEventArgs e)
+        {
+            NewCloveWIndow cw = new NewCloveWIndow();
+            cw.Show();
+        } 
     }
 }
