@@ -472,7 +472,7 @@
           <End Role="c_cloves" Type="Self.c_cloves" Multiplicity="*" />
           <End Role="u_users" Type="Self.u_users" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="GarlicItems" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="GarlicEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="a_articles" EntityType="Self.a_articles" />
           <EntitySet Name="ad_admins" EntityType="Self.ad_admins" />
           <EntitySet Name="c_cloves" EntityType="Self.c_cloves" />
@@ -524,7 +524,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GarlicModelStoreContainer" CdmEntityContainer="GarlicItems">
+        <EntityContainerMapping StorageEntityContainer="GarlicModelStoreContainer" CdmEntityContainer="GarlicEntities">
           <EntitySetMapping Name="a_articles">
             <EntityTypeMapping TypeName="GarlicModel.a_articles">
               <MappingFragment StoreEntitySet="a_articles">

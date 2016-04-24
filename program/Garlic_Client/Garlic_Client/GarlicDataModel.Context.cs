@@ -13,9 +13,9 @@ namespace Garlic_Client
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GarlicItems : DbContext
+    public partial class GarlicEntities : DbContext
     {
-        public GarlicItems()
+        public GarlicEntities()
             : base("name=GarlicEntities")
         {
         }

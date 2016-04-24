@@ -19,7 +19,7 @@ namespace Garlic_Client.models {
         public static LoginWindow loginwindow;
 
         // ----- Data Queries -----
-        garlicEntities db = new garlicEntities();
+        GarlicItems db = new GarlicItems();
 
         public IEnumerable<c_cloves> AllCloves {
             get {
@@ -40,7 +40,7 @@ namespace Garlic_Client.models {
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedCloveAdmins"));
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedCloveArticles"));
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedCloveIsAdmin"));
-
+                PropertyChanged(this, new PropertyChangedEventArgs("IsSubscribed"));
             }
         }
 
@@ -55,10 +55,10 @@ namespace Garlic_Client.models {
 
         public IEnumerable<u_users> SelectedCloveAdmins {
             get {
-                List<string> adminsofclove =  (from ua in db.ad_admins
-                                               where ua.ad_c_clove == this.selectedClove
-                                               orderby ua.ad_u_username
-                                               select ua.ad_u_username).ToList();
+                List<string> adminsofclove = (from ua in db.ad_admins
+                                              where ua.ad_c_clove == this.selectedClove
+                                              orderby ua.ad_u_username
+                                              select ua.ad_u_username).ToList();
                 var x = adminsofclove;
                 return (from u in db.u_users
                         where adminsofclove.Contains(u.u_username)
@@ -105,12 +105,9 @@ namespace Garlic_Client.models {
             }
         }
 
-        public bool SelectedCloveIsAdmin
-        {
-            get
-            {
-                if (db.ad_admins.Any(u => (u.ad_u_username == Username) && (u.ad_c_clove == SelectedClove)))
-                {
+        public bool SelectedCloveIsAdmin {
+            get {
+                if (db.ad_admins.Any(u => (u.ad_u_username == Username) && (u.ad_c_clove == SelectedClove))) {
                     return true;
                 }
                 return false;
@@ -121,31 +118,81 @@ namespace Garlic_Client.models {
 
         public string WelcomeMessage {
             get {
-                return "Hello "+mw_model.Username + "!";
+                return "Hello " + mw_model.Username + "!";
             }
         }
 
-        private void subscribeToClove()
-        {
-            
-            // TODO update current database to include s_subsriptions
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw;
+        #region Subscribe
+
+        public string IsSubscribed {
+            get {
+                int id;
+                try {
+                    id = mainwindow.cloves_combobox.SelectedIndex + 1;
+                } catch (Exception) {
+                    id = 1;
+                }
+                c_cloves clove = (from c in db.c_cloves
+                                  where c.c_id == id
+                                  select c).ToList().First();
+                try {
+                    u_users user = (from u in clove.u_users
+                                    where u.u_username.Equals(Username)
+                                    select u).ToList().First();
+                } catch (Exception) {
+                    return "Subscribe";                    
+                }
+                return "Unsubscribe";
             }
         }
+
+        private ICommand subscribe;
+        public ICommand SubscribeToClove {
+            get {
+                if (subscribe == null)
+                    subscribe = new DelegateCommand(SubscribeExecuted, SubscribeCanExecute);
+                return subscribe;
+            }
+        }
+
+        private bool SubscribeCanExecute (object param) {
+            return true;
+        }
+
+        private void SubscribeExecuted (object param) {
+            if (IsSubscribed.Equals("Subscribe")) {
+                c_cloves clove = (from c in db.c_cloves
+                                  where c.c_id == (int)param
+                                  select c).ToList().First();
+                u_users user = (from u in db.u_users
+                                where u.u_username.Equals(Username)
+                                select u).ToList().First();
+                u_users newuser = new u_users();
+                newuser.u_username = user.u_username;
+                newuser.u_password = user.u_password;
+                newuser.u_email = user.u_email;
+                clove.u_users.Add(newuser);
+                PropertyChanged(this, new PropertyChangedEventArgs("IsSubscribed"));
+            } else if (IsSubscribed.Equals("Unsubscribe")) {
+                c_cloves clove = (from c in db.c_cloves
+                                  where c.c_id == (int)param
+                                  select c).ToList().First();
+                u_users user = (from u in clove.u_users
+                                where u.u_username.Equals(Username)
+                                select u).ToList().First();
+                clove.u_users.Remove(user);
+                PropertyChanged(this, new PropertyChangedEventArgs("IsSubscribed"));
+            }
+        }
+
+        #endregion
 
         // ----------- ReadWindow -----------
 
         public static string ArticleTitle { get; set; }
 
         public string ArticleText {
-            get
-            {
+            get {
                 return (from p in db.p_posts
                         join a in db.a_articles on p.p_id equals a.a_p_post
                         where a.a_title.Equals(ArticleTitle)
@@ -153,20 +200,16 @@ namespace Garlic_Client.models {
             }
         }
 
-
-
         // ------------ LoginWindow -----------
 
         public static string Username { get; set; }
         public static string Password { get; set; }
 
-        public bool UserExists (string user, string pw)
-        {
+        public bool UserExists (string user, string pw) {
             Cursor defaultCursor = Mouse.OverrideCursor;
             Mouse.OverrideCursor = Cursors.Wait;
 
-            if (db.u_users.Any(u => (u.u_username == user) && (u.u_password == pw)))
-            {
+            if (db.u_users.Any(u => (u.u_username == user) && (u.u_password == pw))) {
                 Mouse.OverrideCursor = defaultCursor;
                 return true;
             }
@@ -175,22 +218,19 @@ namespace Garlic_Client.models {
         }
 
         // ------------ NewCloveWindow -----------
-        public void CreateClove(string title, string desc)
-        {
+        public void CreateClove (string title, string desc) {
             int numbOfCloves = (from c in db.c_cloves
                                 select c).ToList().Count();
             numbOfCloves++;
 
-            c_cloves clove = new c_cloves
-            {
+            c_cloves clove = new c_cloves {
                 c_id = numbOfCloves,
                 c_name = title,
                 c_description = desc,
                 c_access = true
             };
 
-            ad_admins admin = new ad_admins
-            {
+            ad_admins admin = new ad_admins {
                 ad_u_username = Username,
                 ad_c_clove = numbOfCloves
             };
@@ -198,12 +238,9 @@ namespace Garlic_Client.models {
             db.c_cloves.Add(clove);
             db.ad_admins.Add(admin);
 
-            try
-            {
+            try {
                 db.SaveChanges();
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
 
                 throw;
             }
@@ -240,14 +277,12 @@ namespace Garlic_Client.models {
             public Article () { }
         }
 
-        public class User
-        {
+        public class User {
             public string Username { get; set; }
             public string Password { get; set; }
             public string Email { get; set; }
 
-            public User (string username, string password, string email)
-            {
+            public User (string username, string password, string email) {
                 this.Username = username;
                 this.Password = password;
                 this.Email = email;
@@ -302,7 +337,7 @@ namespace Garlic_Client.models {
         private void SubmitExecuted (object param) {
             p_posts newpost = new p_posts();
             newpost.p_id = ((from p in db.p_posts
-                             select p.p_id).Max())+1;
+                             select p.p_id).Max()) + 1;
             newpost.p_content = writewindow.writecontent.Text;
             newpost.p_date = DateTime.Now;
             newpost.p_u_username = mw_model.Username;
@@ -310,7 +345,7 @@ namespace Garlic_Client.models {
             a_articles newarticle = new a_articles();
             newarticle.a_p_post = newpost.p_id;
             newarticle.a_title = (string)param;
-            newarticle.a_c_clove = (int)writewindow.cloves_combobox.SelectedIndex+1;
+            newarticle.a_c_clove = (int)writewindow.cloves_combobox.SelectedIndex + 1;
             newarticle.r_rankings = null;
 
             db.p_posts.Add(newpost);
@@ -323,16 +358,13 @@ namespace Garlic_Client.models {
             writewindow.Close();
         }
 
-        public void NewUser (string username, string password, string email)
-        {
-            if (db.u_users.Any(u => (u.u_username == Username)))
-            {
+        public void NewUser (string username, string password, string email) {
+            if (db.u_users.Any(u => (u.u_username == Username))) {
                 MessageBox.Show("This username already exists, please choose another one.");
                 return;
             }
 
-            u_users user = new u_users
-            {
+            u_users user = new u_users {
                 u_username = username,
                 u_password = password,
                 u_email = email
@@ -340,12 +372,9 @@ namespace Garlic_Client.models {
 
             db.u_users.Add(user);
 
-            try
-            {
+            try {
                 db.SaveChanges();
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 MessageBox.Show("Oops something went wrong. Please try again.");
                 throw;
             }

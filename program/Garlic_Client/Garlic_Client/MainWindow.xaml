@@ -195,9 +195,12 @@
 
             <Button x:Name="subscribe"
                     Grid.Column="0"
-                    Grid.Row="6">
-                <TextBlock Text="Subscribe"
-                           FontSize="15"/>
+                    Grid.Row="6"
+                    Command="{Binding SubscribeToClove}"
+                    CommandParameter="{Binding ElementName=cloves_combobox, Path=SelectedValue}">
+                <TextBlock x:Name="subscribe_text"
+                           Text="{Binding Path=IsSubscribed}"
+                           FontSize="13"/>
             </Button>
 
             <Button x:Name="newclove"

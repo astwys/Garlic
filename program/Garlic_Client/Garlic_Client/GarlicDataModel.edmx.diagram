@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dac5da8734c8482ebc725beebf95a664" Name="Diagram1">
+      <Diagram DiagramId="ff5accae9e964d8c854ebebbea23b242" Name="Diagram1">
         <EntityTypeShape EntityType="GarlicModel.a_articles" Width="1.5" PointX="7.5" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="GarlicModel.ad_admins" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="GarlicModel.c_cloves" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
