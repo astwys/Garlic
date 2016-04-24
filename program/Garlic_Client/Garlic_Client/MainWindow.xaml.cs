@@ -32,8 +32,6 @@ namespace Garlic_Client {
             mw_model.ArticleTitle = article;
             ReadWindow read = new ReadWindow(); 
             read.Show();
-            read.Topmost = true;
-            read.Focus();
         }
     }
 }
