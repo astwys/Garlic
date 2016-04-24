@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Garlic_Client"
              xmlns:model="clr-namespace:Garlic_Client.models"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="300">
     <UserControl.Resources>
         <model:mw_model x:Key="mw" />
     </UserControl.Resources>

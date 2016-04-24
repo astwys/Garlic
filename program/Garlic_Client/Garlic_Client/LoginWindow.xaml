@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Garlic_Client"
         xmlns:model="clr-namespace:Garlic_Client.models"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="300" Width="300"
+        Title="LoginWindow" Height="400" Width="300"
         Loaded="LoginUC_OnLoaded">
     <Window.Resources>
         <model:mw_model x:Key="mw" />
