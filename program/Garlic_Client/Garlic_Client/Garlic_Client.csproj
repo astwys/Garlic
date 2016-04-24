@@ -113,6 +113,9 @@
     <Compile Include="LoginUC.xaml.cs">
       <DependentUpon>LoginUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NewCloveWIndow.xaml.cs">
+      <DependentUpon>NewCloveWIndow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="p_posts.cs">
       <DependentUpon>GarlicEntities.tt</DependentUpon>
     </Compile>
@@ -142,6 +145,10 @@
       <DependentUpon>WriteWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="LoginUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewCloveWIndow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

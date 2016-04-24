@@ -164,8 +164,10 @@
             </Button>
             <Button x:Name="admin"
                     Grid.Column="1"
-                    Grid.Row="0">
-                <TextBlock FontSize="15">Admin</TextBlock>
+                    Grid.Row="0"
+                    Content="Admin"
+                    Click="admin_click"
+                    IsEnabled="{Binding SelectedCloveIsAdmin}">
                 <!-- should be disabled if not admin-->
             </Button>
 
@@ -202,10 +204,18 @@
             <Button x:Name="subscribe"
                     Grid.Column="0"
                     Grid.Row="6"
-                    Grid.ColumnSpan="2">
-                <TextBlock FontSize="15">
-                    Subscribe
-                </TextBlock>
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Left"
+                    Content="Subscribe">
+            </Button>
+
+            <Button x:Name="newclove"
+                    Grid.Column="0"
+                    Grid.Row="6"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
+                    Content="New Clove"
+                    Click="newclove_click">
             </Button>
 
         </Grid>

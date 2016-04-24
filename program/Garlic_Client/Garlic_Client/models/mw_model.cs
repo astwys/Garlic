@@ -39,6 +39,8 @@ namespace Garlic_Client.models {
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedCloveDescription"));
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedCloveAdmins"));
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedCloveArticles"));
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedCloveIsAdmin"));
+
             }
         }
 
@@ -104,6 +106,18 @@ namespace Garlic_Client.models {
             }
         }
 
+        public bool SelectedCloveIsAdmin
+        {
+            get
+            {
+                if (db.ad_admins.Any(u => (u.ad_u_username == Username) && (u.ad_c_clove == SelectedClove)))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
         // ----------- Main Window ----------
 
         public string WelcomeMessage {
@@ -159,6 +173,41 @@ namespace Garlic_Client.models {
             }
             Mouse.OverrideCursor = defaultCursor;
             return false;
+        }
+
+        // ------------ NewCloveWindow -----------
+        public void CreateClove(string title, string desc)
+        {
+            int numbOfCloves = (from c in db.c_cloves
+                                select c).ToList().Count();
+            numbOfCloves++;
+
+            c_cloves clove = new c_cloves
+            {
+                c_id = numbOfCloves,
+                c_name = title,
+                c_description = desc,
+                c_access = true
+            };
+
+            ad_admins admin = new ad_admins
+            {
+                ad_u_username = Username,
+                ad_c_clove = numbOfCloves
+            };
+
+            db.c_cloves.Add(clove);
+            db.ad_admins.Add(admin);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
 
