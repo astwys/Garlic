@@ -177,7 +177,16 @@
                 Width="100"
                 HorizontalAlignment="Left"
                 Content="Delete articles"
-                Click="delete_click">
+                Click="delete_click"
+                FontSize="15">
+
+        </Button>
+        <Button Grid.Column="0" Grid.Row="2"
+                Width="100"
+                HorizontalAlignment="Right"
+                Content="Settings"
+                Click="settings_click"
+                FontSize="15">
 
         </Button>
     </Grid>

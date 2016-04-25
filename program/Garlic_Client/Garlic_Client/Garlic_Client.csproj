@@ -150,6 +150,9 @@
     <Compile Include="r_rankings.cs">
       <DependentUpon>GarlicDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="sm_socialmedias.cs">
       <DependentUpon>GarlicDataModel.tt</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ReadWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
