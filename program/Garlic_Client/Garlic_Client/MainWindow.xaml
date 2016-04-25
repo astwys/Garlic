@@ -118,17 +118,10 @@
             <Button x:Name="write"
                     Grid.Column="0"
                     Grid.Row="0"
+                    Grid.ColumnSpan="2"
                     Command="{Binding WriteArtileCommand}">
                 <TextBlock FontSize="15">Write</TextBlock>
             </Button>
-            <Button x:Name="admin"
-                    Grid.Column="1"
-                    Grid.Row="0"
-                    Click="admin_click"
-                    IsEnabled="{Binding SelectedCloveIsAdmin}">
-                <TextBlock Text="Admin" FontSize="15"/>
-            </Button>
-
             <TextBlock Grid.Column="0"
                        Grid.Row="1"
                        Grid.ColumnSpan="2"
