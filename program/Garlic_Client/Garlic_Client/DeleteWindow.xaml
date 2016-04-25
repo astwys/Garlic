@@ -11,57 +11,59 @@
         <model:mw_model x:Key="mw" />
     </Window.Resources>
     <Grid DataContext="{Binding Source={StaticResource mw}}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="178*"/>
-            <ColumnDefinition Width="70*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="129*"/>
-            <RowDefinition Height="340*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="92*"/>
-                <RowDefinition Height="37*"/>
-            </Grid.RowDefinitions>
+        <Grid DataContext="{Binding Source={StaticResource mw}}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="143*"/>
-                <ColumnDefinition Width="399*"/>
+                <ColumnDefinition Width="178*"/>
+                <ColumnDefinition Width="70*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="129*"/>
+                <RowDefinition Height="340*"/>
+            </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0"
+            <Grid Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="92*"/>
+                    <RowDefinition Height="37*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="143*"/>
+                    <ColumnDefinition Width="399*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
                        Grid.Row="0"
                        Grid.ColumnSpan="2"
                        FontSize="50"
                        FontWeight="Medium"
                        Padding="10 10 0 0">
-                Delete Articles
-            </TextBlock>
+                    Delete Articles
+                </TextBlock>
 
-        </Grid>
+            </Grid>
 
-        <ListBox x:Name="posts"
+            <ListBox x:Name="posts"
                  Grid.Column="0"
                  Grid.Row="1"
                  ItemsSource="{Binding Path=UserArticles, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
-                        <DockPanel Grid.Row="0">
-                            <TextBlock DockPanel.Dock="Left"
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+                            <DockPanel Grid.Row="0">
+                                <TextBlock DockPanel.Dock="Left"
                                        Text="{Binding Path=a_title}"
                                        x:Name="title"
                                        FontSize="15"
                                        FontWeight="Medium"
                                        MouseLeftButtonDown="articledelete_click"/>
-                        </DockPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                            </DockPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </Window>

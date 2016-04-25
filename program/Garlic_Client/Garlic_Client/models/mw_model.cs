@@ -225,6 +225,21 @@ namespace Garlic_Client.models {
         public static string Username { get; set; }
         public static string Password { get; set; }
 
+        string email;
+        public string Email
+        {
+            set
+            {
+                email = value;
+            }
+            get
+            {
+                return (from u in db.u_users
+                        where u.u_username == Username
+                        select u.u_email).ToList().First().ToString();
+            }
+        }
+
         public bool UserExists (string user, string pw) {
             Cursor defaultCursor = Mouse.OverrideCursor;
             Mouse.OverrideCursor = Cursors.Wait;
@@ -305,6 +320,27 @@ namespace Garlic_Client.models {
 
         }
 
+
+        // ----- Mini Classes -----
+
+        public void UpdateSettings (string deleteUpdate)
+        {
+            u_users user = (from u in db.u_users
+                            where u.u_username.Equals(Username)
+                            select u).ToList().First();
+
+            if (user.u_password != Password)
+            {
+                user.u_password = Password;
+            }
+
+            if (user.u_email != Email)
+            {
+                user.u_email = email;
+            }
+
+            db.SaveChanges();
+        }
 
         // ----- Mini Classes -----
 

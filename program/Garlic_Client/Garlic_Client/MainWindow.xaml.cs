@@ -51,5 +51,12 @@ namespace Garlic_Client {
             DeleteWindow delete = new DeleteWindow();
             delete.Show();
         }
+
+        private void settings_click (object sender, RoutedEventArgs e)
+        {
+            SettingsWindow set = new SettingsWindow();
+            set.Show();
+            set.Topmost = true;
+        }
     }
 }
