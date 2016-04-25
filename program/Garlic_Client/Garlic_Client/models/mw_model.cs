@@ -212,7 +212,7 @@ namespace Garlic_Client.models {
             }
         }
 
-        #region RW_Submit
+        #region RW_Comment_Submit
 
         private ICommand submitComment;
         public ICommand SubmitComment {
@@ -224,15 +224,35 @@ namespace Garlic_Client.models {
         }
 
         private bool SCCanExecute (object param) {
-            string text = ((TextBox)param).Text;
-            if (text.Count() > 1)
+            string text = (string)param;
+            if (text != null && text.Count() > 1)
                 return true;
             else
                 return false;
         }
 
         private void SCExecuted (object param) {
+            string content = (string)param;
+            int nextid = (from p in db.p_posts
+                          select p.p_id).Max()+1;
+            p_posts newpost = new p_posts();
+            newpost.p_id = nextid;
+            newpost.p_date = DateTime.Now;
+            newpost.p_u_username = Username;
+            newpost.p_content = content;
 
+            db.p_posts.Add(newpost);
+
+            int id = (from a in db.a_articles
+                      where a.a_title.Equals(readwindow.title.Text)
+                      select a.a_p_post).ToList().First();
+            p_posts post = (from p in db.p_posts
+                            where p.p_id == id
+                            select p).ToList().First();
+            post.p_posts2.Add(newpost);
+            db.SaveChanges();
+            PropertyChanged(this, new PropertyChangedEventArgs("Comments"));
+            readwindow.read_comment.Text = "";
         }
 
         #endregion

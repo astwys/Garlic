@@ -55,7 +55,24 @@
             <ItemsControl x:Name="comments"
                           Grid.Row="2"
                           ItemsSource="{Binding Path=Comments}"
-                          DisplayMemberPath="p_content" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                          Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=p_u_username}"
+                                           FontSize="14"
+                                           Foreground="Gray"/>
+                                <TextBlock Text="{Binding Path=p_date}"
+                                           FontSize="14"
+                                           Foreground="Gray"
+                                           Padding="20 0 0 0"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding Path=p_content}"
+                                       FontSize="15"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
             </ItemsControl>
 
             <TextBox x:Name="read_comment"
@@ -72,10 +89,8 @@
                     Grid.Row="3"
                     Content="Submit"
                     FontSize="15"
-                    Command="{Binding CommentSubmit}"
-                    CommandParameter="{Binding ElementName=title, Path=Text}">
-            </Button>
-
+                    Command="{Binding SubmitComment}"
+                    CommandParameter="{Binding ElementName=read_comment, Path=Text}"/>
         </Grid>
     </Grid>
     <!-- general grid -->
