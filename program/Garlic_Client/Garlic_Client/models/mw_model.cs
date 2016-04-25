@@ -344,10 +344,7 @@ namespace Garlic_Client.models {
 
             try {
                 db.SaveChanges();
-            } catch (Exception) {
-
-                throw;
-            }
+            } catch (Exception) {}
         }
 
         // ------------ Delete Article --------

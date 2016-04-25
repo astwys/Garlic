@@ -43,6 +43,7 @@ namespace Garlic_Client
             }
             mw.CreateClove(name, desc);
             this.Close();
+            
         }
     }
 }
