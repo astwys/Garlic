@@ -33,10 +33,11 @@
 
             <TextBlock Grid.Column="0"
                        Grid.Row="0"
+                       Grid.ColumnSpan="2"
                        FontSize="50"
                        FontWeight="Medium"
                        Padding="10 10 0 0">
-                Garlic
+                Write New Article
             </TextBlock>
 
             <ComboBox x:Name="cloves_combobox"
