@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace Garlic_Client.models {
     class mw_model : INotifyPropertyChanged {
@@ -142,7 +143,7 @@ namespace Garlic_Client.models {
             }
         }
 
-        #region Subscribe
+        #region MW_Subscribe
 
         public string IsSubscribed {
             get {
@@ -219,6 +220,62 @@ namespace Garlic_Client.models {
                         select p.p_content).ToList().First().ToString();
             }
         }
+
+        public IEnumerable<p_posts> Comments {
+            get {
+                int id = (from a in db.a_articles
+                          where a.a_title.Equals(readwindow.title.Text)
+                          select a.a_p_post).ToList().First();
+                return (from p in db.p_posts
+                        where p.p_id == id
+                        select p.p_posts2).ToList().First().ToList();
+            }
+        }
+
+        #region RW_Comment_Submit
+
+        private ICommand submitComment;
+        public ICommand SubmitComment {
+            get {
+                if (submitComment == null)
+                    submitComment = new DelegateCommand(SCExecuted, SCCanExecute);
+                return submitComment;
+            }
+        }
+
+        private bool SCCanExecute (object param) {
+            string text = (string)param;
+            if (text != null && text.Count() > 1)
+                return true;
+            else
+                return false;
+        }
+
+        private void SCExecuted (object param) {
+            string content = (string)param;
+            int nextid = (from p in db.p_posts
+                          select p.p_id).Max()+1;
+            p_posts newpost = new p_posts();
+            newpost.p_id = nextid;
+            newpost.p_date = DateTime.Now;
+            newpost.p_u_username = Username;
+            newpost.p_content = content;
+
+            db.p_posts.Add(newpost);
+
+            int id = (from a in db.a_articles
+                      where a.a_title.Equals(readwindow.title.Text)
+                      select a.a_p_post).ToList().First();
+            p_posts post = (from p in db.p_posts
+                            where p.p_id == id
+                            select p).ToList().First();
+            post.p_posts2.Add(newpost);
+            db.SaveChanges();
+            PropertyChanged(this, new PropertyChangedEventArgs("Comments"));
+            readwindow.read_comment.Text = "";
+        }
+
+        #endregion
 
         // ------------ LoginWindow -----------
 
