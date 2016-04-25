@@ -32,6 +32,7 @@ namespace Garlic_Client {
             mw_model.ArticleTitle = article;
             ReadWindow read = new ReadWindow(); 
             read.Show();
+            read.Topmost = true;
         }
 
         private void admin_click (object sender, RoutedEventArgs e)
@@ -43,6 +44,12 @@ namespace Garlic_Client {
         {
             NewCloveWIndow cw = new NewCloveWIndow();
             cw.Show();
-        } 
+        }
+
+        private void delete_click(object sender, RoutedEventArgs e)
+        {
+            DeleteWindow delete = new DeleteWindow();
+            delete.Show();
+        }
     }
 }

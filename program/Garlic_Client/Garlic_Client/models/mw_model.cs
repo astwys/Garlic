@@ -23,9 +23,19 @@ namespace Garlic_Client.models {
 
         public IEnumerable<c_cloves> AllCloves {
             get {
-                return (from c in db.c_cloves
-                        orderby c.c_id, c.c_name
-                        select c).ToList();
+                try
+                {
+                    return (from c in db.c_cloves
+                            orderby c.c_id, c.c_name
+                            select c).ToList();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("An error occured while trying to connect to the database. Please try again.");
+                    return null;
+                    throw;
+                }
+                
             }
         }
 
@@ -46,10 +56,20 @@ namespace Garlic_Client.models {
 
         public string SelectedCloveDescription {
             get {
-                return (from c in db.c_cloves
-                        where c.c_id == this.selectedClove
-                        select c.c_description).First().ToString();
-                ;
+                try
+                {
+                    return (from c in db.c_cloves
+                            where c.c_id == this.selectedClove
+                            select c.c_description).First().ToString();
+                    ;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("An error occured while connecting to the database. Please try again");
+                    return null;
+                    throw;
+                }
+                
             }
         }
 
@@ -209,10 +229,22 @@ namespace Garlic_Client.models {
             Cursor defaultCursor = Mouse.OverrideCursor;
             Mouse.OverrideCursor = Cursors.Wait;
 
-            if (db.u_users.Any(u => (u.u_username == user) && (u.u_password == pw))) {
-                Mouse.OverrideCursor = defaultCursor;
-                return true;
+            try
+            {
+                if (db.u_users.Any(u => (u.u_username == user) && (u.u_password == pw)))
+                {
+                    Mouse.OverrideCursor = defaultCursor;
+                    return true;
+                }
             }
+            catch (Exception)
+            {
+                MessageBox.Show("An error occured while trying to connect to the server. Please try again");
+                return false;
+                throw;
+            }
+
+           
             Mouse.OverrideCursor = defaultCursor;
             return false;
         }
@@ -244,6 +276,33 @@ namespace Garlic_Client.models {
 
                 throw;
             }
+        }
+
+        // ------------ Delete Article --------
+
+        public IEnumerable<a_articles> UserArticles
+        {
+            get
+            {
+                return (from p in db.p_posts
+                        join a in db.a_articles on p.p_id equals a.a_p_post
+                        where p.p_u_username == Username
+                        select a).ToList();
+            }
+        }
+
+        public void DeleteArticle(string title)
+        {
+            var post = (from p in db.p_posts
+                       join a in db.a_articles on p.p_id equals a.a_p_post
+                       where a.a_title == title
+                       select new { p, a }).ToList().First();
+
+            Console.WriteLine(post.p.p_id);
+            db.a_articles.Remove(post.a);
+            db.p_posts.Remove(post.p);
+            db.SaveChanges();
+
         }
 
 
