@@ -329,7 +329,7 @@ namespace Garlic_Client.models {
 
             try {
                 db.SaveChanges();
-            } catch (Exception e) {
+            } catch (Exception) {
 
                 throw;
             }
