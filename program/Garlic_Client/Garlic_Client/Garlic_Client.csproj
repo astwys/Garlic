@@ -95,6 +95,9 @@
       <DependentUpon>GarlicDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DelegateCommand.cs" />
+    <Compile Include="DeleteWindow.xaml.cs">
+      <DependentUpon>DeleteWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GarlicDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -159,6 +162,10 @@
     <Compile Include="WriteWindow.xaml.cs">
       <DependentUpon>WriteWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="DeleteWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

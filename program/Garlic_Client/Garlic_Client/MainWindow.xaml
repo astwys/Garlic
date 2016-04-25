@@ -16,8 +16,9 @@
             <ColumnDefinition Width="70*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="108*"/>
+            <RowDefinition Height="326*"/>
+            <RowDefinition Height="35*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.ColumnSpan="2">
@@ -107,7 +108,7 @@
         <ListBox x:Name="posts"
                  Grid.Column="0"
                  Grid.Row="1"
-                 ItemsSource="{Binding Path=SelectedCloveArticles, UpdateSourceTrigger=PropertyChanged}">
+                 ItemsSource="{Binding Path=SelectedCloveArticles, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -136,7 +137,7 @@
         </ListBox>
         <!-- ListBox of articles -->
         <Grid Grid.Column="1"
-              Grid.Row="1">
+              Grid.Row="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35*"/>
                 <RowDefinition Height="30*"/>
@@ -213,6 +214,14 @@
 
         </Grid>
         <!-- grid sidemenu -->
+
+        <Button Grid.Column="0" Grid.Row="2"
+                Width="100"
+                HorizontalAlignment="Left"
+                Content="Delete articles"
+                Click="delete_click">
+
+        </Button>
     </Grid>
     <!-- outer grid -->
 </Window>
