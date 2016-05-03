@@ -15,12 +15,14 @@ using System.Windows.Shapes;
 using System.Configuration;
 using System.Data.SqlClient;
 using Garlic_Client.models;
+using MahApps.Metro.Controls;
 
 namespace Garlic_Client {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow : MetroWindow
+    {
         public MainWindow () {
             mw_model.mainwindow = this;
             InitializeComponent();

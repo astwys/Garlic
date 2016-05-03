@@ -1,9 +1,10 @@
-<Window x:Class="Garlic_Client.MainWindow"
+<Controls:MetroWindow x:Class="Garlic_Client.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Garlic_Client"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         Title="Garlic" Height="500" Width="550" MinHeight="500" MinWidth="550"
         xmlns:model="clr-namespace:Garlic_Client.models">
@@ -191,4 +192,4 @@
         </Button>
     </Grid>
     <!-- outer grid -->
-</Window>
+</Controls:MetroWindow>
