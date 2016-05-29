@@ -79,7 +79,12 @@ create view vPostInfo as
 	 select count(*)
 	 from v_votes v
 	 where v.v_p_post = p.p_id
-	 ) as pi_votes
+	 ) as pi_votes,
+	 (
+	  select count(*)
+	  from c_comments c
+	  where c.c_p_commentOf = p.p_id
+	 ) as pi_comments
 	from p_posts p
 	order by p.p_id asc;
 
@@ -89,7 +94,7 @@ select * from vPostInfo;
 # get the number of subscribers and admins per clove
 drop view if exists vCloveInfo;
 create view vCloveInfo as
-	select c.c_name as ci_cloveName,
+	select c.c_id as ci_cloveID, c.c_name as ci_cloveName,
 	(
 	 select count(*)
 	 from s_subscriptions s
@@ -101,13 +106,7 @@ create view vCloveInfo as
 	 where ad.ad_c_clove = c.c_id
 	 ) as ci_admins,
 	(
-	 select count(*)--,
-		--  (
-		--   select count(*)
-		--   from c_comments co inner join p_posts po
-		--   	on co.c_p_id = po.p_id
-	 --  	  where co.c_p_id = a.a_p_id
-		--   ) as ci_commentsPerPost
+	 select count(*)
 	 from a_articles a
 	 where a.a_c_clove = c.c_id
 	 ) as ci_articles

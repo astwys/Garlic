@@ -248,42 +248,32 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 ###############
 
 # get all votes from articles / comments as well as the total of votes of a user
-# If you want to evaluate how many votes a user got on his / her articles / comments / articles + comments
-# username, upvotes on articles, downvotes on articles, upvotes on comments, downvotes on comments
 drop view if exists vUserVotes;
 create view vUserVotes as
   select u.u_username as uu_user,
     (
       select count(*)
       from a_articles a inner join (p_posts p inner join v_votes v
-                                    on p.p_id = v.v_p_post and v.v_upvote = 1)
+                                    on p.p_id = v.v_p_post)
         on a.a_p_id = p.p_id
         where u.u_username like p.p_u_username
-     ) as uu_articles_upvotes,
-    (
-      select count(*)
-      from a_articles a inner join (p_posts p inner join v_votes v
-                                    on p.p_id = v.v_p_post and v.v_upvote = 0)
-        on a.a_p_id = p.p_id
-        where u.u_username like p.p_u_username
-     ) as uu_articles_downvotes,
+     ) as uu_articles_votes,
     (
     select count(*)
     from c_comments c inner join (p_posts p inner join v_votes v
-                                    on p.p_id = v.v_p_post and v.v_upvote = 1)
+                                    on p.p_id = v.v_p_post)
       on c.c_p_id = p.p_id
       where u.u_username like p.p_u_username
-     ) as uu_comments_upvotes,
+     ) as uu_comments_votes,
     (
-    select count(*)
-    from c_comments c inner join (p_posts p inner join v_votes v
-                                    on p.p_id = v.v_p_post and v.v_upvote = 0)
-      on c.c_p_id = p.p_id
+     select count(*)
+     from v_votes v inner join p_posts p
+      on v.v_p_post = p.p_id
       where u.u_username like p.p_u_username
-     ) as uu_comments_downvotes
+     ) as uu_total_votes
   from u_users u;
 
-# Used to find out how many articles a user has in the different ranking sections + total number of articles with a ranking
+
 drop view if exists vUserRankings;
 create view vUserRankings as
   select u.u_username,
@@ -319,7 +309,9 @@ create view vUserRankings as
    ) as ur_total
   from u_users u;
 
-# Get every post with the user who created it + total votes + total upvotes + total downvotes
+
+# get every post with the user who created it 
+# as well as all the votes the post has gotten so far
 drop view if exists vPostInfo;
 create view vPostInfo as
   select p.p_id,
@@ -329,27 +321,23 @@ create view vPostInfo as
    where u.u_username = p.p_u_username
    ) as pi_user,
   (
-    select count(*)
-    from v_votes v
-    where v.v_p_post = p.p_id and v.v_upvote = 1
-   ) as pi_upvotes,
-  (
-    select count(*)
-    from v_votes v
-    where v.v_p_post = p.p_id and v.v_upvote = 0
-   ) as pi_downvotes,
-  (
    select count(*)
    from v_votes v
    where v.v_p_post = p.p_id
-   ) as pi_total_votes
+   ) as pi_votes,
+   (
+    select count(*)
+    from c_comments c
+    where c.c_p_commentOf = p.p_id
+   ) as pi_comments
   from p_posts p
   order by p.p_id asc;
 
-# For each clove get the number of subscriptions + number of admins and the number of posts
+
+# get the number of subscribers and admins per clove
 drop view if exists vCloveInfo;
 create view vCloveInfo as
-  select c.c_name as ci_cloveName,
+  select c.c_id as ci_cloveID, c.c_name as ci_cloveName,
   (
    select count(*)
    from s_subscriptions s
