@@ -88,6 +88,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>garlicEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="MainWindowController.cs" />
     <Compile Include="p_posts.cs">
       <DependentUpon>garlicEntities.tt</DependentUpon>
     </Compile>

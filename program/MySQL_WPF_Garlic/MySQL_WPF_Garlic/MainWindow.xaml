@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MySQL_WPF_Garlic"
         mc:Ignorable="d"
-        Title="Garlic - Data Overview" Height="350" Width="525">
+        Title="Garlic - Data Overview" Height="550" Width="725">
     <Grid>
         <!-- Clove section -->
         <Grid.ColumnDefinitions>
@@ -25,35 +25,34 @@
                 Cloves
             </TextBlock>
             <ListBox Grid.Row="1"
-                     x:Name="list" 
+                     x:Name="list"
                      Loaded="list_Loaded"
-                     DisplayMemberPath="c_name"
-                     SelectedValuePath="c_id"
-                     SelectedIndex="4">
-                <ListBox.SelectedValue>
-                    <Binding Path="SelectedClove"
-                             Mode="OneWayToSource"
-                             BindsDirectlyToSource="True"/>
-                </ListBox.SelectedValue>
+                     SelectionChanged="list_SelectionChanged">
             </ListBox>
         </Grid>
         <!-- Article section -->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="28*"/>
-                <RowDefinition Height="291*"/>
+                <RowDefinition Height="90*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="200*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0"
+            <TextBlock x:Name="articlestitle"
+                       Grid.Row="0"
                        FontWeight="Bold" 
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Center">
-                Articles
+                       VerticalAlignment="Center"
+                       Text="Clove Information">
             </TextBlock>
-            <ListBox Grid.Row="1"
+            <TextBlock Grid.Row="1"
+                       FontWeight="Bold" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="Articles">
+            </TextBlock>
+            <ListBox Grid.Row="2"
                      x:Name="articles" 
-                     Loaded="articles_Loaded"
-                     SelectedValuePath="a_p_id"
-                     DisplayMemberPath="a_title"/>
+                     SelectionChanged="articles_SelectionChanged"/>
         </Grid>
         <!-- Info section -->
         <Grid Grid.Column="2">
@@ -71,23 +70,23 @@
                         Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
                     <TextBlock Width="50" FontWeight="Bold">ID:</TextBlock>
-                    <TextBlock Text="{Binding Path=SelectedArticleID}"/>
+                    <TextBlock x:Name="articleid" Text="-"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Background="LightGray" Margin="0 0 0 2">
                     <TextBlock Width="50" FontWeight="Bold">Date:</TextBlock>
-                    <TextBlock Text="{Binding Path=SelectedArticleDate}"/>
+                    <TextBlock x:Name="articledate" Text="-"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
                     <TextBlock Width="50" FontWeight="Bold">Author:</TextBlock>
-                    <TextBlock Text="{Binding Path=SelectedArticleAuthor}"/>
+                    <TextBlock x:Name="articleauthor" Text="-"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Background="LightGray" Margin="0 0 0 2">
                     <TextBlock Width="50" FontWeight="Bold">Title:</TextBlock>
-                    <TextBlock Text="{Binding Path=SelectedArticleTitle}"/>
+                    <TextBlock x:Name="articletitle" Text="-"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
                     <TextBlock Width="50" FontWeight="Bold">Content:</TextBlock>
-                    <TextBlock Text="{Binding Path=SelectedArticleContentSmall}"/>
+                    <TextBlock x:Name="articlecontent" Text="-"/>
                 </StackPanel>
                 <Button>See the whole content</Button>
             </StackPanel>
