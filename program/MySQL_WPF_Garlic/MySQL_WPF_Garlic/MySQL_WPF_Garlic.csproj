@@ -74,6 +74,47 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="a_articles.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="csm_connectedsocialmedias.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="c_clove.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="garlicEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="p_posts.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="r_rankings.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sm_socialmedias.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="u_users.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vcloveinfo.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vpostinfo.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vuserranking.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vuservote.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="v_votes.cs">
+      <DependentUpon>garlicEntities.tt</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -81,6 +122,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="garlicEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>garlicEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="garlicEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>garlicEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -105,6 +156,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="garlicEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>garlicEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="garlicEntities.edmx.diagram">
+      <DependentUpon>garlicEntities.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -117,6 +175,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="garlicEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>garlicEntities.edmx</DependentUpon>
+      <LastGenOutput>garlicEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="garlicEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>garlicEntities.edmx</DependentUpon>
+      <LastGenOutput>garlicEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
