@@ -1,3 +1,5 @@
+use garlic;
+
 # get all votes from articles / comments as well as the total of votes of a user
 drop view if exists vUserVotes;
 create view vUserVotes as
