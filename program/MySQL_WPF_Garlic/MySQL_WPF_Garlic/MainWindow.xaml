@@ -58,6 +58,7 @@
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="28*"/>
+                <RowDefinition Height="145*"/>
                 <RowDefinition Height="291*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
@@ -89,6 +90,34 @@
                     <TextBlock x:Name="articlecontent" Text="-"/>
                 </StackPanel>
                 <Button>See the whole content</Button>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <TextBlock
+                    FontWeight="Medium"
+                    FontSize="16px"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    Write new Article
+                </TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="10 0 0 2">
+                    <TextBlock Width="50" FontWeight="Bold">Author:</TextBlock>
+                    <TextBox x:Name="newArticleAuthor" Width="100"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10 0 0 2">
+                    <TextBlock Width="50" FontWeight="Bold">Title:</TextBlock>
+                    <TextBox x:Name="newArticleTitle" Width="100"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10 0 0 2">
+                    <TextBlock Width="50" FontWeight="Bold">Content:</TextBlock>
+                    <TextBox x:Name="newArticleContent"
+                             Width="150"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             AcceptsReturn="True"></TextBox>
+                </StackPanel>
+                <Button x:Name="submitArticle"
+                        Margin="0 20 0 0" Width="100"
+                        Click="submitArticle_Click">Create Article</Button>
             </StackPanel>
         </Grid>
     </Grid>

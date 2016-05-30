@@ -83,11 +83,40 @@ namespace MySQL_WPF_Garlic {
                 articledate.Text = article.p_posts.p_date.ToString();
                 articleauthor.Text = article.p_posts.p_u_username;
                 articletitle.Text = article.a_title.Length > 20 ? article.a_title.Substring(0, 20) + " ..." : article.a_title;
-                articlecontent.Text = article.p_posts.p_content.Substring(0, 20)+" ...";
+                articlecontent.Text = article.p_posts.p_content.Length > 20 ? article.p_posts.p_content.Substring(0, 20)+" ..." : article.p_posts.p_content;
             }
         }
 
-        
+        private async void submitArticle_Click(object sender, RoutedEventArgs e)
+        {
+            string author = newArticleAuthor.Text;
+            string title = newArticleTitle.Text;
+            string content = newArticleContent.Text;
 
+            p_posts post = new p_posts();
+            post.p_id = ((from p in db.p_posts
+                          select p.p_id).Max()) + 1;
+            post.p_content = content;
+            post.p_date = DateTime.Now;
+            post.p_u_username = author;
+
+            a_articles article = new a_articles();
+            article.a_p_id = post.p_id;
+            article.a_title = title;
+            article.a_c_clove = ((vcloveinfo)list.SelectedItem).ci_cloveID;
+            article.a_r_rank = null;
+
+            db.p_posts.Add(post);
+            db.a_articles.Add(article);
+
+            db.SaveChanges();
+
+            articles.ItemsSource = await controller.Task_articles_ItemsSource((vcloveinfo)list.SelectedItem);
+            articles.DisplayMemberPath = "a_title";
+
+            newArticleAuthor.Text = "";
+            newArticleTitle.Text = "";
+            newArticleContent.Text = "";
+        }
     }
 }
