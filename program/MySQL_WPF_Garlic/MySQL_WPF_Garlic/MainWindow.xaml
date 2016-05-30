@@ -1,0 +1,96 @@
+﻿<Window x:Class="MySQL_WPF_Garlic.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MySQL_WPF_Garlic"
+        mc:Ignorable="d"
+        Title="Garlic - Data Overview" Height="350" Width="525">
+    <Grid>
+        <!-- Clove section -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28*"/>
+                <RowDefinition Height="291*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       FontWeight="Bold" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                Cloves
+            </TextBlock>
+            <ListBox Grid.Row="1"
+                     x:Name="list" 
+                     Loaded="list_Loaded"
+                     DisplayMemberPath="c_name"
+                     SelectedValuePath="c_id"
+                     SelectedIndex="4">
+                <ListBox.SelectedValue>
+                    <Binding Path="SelectedClove"
+                             Mode="OneWayToSource"
+                             BindsDirectlyToSource="True"/>
+                </ListBox.SelectedValue>
+            </ListBox>
+        </Grid>
+        <!-- Article section -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28*"/>
+                <RowDefinition Height="291*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       FontWeight="Bold" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                Articles
+            </TextBlock>
+            <ListBox Grid.Row="1"
+                     x:Name="articles" 
+                     Loaded="articles_Loaded"
+                     SelectedValuePath="a_p_id"
+                     DisplayMemberPath="a_title"/>
+        </Grid>
+        <!-- Info section -->
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28*"/>
+                <RowDefinition Height="291*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       FontWeight="Bold" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                Article Information
+            </TextBlock>
+            <StackPanel Grid.Row="1"
+                        Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
+                    <TextBlock Width="50" FontWeight="Bold">ID:</TextBlock>
+                    <TextBlock Text="{Binding Path=SelectedArticleID}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Background="LightGray" Margin="0 0 0 2">
+                    <TextBlock Width="50" FontWeight="Bold">Date:</TextBlock>
+                    <TextBlock Text="{Binding Path=SelectedArticleDate}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
+                    <TextBlock Width="50" FontWeight="Bold">Author:</TextBlock>
+                    <TextBlock Text="{Binding Path=SelectedArticleAuthor}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Background="LightGray" Margin="0 0 0 2">
+                    <TextBlock Width="50" FontWeight="Bold">Title:</TextBlock>
+                    <TextBlock Text="{Binding Path=SelectedArticleTitle}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
+                    <TextBlock Width="50" FontWeight="Bold">Content:</TextBlock>
+                    <TextBlock Text="{Binding Path=SelectedArticleContentSmall}"/>
+                </StackPanel>
+                <Button>See the whole content</Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
