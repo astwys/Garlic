@@ -73,17 +73,16 @@ namespace MySQL_WPF_Garlic {
             if(article == null) {
                 articleid.Text = "-"; articledate.Text = "-"; articleauthor.Text = "-"; articletitle.Text = "-"; articlecontent.Text = "-";
             } else {
-                //TODO change the view in MySQL so there is only the second view used
                 list.IsEnabled = false;
                 articles.IsEnabled = false;
                 var info = await controller.Task_info_query(article);
                 list.IsEnabled = true;
                 articles.IsEnabled = true;
-                articleid.Text = info.p_id.ToString();
-                articledate.Text = article.p_posts.p_date.ToString();
-                articleauthor.Text = article.p_posts.p_u_username;
-                articletitle.Text = article.a_title.Length > 20 ? article.a_title.Substring(0, 20) + " ..." : article.a_title;
-                articlecontent.Text = article.p_posts.p_content.Length > 20 ? article.p_posts.p_content.Substring(0, 20)+" ..." : article.p_posts.p_content;
+                articleid.Text = info.pi_postID.ToString();
+                articledate.Text = info.pi_postDate.ToString();
+                articleauthor.Text = info.pi_user;
+                articletitle.Text = info.pi_postTitle.Length > 20 ? info.pi_postTitle.Substring(0, 20) + " ..." : info.pi_postTitle;
+                articlecontent.Text = info.pi_postContent.Length > 20 ? info.pi_postContent.Substring(0, 20)+" ..." : info.pi_postContent;
             }
         }
 

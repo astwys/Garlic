@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="garlicModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="garlicModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="a_articles">
           <Key>
             <PropertyRef Name="a_p_id" />
@@ -111,12 +111,17 @@ warning 6002: The table/view 'def.garlic.vcloveinfo' does not have a primary key
 warning 6002: The table/view 'def.garlic.vpostinfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vpostinfo">
           <Key>
-            <PropertyRef Name="p_id" />
+            <PropertyRef Name="pi_postID" />
+            <PropertyRef Name="pi_postDate" />
+            <PropertyRef Name="pi_postContent" />
           </Key>
-          <Property Name="p_id" Type="int" Nullable="false" />
+          <Property Name="pi_postID" Type="int" Nullable="false" />
+          <Property Name="pi_postDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="pi_postContent" Type="varchar" MaxLength="10000" Nullable="false" />
           <Property Name="pi_user" Type="varchar" MaxLength="20" />
           <Property Name="pi_votes" Type="bigint" />
           <Property Name="pi_comments" Type="bigint" />
+          <Property Name="pi_postTitle" Type="varchar" MaxLength="200" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'def.garlic.vuserrankings' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -321,10 +326,13 @@ FROM `vcloveinfo` AS `vcloveinfo`</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vpostinfo" EntityType="Self.vpostinfo" store:Type="Views" store:Schema="garlic">
             <DefiningQuery>SELECT
-`vpostinfo`.`p_id`, 
+`vpostinfo`.`pi_postID`, 
+`vpostinfo`.`pi_postDate`, 
+`vpostinfo`.`pi_postContent`, 
 `vpostinfo`.`pi_user`, 
 `vpostinfo`.`pi_votes`, 
-`vpostinfo`.`pi_comments`
+`vpostinfo`.`pi_comments`, 
+`vpostinfo`.`pi_postTitle`
 FROM `vpostinfo` AS `vpostinfo`</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vuserrankings" EntityType="Self.vuserrankings" store:Type="Views" store:Schema="garlic">
@@ -502,12 +510,17 @@ FROM `vuservotes` AS `vuservotes`</DefiningQuery>
         </EntityType>
         <EntityType Name="vpostinfo">
           <Key>
-            <PropertyRef Name="p_id" />
+            <PropertyRef Name="pi_postID" />
+            <PropertyRef Name="pi_postDate" />
+            <PropertyRef Name="pi_postContent" />
           </Key>
-          <Property Name="p_id" Type="Int32" Nullable="false" />
+          <Property Name="pi_postID" Type="Int32" Nullable="false" />
+          <Property Name="pi_postDate" Type="DateTime" Nullable="false" />
+          <Property Name="pi_postContent" Type="String" MaxLength="10000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="pi_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="pi_votes" Type="Int64" />
           <Property Name="pi_comments" Type="Int64" />
+          <Property Name="pi_postTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vuserranking">
           <Key>
@@ -771,10 +784,13 @@ FROM `vuservotes` AS `vuservotes`</DefiningQuery>
           <EntitySetMapping Name="vpostinfoes">
             <EntityTypeMapping TypeName="garlicModel.vpostinfo">
               <MappingFragment StoreEntitySet="vpostinfo">
-                <ScalarProperty Name="p_id" ColumnName="p_id" />
+                <ScalarProperty Name="pi_postID" ColumnName="pi_postID" />
+                <ScalarProperty Name="pi_postDate" ColumnName="pi_postDate" />
+                <ScalarProperty Name="pi_postContent" ColumnName="pi_postContent" />
                 <ScalarProperty Name="pi_user" ColumnName="pi_user" />
                 <ScalarProperty Name="pi_votes" ColumnName="pi_votes" />
                 <ScalarProperty Name="pi_comments" ColumnName="pi_comments" />
+                <ScalarProperty Name="pi_postTitle" ColumnName="pi_postTitle" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

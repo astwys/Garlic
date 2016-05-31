@@ -31,7 +31,7 @@ namespace MySQL_WPF_Garlic {
         public Task<vpostinfo> Task_info_query (a_articles article) {
             return Task<vpostinfo>.Run(() => {
                 return (from pi in db.vpostinfoes
-                        where pi.p_id == article.a_p_id
+                        where pi.pi_postID == article.a_p_id
                         select pi).Distinct().ToList().First();
             });
         }

@@ -14,9 +14,12 @@ namespace MySQL_WPF_Garlic
     
     public partial class vpostinfo
     {
-        public int p_id { get; set; }
+        public int pi_postID { get; set; }
+        public System.DateTime pi_postDate { get; set; }
+        public string pi_postContent { get; set; }
         public string pi_user { get; set; }
         public Nullable<long> pi_votes { get; set; }
         public Nullable<long> pi_comments { get; set; }
+        public string pi_postTitle { get; set; }
     }
 }
