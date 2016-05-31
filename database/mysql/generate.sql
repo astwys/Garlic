@@ -314,7 +314,7 @@ create view vUserRankings as
 # as well as all the votes the post has gotten so far
 drop view if exists vPostInfo;
 create view vPostInfo as
-  select p.p_id,
+  select p.p_id as pi_postID, p.p_date as pi_postDate, p.p_content as pi_postContent,
   (
    select u.u_username
    from u_users u
@@ -329,9 +329,14 @@ create view vPostInfo as
     select count(*)
     from c_comments c
     where c.c_p_commentOf = p.p_id
-   ) as pi_comments
+   ) as pi_comments,
+   (
+    select a.a_title
+    from a_articles a
+    where a.a_p_id = p.p_id
+   ) as pi_postTitle
   from p_posts p
-  order by p.p_id asc;
+  order by pi_postID asc;
 
 
 # get the number of subscribers and admins per clove
