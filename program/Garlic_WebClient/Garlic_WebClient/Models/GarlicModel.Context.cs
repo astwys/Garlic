@@ -33,6 +33,7 @@ namespace Garlic_WebClient.Models
         public virtual DbSet<sm_socialmedias> sm_socialmedias { get; set; }
         public virtual DbSet<u_users> u_users { get; set; }
         public virtual DbSet<v_votes> v_votes { get; set; }
+        public virtual DbSet<vclovearticles> vclovearticles { get; set; }
         public virtual DbSet<vcloveinfo> vcloveinfo { get; set; }
         public virtual DbSet<vpostinfo> vpostinfo { get; set; }
         public virtual DbSet<vuserrankings> vuserrankings { get; set; }

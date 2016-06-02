@@ -10,11 +10,12 @@ namespace Garlic_WebClient.Controllers {
 
         garlicEntities db = new garlicEntities();
 
-        public ActionResult Index (int clove) {
+        public ActionResult Index (int? clove) {
 
-            var posts = (from pi in db.vpostinfo
-                         where (pi.pi_postTitle != null) && (pi.)
-                         select pi).Distinct().ToList();
+            var list = new List<Fusion>();
+            list.Add(new Fusion(-1));
+
+            return View(list);
 
             if (clove == null)
                 return View();

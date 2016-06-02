@@ -95,6 +95,23 @@
           <Property Name="v_date" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'def.garlic.vclovearticles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vclovearticles">
+          <Key>
+            <PropertyRef Name="a_p_id" />
+            <PropertyRef Name="a_title" />
+            <PropertyRef Name="p_u_username" />
+          </Key>
+          <Property Name="a_p_id" Type="int" Nullable="false" />
+          <Property Name="a_title" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="a_c_clove" Type="int" />
+          <Property Name="p_u_username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cloveName" Type="varchar" MaxLength="50" />
+          <Property Name="cloveDesc" Type="text" />
+          <Property Name="commentCount" Type="bigint" />
+          <Property Name="voteCount" Type="bigint" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'def.garlic.vcloveinfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vcloveinfo">
           <Key>
@@ -315,6 +332,18 @@ warning 6002: The table/view 'def.garlic.vuservotes' does not have a primary key
           <EntitySet Name="sm_socialmedias" EntityType="Self.sm_socialmedias" Schema="garlic" store:Type="Tables" />
           <EntitySet Name="u_users" EntityType="Self.u_users" Schema="garlic" store:Type="Tables" />
           <EntitySet Name="v_votes" EntityType="Self.v_votes" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="vclovearticles" EntityType="Self.vclovearticles" store:Type="Views" store:Schema="garlic">
+            <DefiningQuery>SELECT
+`vclovearticles`.`a_p_id`, 
+`vclovearticles`.`a_title`, 
+`vclovearticles`.`a_c_clove`, 
+`vclovearticles`.`p_u_username`, 
+`vclovearticles`.`cloveName`, 
+`vclovearticles`.`cloveDesc`, 
+`vclovearticles`.`commentCount`, 
+`vclovearticles`.`voteCount`
+FROM `vclovearticles` AS `vclovearticles`</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vcloveinfo" EntityType="Self.vcloveinfo" store:Type="Views" store:Schema="garlic">
             <DefiningQuery>SELECT
 `vcloveinfo`.`ci_cloveID`, 
@@ -497,6 +526,21 @@ FROM `vuservotes` AS `vuservotes`</DefiningQuery>
           <Property Name="v_date" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="p_posts" Relationship="Self.fk_v_votes_p_posts1" FromRole="v_votes" ToRole="p_posts" />
         </EntityType>
+        <EntityType Name="vclovearticles">
+          <Key>
+            <PropertyRef Name="a_p_id" />
+            <PropertyRef Name="a_title" />
+            <PropertyRef Name="p_u_username" />
+          </Key>
+          <Property Name="a_p_id" Type="Int32" Nullable="false" />
+          <Property Name="a_title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="a_c_clove" Type="Int32" />
+          <Property Name="p_u_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cloveName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cloveDesc" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="commentCount" Type="Int64" />
+          <Property Name="voteCount" Type="Int64" />
+        </EntityType>
         <EntityType Name="vcloveinfo">
           <Key>
             <PropertyRef Name="ci_cloveID" />
@@ -647,6 +691,7 @@ FROM `vuservotes` AS `vuservotes`</DefiningQuery>
           <EntitySet Name="sm_socialmedias" EntityType="Self.sm_socialmedias" />
           <EntitySet Name="u_users" EntityType="Self.u_users" />
           <EntitySet Name="v_votes" EntityType="Self.v_votes" />
+          <EntitySet Name="vclovearticles" EntityType="Self.vclovearticles" />
           <EntitySet Name="vcloveinfo" EntityType="Self.vcloveinfo" />
           <EntitySet Name="vpostinfo" EntityType="Self.vpostinfo" />
           <EntitySet Name="vuserrankings" EntityType="Self.vuserrankings" />
@@ -767,6 +812,20 @@ FROM `vuservotes` AS `vuservotes`</DefiningQuery>
                 <ScalarProperty Name="v_p_post" ColumnName="v_p_post" />
                 <ScalarProperty Name="v_upvote" ColumnName="v_upvote" />
                 <ScalarProperty Name="v_date" ColumnName="v_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vclovearticles">
+            <EntityTypeMapping TypeName="garlicModel.vclovearticles">
+              <MappingFragment StoreEntitySet="vclovearticles">
+                <ScalarProperty Name="a_p_id" ColumnName="a_p_id" />
+                <ScalarProperty Name="a_title" ColumnName="a_title" />
+                <ScalarProperty Name="a_c_clove" ColumnName="a_c_clove" />
+                <ScalarProperty Name="p_u_username" ColumnName="p_u_username" />
+                <ScalarProperty Name="cloveName" ColumnName="cloveName" />
+                <ScalarProperty Name="cloveDesc" ColumnName="cloveDesc" />
+                <ScalarProperty Name="commentCount" ColumnName="commentCount" />
+                <ScalarProperty Name="voteCount" ColumnName="voteCount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

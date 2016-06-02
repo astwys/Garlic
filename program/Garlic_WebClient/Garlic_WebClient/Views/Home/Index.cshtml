@@ -1,36 +1,44 @@
-﻿@model IEnumerable<Garlic_WebClient.Models.c_clove>
+﻿@model IEnumerable<Garlic_WebClient.Models.Fusion>
 
 @{
     ViewBag.Title = "Garlic - Home";
 }
 
-<div>
-
-    <div id="posts">
+<div id="home">
+    <div id="left">
         <div id="header">
-            <p id="clove_name">Clove Name</p>
-            <p id="clove_description">Description</p>
+            @foreach (var property in Model) {
+                <p id="clove_name">@property.CloveName</p>
+                <p id="clove_description">@property.CloveDescription</p>
+            }
         </div>
-        <ul>
-            <li>
-                <a>Title</a>
-                <p>User</p>
-                <p>Votes</p>
-            </li>
+        <ul id="artilces">
+            @foreach (var property in Model) {
+                foreach (var article in property.CloveArticles) {
+                    <li>
+                        <a>@Html.ActionLink(article.a_title, "Index", "Home", new { clove = -1 }, new { })</a>
+                        <p>Autor: @article.p_u_username</p>
+                        <p>Votes: @article.voteCount</p>
+                    </li>
+                }
+            }
         </ul>
     </div>
+
     <div id="cloves">
         <div id="header">
             <p>Cloves</p>
             <a>&#43;</a>
         </div>
         <ul>
-            @foreach(var clove in Model) {
-                <li>
-                    @Html.ActionLink(clove.c_name, "Index", "Home", new { clove = clove.c_id}, new { })
-                </li>
+            @foreach (var property in Model) {
+                foreach (var clove in property.Cloves) {
+                    <li>
+                        @Html.ActionLink(clove.c_name, "Index", "Home", new { clove = clove.c_name }, new { })
+                    </li>
+                }
             }
         </ul>
-    </div>
 
+    </div>
 </div>
