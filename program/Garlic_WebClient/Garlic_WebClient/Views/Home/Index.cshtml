@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Garlic_WebClient.Models.c_clove>
+
+@{
+    ViewBag.Title = "Garlic - Home";
+}
+
+<div>
+
+    <div id="posts">
+        <div id="header">
+            <p id="clove_name">Clove Name</p>
+            <p id="clove_description">Description</p>
+        </div>
+        <ul>
+            <li>
+                <a>Title</a>
+                <p>User</p>
+                <p>Votes</p>
+            </li>
+        </ul>
+    </div>
+    <div id="cloves">
+        <div id="header">
+            <p>Cloves</p>
+            <a>&#43;</a>
+        </div>
+        <ul>
+            @foreach(var clove in Model) {
+                <li>
+                    @Html.ActionLink(clove.c_name, "Index", "Home", new { clove = clove.c_id}, new { })
+                </li>
+            }
+        </ul>
+    </div>
+
+</div>

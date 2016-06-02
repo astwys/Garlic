@@ -1,0 +1,42 @@
+﻿@model Garlic_WebClient.c_clove
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>c_clove</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.c_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.c_access)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c_access)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.c_description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c_description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.c_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

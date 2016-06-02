@@ -1,0 +1,866 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="garlicModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="a_articles">
+          <Key>
+            <PropertyRef Name="a_p_id" />
+          </Key>
+          <Property Name="a_p_id" Type="int" Nullable="false" />
+          <Property Name="a_c_clove" Type="int" />
+          <Property Name="a_title" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="a_r_rank" Type="int" />
+        </EntityType>
+        <EntityType Name="ad_admins">
+          <Key>
+            <PropertyRef Name="ad_c_clove" />
+            <PropertyRef Name="ad_u_username" />
+          </Key>
+          <Property Name="ad_c_clove" Type="int" Nullable="false" />
+          <Property Name="ad_u_username" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="c_clove">
+          <Key>
+            <PropertyRef Name="c_id" />
+          </Key>
+          <Property Name="c_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="c_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="c_access" Type="bool" Nullable="false" />
+          <Property Name="c_description" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="c_comments">
+          <Key>
+            <PropertyRef Name="c_p_id" />
+          </Key>
+          <Property Name="c_p_id" Type="int" Nullable="false" />
+          <Property Name="c_p_commentOf" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="csm_connectedsocialmedias">
+          <Key>
+            <PropertyRef Name="csm_sm_name" />
+            <PropertyRef Name="csm_u_username" />
+          </Key>
+          <Property Name="csm_sm_name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="csm_u_username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="csm_password" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="p_posts">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="p_content" Type="varchar" MaxLength="10000" Nullable="false" />
+          <Property Name="p_date" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="p_u_username" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="r_rankings">
+          <Key>
+            <PropertyRef Name="r_rank" />
+          </Key>
+          <Property Name="r_rank" Type="int" Nullable="false" />
+          <Property Name="r_context" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="s_subscriptions">
+          <Key>
+            <PropertyRef Name="s_c_clove" />
+            <PropertyRef Name="s_u_username" />
+          </Key>
+          <Property Name="s_c_clove" Type="int" Nullable="false" />
+          <Property Name="s_u_username" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sm_socialmedias">
+          <Key>
+            <PropertyRef Name="sm_name" />
+          </Key>
+          <Property Name="sm_name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="u_users">
+          <Key>
+            <PropertyRef Name="u_username" />
+          </Key>
+          <Property Name="u_username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="u_password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="u_email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="v_votes">
+          <Key>
+            <PropertyRef Name="v_p_post" />
+            <PropertyRef Name="v_date" />
+          </Key>
+          <Property Name="v_p_post" Type="int" Nullable="false" />
+          <Property Name="v_upvote" Type="bool" Nullable="false" />
+          <Property Name="v_date" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.garlic.vcloveinfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vcloveinfo">
+          <Key>
+            <PropertyRef Name="ci_cloveID" />
+            <PropertyRef Name="ci_cloveName" />
+          </Key>
+          <Property Name="ci_cloveID" Type="int" Nullable="false" />
+          <Property Name="ci_cloveName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ci_subscribers" Type="bigint" />
+          <Property Name="ci_admins" Type="bigint" />
+          <Property Name="ci_articles" Type="bigint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.garlic.vpostinfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vpostinfo">
+          <Key>
+            <PropertyRef Name="pi_postID" />
+            <PropertyRef Name="pi_postDate" />
+            <PropertyRef Name="pi_postContent" />
+          </Key>
+          <Property Name="pi_postID" Type="int" Nullable="false" />
+          <Property Name="pi_postDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="pi_postContent" Type="varchar" MaxLength="10000" Nullable="false" />
+          <Property Name="pi_user" Type="varchar" MaxLength="20" />
+          <Property Name="pi_votes" Type="bigint" />
+          <Property Name="pi_comments" Type="bigint" />
+          <Property Name="pi_postTitle" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.garlic.vuserrankings' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vuserrankings">
+          <Key>
+            <PropertyRef Name="u_username" />
+          </Key>
+          <Property Name="u_username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ur_superhot" Type="bigint" />
+          <Property Name="ur_hot" Type="bigint" />
+          <Property Name="ur_rising" Type="bigint" />
+          <Property Name="ur_upcoming" Type="bigint" />
+          <Property Name="ur_total" Type="bigint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.garlic.vuservotes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vuservotes">
+          <Key>
+            <PropertyRef Name="uu_user" />
+          </Key>
+          <Property Name="uu_user" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="uu_articles_votes" Type="bigint" />
+          <Property Name="uu_comments_votes" Type="bigint" />
+          <Property Name="uu_total_votes" Type="bigint" />
+        </EntityType>
+        <Association Name="fk_a_articles_c_clove1">
+          <End Role="c_clove" Type="Self.c_clove" Multiplicity="0..1" />
+          <End Role="a_articles" Type="Self.a_articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_clove">
+              <PropertyRef Name="c_id" />
+            </Principal>
+            <Dependent Role="a_articles">
+              <PropertyRef Name="a_c_clove" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_a_articles_p_posts1">
+          <End Role="p_posts" Type="Self.p_posts" Multiplicity="1" />
+          <End Role="a_articles" Type="Self.a_articles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="p_posts">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="a_articles">
+              <PropertyRef Name="a_p_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_a_articles_r_rankings1">
+          <End Role="r_rankings" Type="Self.r_rankings" Multiplicity="0..1" />
+          <End Role="a_articles" Type="Self.a_articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="r_rankings">
+              <PropertyRef Name="r_rank" />
+            </Principal>
+            <Dependent Role="a_articles">
+              <PropertyRef Name="a_r_rank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_c_clove_has_u_users_c_clove1">
+          <End Role="c_clove" Type="Self.c_clove" Multiplicity="1" />
+          <End Role="s_subscriptions" Type="Self.s_subscriptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_clove">
+              <PropertyRef Name="c_id" />
+            </Principal>
+            <Dependent Role="s_subscriptions">
+              <PropertyRef Name="s_c_clove" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_c_clove_has_u_users_u_users1">
+          <End Role="u_users" Type="Self.u_users" Multiplicity="1" />
+          <End Role="s_subscriptions" Type="Self.s_subscriptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="u_users">
+              <PropertyRef Name="u_username" />
+            </Principal>
+            <Dependent Role="s_subscriptions">
+              <PropertyRef Name="s_u_username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_c_comments_p_posts1">
+          <End Role="p_posts" Type="Self.p_posts" Multiplicity="1" />
+          <End Role="c_comments" Type="Self.c_comments" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="p_posts">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="c_comments">
+              <PropertyRef Name="c_p_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_c_comments_p_posts2">
+          <End Role="p_posts" Type="Self.p_posts" Multiplicity="1" />
+          <End Role="c_comments" Type="Self.c_comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="p_posts">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="c_comments">
+              <PropertyRef Name="c_p_commentOf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_p_posts_u_users">
+          <End Role="u_users" Type="Self.u_users" Multiplicity="1" />
+          <End Role="p_posts" Type="Self.p_posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="u_users">
+              <PropertyRef Name="u_username" />
+            </Principal>
+            <Dependent Role="p_posts">
+              <PropertyRef Name="p_u_username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sm_socialmedias_has_u_users_sm_socialmedias1">
+          <End Role="sm_socialmedias" Type="Self.sm_socialmedias" Multiplicity="1" />
+          <End Role="csm_connectedsocialmedias" Type="Self.csm_connectedsocialmedias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sm_socialmedias">
+              <PropertyRef Name="sm_name" />
+            </Principal>
+            <Dependent Role="csm_connectedsocialmedias">
+              <PropertyRef Name="csm_sm_name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sm_socialmedias_has_u_users_u_users1">
+          <End Role="u_users" Type="Self.u_users" Multiplicity="1" />
+          <End Role="csm_connectedsocialmedias" Type="Self.csm_connectedsocialmedias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="u_users">
+              <PropertyRef Name="u_username" />
+            </Principal>
+            <Dependent Role="csm_connectedsocialmedias">
+              <PropertyRef Name="csm_u_username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_u_users_has_c_clove_c_clove1">
+          <End Role="c_clove" Type="Self.c_clove" Multiplicity="1" />
+          <End Role="ad_admins" Type="Self.ad_admins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_clove">
+              <PropertyRef Name="c_id" />
+            </Principal>
+            <Dependent Role="ad_admins">
+              <PropertyRef Name="ad_c_clove" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_u_users_has_c_clove_u_users1">
+          <End Role="u_users" Type="Self.u_users" Multiplicity="1" />
+          <End Role="ad_admins" Type="Self.ad_admins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="u_users">
+              <PropertyRef Name="u_username" />
+            </Principal>
+            <Dependent Role="ad_admins">
+              <PropertyRef Name="ad_u_username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_v_votes_p_posts1">
+          <End Role="p_posts" Type="Self.p_posts" Multiplicity="1" />
+          <End Role="v_votes" Type="Self.v_votes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="p_posts">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="v_votes">
+              <PropertyRef Name="v_p_post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="garlicModelStoreContainer">
+          <EntitySet Name="a_articles" EntityType="Self.a_articles" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="ad_admins" EntityType="Self.ad_admins" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="c_clove" EntityType="Self.c_clove" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="c_comments" EntityType="Self.c_comments" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="csm_connectedsocialmedias" EntityType="Self.csm_connectedsocialmedias" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="p_posts" EntityType="Self.p_posts" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="r_rankings" EntityType="Self.r_rankings" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="s_subscriptions" EntityType="Self.s_subscriptions" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="sm_socialmedias" EntityType="Self.sm_socialmedias" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="u_users" EntityType="Self.u_users" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="v_votes" EntityType="Self.v_votes" Schema="garlic" store:Type="Tables" />
+          <EntitySet Name="vcloveinfo" EntityType="Self.vcloveinfo" store:Type="Views" store:Schema="garlic">
+            <DefiningQuery>SELECT
+`vcloveinfo`.`ci_cloveID`, 
+`vcloveinfo`.`ci_cloveName`, 
+`vcloveinfo`.`ci_subscribers`, 
+`vcloveinfo`.`ci_admins`, 
+`vcloveinfo`.`ci_articles`
+FROM `vcloveinfo` AS `vcloveinfo`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vpostinfo" EntityType="Self.vpostinfo" store:Type="Views" store:Schema="garlic">
+            <DefiningQuery>SELECT
+`vpostinfo`.`pi_postID`, 
+`vpostinfo`.`pi_postDate`, 
+`vpostinfo`.`pi_postContent`, 
+`vpostinfo`.`pi_user`, 
+`vpostinfo`.`pi_votes`, 
+`vpostinfo`.`pi_comments`, 
+`vpostinfo`.`pi_postTitle`
+FROM `vpostinfo` AS `vpostinfo`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vuserrankings" EntityType="Self.vuserrankings" store:Type="Views" store:Schema="garlic">
+            <DefiningQuery>SELECT
+`vuserrankings`.`u_username`, 
+`vuserrankings`.`ur_superhot`, 
+`vuserrankings`.`ur_hot`, 
+`vuserrankings`.`ur_rising`, 
+`vuserrankings`.`ur_upcoming`, 
+`vuserrankings`.`ur_total`
+FROM `vuserrankings` AS `vuserrankings`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vuservotes" EntityType="Self.vuservotes" store:Type="Views" store:Schema="garlic">
+            <DefiningQuery>SELECT
+`vuservotes`.`uu_user`, 
+`vuservotes`.`uu_articles_votes`, 
+`vuservotes`.`uu_comments_votes`, 
+`vuservotes`.`uu_total_votes`
+FROM `vuservotes` AS `vuservotes`</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_a_articles_c_clove1" Association="Self.fk_a_articles_c_clove1">
+            <End Role="c_clove" EntitySet="c_clove" />
+            <End Role="a_articles" EntitySet="a_articles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_a_articles_p_posts1" Association="Self.fk_a_articles_p_posts1">
+            <End Role="p_posts" EntitySet="p_posts" />
+            <End Role="a_articles" EntitySet="a_articles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_a_articles_r_rankings1" Association="Self.fk_a_articles_r_rankings1">
+            <End Role="r_rankings" EntitySet="r_rankings" />
+            <End Role="a_articles" EntitySet="a_articles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_c_clove_has_u_users_c_clove1" Association="Self.fk_c_clove_has_u_users_c_clove1">
+            <End Role="c_clove" EntitySet="c_clove" />
+            <End Role="s_subscriptions" EntitySet="s_subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_c_clove_has_u_users_u_users1" Association="Self.fk_c_clove_has_u_users_u_users1">
+            <End Role="u_users" EntitySet="u_users" />
+            <End Role="s_subscriptions" EntitySet="s_subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_c_comments_p_posts1" Association="Self.fk_c_comments_p_posts1">
+            <End Role="p_posts" EntitySet="p_posts" />
+            <End Role="c_comments" EntitySet="c_comments" />
+          </AssociationSet>
+          <AssociationSet Name="fk_c_comments_p_posts2" Association="Self.fk_c_comments_p_posts2">
+            <End Role="p_posts" EntitySet="p_posts" />
+            <End Role="c_comments" EntitySet="c_comments" />
+          </AssociationSet>
+          <AssociationSet Name="fk_p_posts_u_users" Association="Self.fk_p_posts_u_users">
+            <End Role="u_users" EntitySet="u_users" />
+            <End Role="p_posts" EntitySet="p_posts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sm_socialmedias_has_u_users_sm_socialmedias1" Association="Self.fk_sm_socialmedias_has_u_users_sm_socialmedias1">
+            <End Role="sm_socialmedias" EntitySet="sm_socialmedias" />
+            <End Role="csm_connectedsocialmedias" EntitySet="csm_connectedsocialmedias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sm_socialmedias_has_u_users_u_users1" Association="Self.fk_sm_socialmedias_has_u_users_u_users1">
+            <End Role="u_users" EntitySet="u_users" />
+            <End Role="csm_connectedsocialmedias" EntitySet="csm_connectedsocialmedias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_u_users_has_c_clove_c_clove1" Association="Self.fk_u_users_has_c_clove_c_clove1">
+            <End Role="c_clove" EntitySet="c_clove" />
+            <End Role="ad_admins" EntitySet="ad_admins" />
+          </AssociationSet>
+          <AssociationSet Name="fk_u_users_has_c_clove_u_users1" Association="Self.fk_u_users_has_c_clove_u_users1">
+            <End Role="u_users" EntitySet="u_users" />
+            <End Role="ad_admins" EntitySet="ad_admins" />
+          </AssociationSet>
+          <AssociationSet Name="fk_v_votes_p_posts1" Association="Self.fk_v_votes_p_posts1">
+            <End Role="p_posts" EntitySet="p_posts" />
+            <End Role="v_votes" EntitySet="v_votes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="garlicModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="a_articles">
+          <Key>
+            <PropertyRef Name="a_p_id" />
+          </Key>
+          <Property Name="a_p_id" Type="Int32" Nullable="false" />
+          <Property Name="a_c_clove" Type="Int32" />
+          <Property Name="a_title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="a_r_rank" Type="Int32" />
+          <NavigationProperty Name="c_clove" Relationship="Self.fk_a_articles_c_clove1" FromRole="a_articles" ToRole="c_clove" />
+          <NavigationProperty Name="p_posts" Relationship="Self.fk_a_articles_p_posts1" FromRole="a_articles" ToRole="p_posts" />
+          <NavigationProperty Name="r_rankings" Relationship="Self.fk_a_articles_r_rankings1" FromRole="a_articles" ToRole="r_rankings" />
+        </EntityType>
+        <EntityType Name="c_clove">
+          <Key>
+            <PropertyRef Name="c_id" />
+          </Key>
+          <Property Name="c_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="c_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="c_access" Type="Boolean" Nullable="false" />
+          <Property Name="c_description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="a_articles" Relationship="Self.fk_a_articles_c_clove1" FromRole="c_clove" ToRole="a_articles" />
+          <NavigationProperty Name="u_users" Relationship="Self.ad_admins" FromRole="c_clove" ToRole="u_users" />
+          <NavigationProperty Name="u_users1" Relationship="Self.s_subscriptions" FromRole="c_clove" ToRole="u_users" />
+        </EntityType>
+        <EntityType Name="csm_connectedsocialmedias">
+          <Key>
+            <PropertyRef Name="csm_sm_name" />
+            <PropertyRef Name="csm_u_username" />
+          </Key>
+          <Property Name="csm_sm_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="csm_u_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="csm_password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="sm_socialmedias" Relationship="Self.fk_sm_socialmedias_has_u_users_sm_socialmedias1" FromRole="csm_connectedsocialmedias" ToRole="sm_socialmedias" />
+          <NavigationProperty Name="u_users" Relationship="Self.fk_sm_socialmedias_has_u_users_u_users1" FromRole="csm_connectedsocialmedias" ToRole="u_users" />
+        </EntityType>
+        <EntityType Name="p_posts">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="p_content" Type="String" MaxLength="10000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="p_date" Type="DateTime" Nullable="false" />
+          <Property Name="p_u_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="a_articles" Relationship="Self.fk_a_articles_p_posts1" FromRole="p_posts" ToRole="a_articles" />
+          <NavigationProperty Name="u_users" Relationship="Self.fk_p_posts_u_users" FromRole="p_posts" ToRole="u_users" />
+          <NavigationProperty Name="v_votes" Relationship="Self.fk_v_votes_p_posts1" FromRole="p_posts" ToRole="v_votes" />
+          <NavigationProperty Name="p_posts1" Relationship="Self.c_comments" FromRole="p_posts" ToRole="p_posts1" />
+          <NavigationProperty Name="p_posts2" Relationship="Self.c_comments" FromRole="p_posts1" ToRole="p_posts" />
+        </EntityType>
+        <EntityType Name="r_rankings">
+          <Key>
+            <PropertyRef Name="r_rank" />
+          </Key>
+          <Property Name="r_rank" Type="Int32" Nullable="false" />
+          <Property Name="r_context" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="a_articles" Relationship="Self.fk_a_articles_r_rankings1" FromRole="r_rankings" ToRole="a_articles" />
+        </EntityType>
+        <EntityType Name="sm_socialmedias">
+          <Key>
+            <PropertyRef Name="sm_name" />
+          </Key>
+          <Property Name="sm_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="csm_connectedsocialmedias" Relationship="Self.fk_sm_socialmedias_has_u_users_sm_socialmedias1" FromRole="sm_socialmedias" ToRole="csm_connectedsocialmedias" />
+        </EntityType>
+        <EntityType Name="u_users">
+          <Key>
+            <PropertyRef Name="u_username" />
+          </Key>
+          <Property Name="u_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="csm_connectedsocialmedias" Relationship="Self.fk_sm_socialmedias_has_u_users_u_users1" FromRole="u_users" ToRole="csm_connectedsocialmedias" />
+          <NavigationProperty Name="p_posts" Relationship="Self.fk_p_posts_u_users" FromRole="u_users" ToRole="p_posts" />
+          <NavigationProperty Name="c_clove" Relationship="Self.ad_admins" FromRole="u_users" ToRole="c_clove" />
+          <NavigationProperty Name="c_clove1" Relationship="Self.s_subscriptions" FromRole="u_users" ToRole="c_clove" />
+        </EntityType>
+        <EntityType Name="v_votes">
+          <Key>
+            <PropertyRef Name="v_p_post" />
+            <PropertyRef Name="v_date" />
+          </Key>
+          <Property Name="v_p_post" Type="Int32" Nullable="false" />
+          <Property Name="v_upvote" Type="Boolean" Nullable="false" />
+          <Property Name="v_date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="p_posts" Relationship="Self.fk_v_votes_p_posts1" FromRole="v_votes" ToRole="p_posts" />
+        </EntityType>
+        <EntityType Name="vcloveinfo">
+          <Key>
+            <PropertyRef Name="ci_cloveID" />
+            <PropertyRef Name="ci_cloveName" />
+          </Key>
+          <Property Name="ci_cloveID" Type="Int32" Nullable="false" />
+          <Property Name="ci_cloveName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ci_subscribers" Type="Int64" />
+          <Property Name="ci_admins" Type="Int64" />
+          <Property Name="ci_articles" Type="Int64" />
+        </EntityType>
+        <EntityType Name="vpostinfo">
+          <Key>
+            <PropertyRef Name="pi_postID" />
+            <PropertyRef Name="pi_postDate" />
+            <PropertyRef Name="pi_postContent" />
+          </Key>
+          <Property Name="pi_postID" Type="Int32" Nullable="false" />
+          <Property Name="pi_postDate" Type="DateTime" Nullable="false" />
+          <Property Name="pi_postContent" Type="String" MaxLength="10000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pi_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="pi_votes" Type="Int64" />
+          <Property Name="pi_comments" Type="Int64" />
+          <Property Name="pi_postTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vuserrankings">
+          <Key>
+            <PropertyRef Name="u_username" />
+          </Key>
+          <Property Name="u_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ur_superhot" Type="Int64" />
+          <Property Name="ur_hot" Type="Int64" />
+          <Property Name="ur_rising" Type="Int64" />
+          <Property Name="ur_upcoming" Type="Int64" />
+          <Property Name="ur_total" Type="Int64" />
+        </EntityType>
+        <EntityType Name="vuservotes">
+          <Key>
+            <PropertyRef Name="uu_user" />
+          </Key>
+          <Property Name="uu_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="uu_articles_votes" Type="Int64" />
+          <Property Name="uu_comments_votes" Type="Int64" />
+          <Property Name="uu_total_votes" Type="Int64" />
+        </EntityType>
+        <Association Name="fk_a_articles_c_clove1">
+          <End Role="c_clove" Type="Self.c_clove" Multiplicity="0..1" />
+          <End Role="a_articles" Type="Self.a_articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_clove">
+              <PropertyRef Name="c_id" />
+            </Principal>
+            <Dependent Role="a_articles">
+              <PropertyRef Name="a_c_clove" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_a_articles_p_posts1">
+          <End Role="p_posts" Type="Self.p_posts" Multiplicity="1" />
+          <End Role="a_articles" Type="Self.a_articles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="p_posts">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="a_articles">
+              <PropertyRef Name="a_p_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_a_articles_r_rankings1">
+          <End Role="r_rankings" Type="Self.r_rankings" Multiplicity="0..1" />
+          <End Role="a_articles" Type="Self.a_articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="r_rankings">
+              <PropertyRef Name="r_rank" />
+            </Principal>
+            <Dependent Role="a_articles">
+              <PropertyRef Name="a_r_rank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sm_socialmedias_has_u_users_sm_socialmedias1">
+          <End Role="sm_socialmedias" Type="Self.sm_socialmedias" Multiplicity="1" />
+          <End Role="csm_connectedsocialmedias" Type="Self.csm_connectedsocialmedias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sm_socialmedias">
+              <PropertyRef Name="sm_name" />
+            </Principal>
+            <Dependent Role="csm_connectedsocialmedias">
+              <PropertyRef Name="csm_sm_name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sm_socialmedias_has_u_users_u_users1">
+          <End Role="u_users" Type="Self.u_users" Multiplicity="1" />
+          <End Role="csm_connectedsocialmedias" Type="Self.csm_connectedsocialmedias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="u_users">
+              <PropertyRef Name="u_username" />
+            </Principal>
+            <Dependent Role="csm_connectedsocialmedias">
+              <PropertyRef Name="csm_u_username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_p_posts_u_users">
+          <End Role="u_users" Type="Self.u_users" Multiplicity="1" />
+          <End Role="p_posts" Type="Self.p_posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="u_users">
+              <PropertyRef Name="u_username" />
+            </Principal>
+            <Dependent Role="p_posts">
+              <PropertyRef Name="p_u_username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_v_votes_p_posts1">
+          <End Role="p_posts" Type="Self.p_posts" Multiplicity="1" />
+          <End Role="v_votes" Type="Self.v_votes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="p_posts">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="v_votes">
+              <PropertyRef Name="v_p_post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ad_admins">
+          <End Role="c_clove" Type="Self.c_clove" Multiplicity="*" />
+          <End Role="u_users" Type="Self.u_users" Multiplicity="*" />
+        </Association>
+        <Association Name="c_comments">
+          <End Role="p_posts" Type="Self.p_posts" Multiplicity="*" />
+          <End Role="p_posts1" Type="Self.p_posts" Multiplicity="0..1" />
+        </Association>
+        <Association Name="s_subscriptions">
+          <End Role="c_clove" Type="Self.c_clove" Multiplicity="*" />
+          <End Role="u_users" Type="Self.u_users" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="garlicEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="a_articles" EntityType="Self.a_articles" />
+          <EntitySet Name="c_clove" EntityType="Self.c_clove" />
+          <EntitySet Name="csm_connectedsocialmedias" EntityType="Self.csm_connectedsocialmedias" />
+          <EntitySet Name="p_posts" EntityType="Self.p_posts" />
+          <EntitySet Name="r_rankings" EntityType="Self.r_rankings" />
+          <EntitySet Name="sm_socialmedias" EntityType="Self.sm_socialmedias" />
+          <EntitySet Name="u_users" EntityType="Self.u_users" />
+          <EntitySet Name="v_votes" EntityType="Self.v_votes" />
+          <EntitySet Name="vcloveinfo" EntityType="Self.vcloveinfo" />
+          <EntitySet Name="vpostinfo" EntityType="Self.vpostinfo" />
+          <EntitySet Name="vuserrankings" EntityType="Self.vuserrankings" />
+          <EntitySet Name="vuservotes" EntityType="Self.vuservotes" />
+          <AssociationSet Name="fk_a_articles_c_clove1" Association="Self.fk_a_articles_c_clove1">
+            <End Role="c_clove" EntitySet="c_clove" />
+            <End Role="a_articles" EntitySet="a_articles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_a_articles_p_posts1" Association="Self.fk_a_articles_p_posts1">
+            <End Role="p_posts" EntitySet="p_posts" />
+            <End Role="a_articles" EntitySet="a_articles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_a_articles_r_rankings1" Association="Self.fk_a_articles_r_rankings1">
+            <End Role="r_rankings" EntitySet="r_rankings" />
+            <End Role="a_articles" EntitySet="a_articles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sm_socialmedias_has_u_users_sm_socialmedias1" Association="Self.fk_sm_socialmedias_has_u_users_sm_socialmedias1">
+            <End Role="sm_socialmedias" EntitySet="sm_socialmedias" />
+            <End Role="csm_connectedsocialmedias" EntitySet="csm_connectedsocialmedias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sm_socialmedias_has_u_users_u_users1" Association="Self.fk_sm_socialmedias_has_u_users_u_users1">
+            <End Role="u_users" EntitySet="u_users" />
+            <End Role="csm_connectedsocialmedias" EntitySet="csm_connectedsocialmedias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_p_posts_u_users" Association="Self.fk_p_posts_u_users">
+            <End Role="u_users" EntitySet="u_users" />
+            <End Role="p_posts" EntitySet="p_posts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_v_votes_p_posts1" Association="Self.fk_v_votes_p_posts1">
+            <End Role="p_posts" EntitySet="p_posts" />
+            <End Role="v_votes" EntitySet="v_votes" />
+          </AssociationSet>
+          <AssociationSet Name="ad_admins" Association="Self.ad_admins">
+            <End Role="c_clove" EntitySet="c_clove" />
+            <End Role="u_users" EntitySet="u_users" />
+          </AssociationSet>
+          <AssociationSet Name="c_comments" Association="Self.c_comments">
+            <End Role="p_posts" EntitySet="p_posts" />
+            <End Role="p_posts1" EntitySet="p_posts" />
+          </AssociationSet>
+          <AssociationSet Name="s_subscriptions" Association="Self.s_subscriptions">
+            <End Role="c_clove" EntitySet="c_clove" />
+            <End Role="u_users" EntitySet="u_users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="garlicModelStoreContainer" CdmEntityContainer="garlicEntities">
+          <EntitySetMapping Name="a_articles">
+            <EntityTypeMapping TypeName="garlicModel.a_articles">
+              <MappingFragment StoreEntitySet="a_articles">
+                <ScalarProperty Name="a_p_id" ColumnName="a_p_id" />
+                <ScalarProperty Name="a_c_clove" ColumnName="a_c_clove" />
+                <ScalarProperty Name="a_title" ColumnName="a_title" />
+                <ScalarProperty Name="a_r_rank" ColumnName="a_r_rank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_clove">
+            <EntityTypeMapping TypeName="garlicModel.c_clove">
+              <MappingFragment StoreEntitySet="c_clove">
+                <ScalarProperty Name="c_id" ColumnName="c_id" />
+                <ScalarProperty Name="c_name" ColumnName="c_name" />
+                <ScalarProperty Name="c_access" ColumnName="c_access" />
+                <ScalarProperty Name="c_description" ColumnName="c_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="csm_connectedsocialmedias">
+            <EntityTypeMapping TypeName="garlicModel.csm_connectedsocialmedias">
+              <MappingFragment StoreEntitySet="csm_connectedsocialmedias">
+                <ScalarProperty Name="csm_sm_name" ColumnName="csm_sm_name" />
+                <ScalarProperty Name="csm_u_username" ColumnName="csm_u_username" />
+                <ScalarProperty Name="csm_password" ColumnName="csm_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="p_posts">
+            <EntityTypeMapping TypeName="garlicModel.p_posts">
+              <MappingFragment StoreEntitySet="p_posts">
+                <ScalarProperty Name="p_id" ColumnName="p_id" />
+                <ScalarProperty Name="p_content" ColumnName="p_content" />
+                <ScalarProperty Name="p_date" ColumnName="p_date" />
+                <ScalarProperty Name="p_u_username" ColumnName="p_u_username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="r_rankings">
+            <EntityTypeMapping TypeName="garlicModel.r_rankings">
+              <MappingFragment StoreEntitySet="r_rankings">
+                <ScalarProperty Name="r_rank" ColumnName="r_rank" />
+                <ScalarProperty Name="r_context" ColumnName="r_context" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sm_socialmedias">
+            <EntityTypeMapping TypeName="garlicModel.sm_socialmedias">
+              <MappingFragment StoreEntitySet="sm_socialmedias">
+                <ScalarProperty Name="sm_name" ColumnName="sm_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="u_users">
+            <EntityTypeMapping TypeName="garlicModel.u_users">
+              <MappingFragment StoreEntitySet="u_users">
+                <ScalarProperty Name="u_username" ColumnName="u_username" />
+                <ScalarProperty Name="u_password" ColumnName="u_password" />
+                <ScalarProperty Name="u_email" ColumnName="u_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_votes">
+            <EntityTypeMapping TypeName="garlicModel.v_votes">
+              <MappingFragment StoreEntitySet="v_votes">
+                <ScalarProperty Name="v_p_post" ColumnName="v_p_post" />
+                <ScalarProperty Name="v_upvote" ColumnName="v_upvote" />
+                <ScalarProperty Name="v_date" ColumnName="v_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vcloveinfo">
+            <EntityTypeMapping TypeName="garlicModel.vcloveinfo">
+              <MappingFragment StoreEntitySet="vcloveinfo">
+                <ScalarProperty Name="ci_cloveID" ColumnName="ci_cloveID" />
+                <ScalarProperty Name="ci_cloveName" ColumnName="ci_cloveName" />
+                <ScalarProperty Name="ci_subscribers" ColumnName="ci_subscribers" />
+                <ScalarProperty Name="ci_admins" ColumnName="ci_admins" />
+                <ScalarProperty Name="ci_articles" ColumnName="ci_articles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vpostinfo">
+            <EntityTypeMapping TypeName="garlicModel.vpostinfo">
+              <MappingFragment StoreEntitySet="vpostinfo">
+                <ScalarProperty Name="pi_postID" ColumnName="pi_postID" />
+                <ScalarProperty Name="pi_postDate" ColumnName="pi_postDate" />
+                <ScalarProperty Name="pi_postContent" ColumnName="pi_postContent" />
+                <ScalarProperty Name="pi_user" ColumnName="pi_user" />
+                <ScalarProperty Name="pi_votes" ColumnName="pi_votes" />
+                <ScalarProperty Name="pi_comments" ColumnName="pi_comments" />
+                <ScalarProperty Name="pi_postTitle" ColumnName="pi_postTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vuserrankings">
+            <EntityTypeMapping TypeName="garlicModel.vuserrankings">
+              <MappingFragment StoreEntitySet="vuserrankings">
+                <ScalarProperty Name="u_username" ColumnName="u_username" />
+                <ScalarProperty Name="ur_superhot" ColumnName="ur_superhot" />
+                <ScalarProperty Name="ur_hot" ColumnName="ur_hot" />
+                <ScalarProperty Name="ur_rising" ColumnName="ur_rising" />
+                <ScalarProperty Name="ur_upcoming" ColumnName="ur_upcoming" />
+                <ScalarProperty Name="ur_total" ColumnName="ur_total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vuservotes">
+            <EntityTypeMapping TypeName="garlicModel.vuservotes">
+              <MappingFragment StoreEntitySet="vuservotes">
+                <ScalarProperty Name="uu_user" ColumnName="uu_user" />
+                <ScalarProperty Name="uu_articles_votes" ColumnName="uu_articles_votes" />
+                <ScalarProperty Name="uu_comments_votes" ColumnName="uu_comments_votes" />
+                <ScalarProperty Name="uu_total_votes" ColumnName="uu_total_votes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ad_admins" TypeName="garlicModel.ad_admins" StoreEntitySet="ad_admins">
+            <EndProperty Name="c_clove">
+              <ScalarProperty Name="c_id" ColumnName="ad_c_clove" />
+            </EndProperty>
+            <EndProperty Name="u_users">
+              <ScalarProperty Name="u_username" ColumnName="ad_u_username" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="c_comments" TypeName="garlicModel.c_comments" StoreEntitySet="c_comments">
+            <EndProperty Name="p_posts">
+              <ScalarProperty Name="p_id" ColumnName="c_p_id" />
+            </EndProperty>
+            <EndProperty Name="p_posts1">
+              <ScalarProperty Name="p_id" ColumnName="c_p_commentOf" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="s_subscriptions" TypeName="garlicModel.s_subscriptions" StoreEntitySet="s_subscriptions">
+            <EndProperty Name="c_clove">
+              <ScalarProperty Name="c_id" ColumnName="s_c_clove" />
+            </EndProperty>
+            <EndProperty Name="u_users">
+              <ScalarProperty Name="u_username" ColumnName="s_u_username" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

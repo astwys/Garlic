@@ -1,0 +1,50 @@
+﻿@model Garlic_WebClient.p_posts
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>p_posts</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.p_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.p_content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.p_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.p_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.a_articles.a_title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.a_articles.a_title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u_users.u_password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u_users.u_password)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.p_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
