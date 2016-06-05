@@ -12,17 +12,17 @@
                 <p id="clove_description">@property.CloveDescription</p>
             }
         </div>
-        <ul id="artilces">
+        <table id="artilces">
             @foreach (var property in Model) {
                 foreach (var article in property.CloveArticles) {
                     <li>
-                        <a>@Html.ActionLink(article.a_title, "Index", "Home", new { clove = -1 }, new { })</a>
+                        <a>@Html.ActionLink(article.a_title, "Index", "Read", new { article_id = article.a_p_id }, new { })</a>
                         <p>Autor: @article.p_u_username</p>
                         <p>Votes: @article.voteCount</p>
                     </li>
                 }
             }
-        </ul>
+        </table>
     </div>
 
     <div id="cloves">

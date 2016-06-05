@@ -15,10 +15,13 @@ namespace Garlic_WebClient.Controllers
         private garlicEntities db = new garlicEntities();
 
         // GET: Read
-        public ActionResult Index()
+        public ActionResult Index(int? article_id)
         {
-            var p_posts = db.p_posts.Include(p => p.a_articles).Include(p => p.u_users);
-            return View(p_posts.ToList());
+            var articles = (from p in db.p_posts
+                            where p.p_id == article_id
+                            select p).Distinct();
+            //var p_posts = db.p_posts.Include(p => p.a_articles).Include(p => p.u_users);
+            return View(articles.ToList());
         }
 
         // GET: Read/Details/5
