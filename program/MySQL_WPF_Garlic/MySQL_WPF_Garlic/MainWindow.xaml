@@ -89,7 +89,6 @@
                     <TextBlock Width="50" FontWeight="Bold">Content:</TextBlock>
                     <TextBlock x:Name="articlecontent" Text="-"/>
                 </StackPanel>
-                <Button>See the whole content</Button>
             </StackPanel>
             <StackPanel Grid.Row="2">
                 <TextBlock
