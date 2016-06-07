@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Garlic_WebClient.Models;
 
 namespace Garlic_WebClient.Controllers {
+
     public class HomeController : Controller {
 
         garlicEntities db = new garlicEntities();
@@ -13,13 +14,12 @@ namespace Garlic_WebClient.Controllers {
         public ActionResult Index (int? clove) {
 
             var list = new List<Fusion>();
-            list.Add(new Fusion(-1));
+            var fusion = new Fusion();
+            fusion.CloveID = clove;
+            list.Add(fusion);
 
-            return View(list);
-
-            if (clove == null)
-                return View();
-            
+            ViewBag.clove = new SelectList(fusion.Cloves, "c_id", "c_name");
+            return View(list);            
         }
 
         public ActionResult About () {

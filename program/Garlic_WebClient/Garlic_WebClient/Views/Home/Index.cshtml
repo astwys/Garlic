@@ -23,22 +23,30 @@
                 }
             }
         </table>
-    </div>
+    </div>  
 
     <div id="cloves">
         <div id="header">
             <p>Cloves</p>
             <a>&#43;</a>
         </div>
+        <!--
         <ul>
             @foreach (var property in Model) {
                 foreach (var clove in property.Cloves) {
                     <li>
-                        @Html.ActionLink(clove.c_name, "Index", "Home", new { clove = clove.c_name }, new { })
+                        @*Html.ActionLink(clove.c_name, "Index", "Home", new { clove = clove.c_name }, new { })*@
                     </li>
                 }
             }
-        </ul>
+        </ul>-->
+
+        @using (Html.BeginForm()) {
+            <div class="form-horizontal">
+                @Html.ListBox("clove", null, htmlAttributes: new { @class = "form-control" })
+                <input type="submit" value="Switch" class="btn btn-default" />
+            </div>
+        }
 
     </div>
 </div>

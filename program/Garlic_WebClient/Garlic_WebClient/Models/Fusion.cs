@@ -7,7 +7,19 @@ namespace Garlic_WebClient.Models {
     public class Fusion {
 
         garlicEntities db = new garlicEntities();
+
         private int cloveID;
+        public int? CloveID {
+            get {
+                return cloveID;
+            }
+            set {
+                if (value == null)
+                    cloveID = -1;
+                else
+                    cloveID = (int)value;
+            }
+        }
 
         public List<c_clove> Cloves {
             get {
@@ -24,10 +36,6 @@ namespace Garlic_WebClient.Models {
                         where ca.a_c_clove == cloveID
                         select ca).Distinct().ToList();
             }
-        }
-
-        public Fusion (int clove) {
-            this.cloveID = clove;
         }
 
         public string CloveName {
