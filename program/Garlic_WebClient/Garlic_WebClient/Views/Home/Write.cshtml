@@ -1,22 +1,13 @@
-﻿@model Garlic_WebClient.Models.p_posts
-
-@{
-    ViewBag.Title = "Edit";
+﻿@{
+    ViewBag.Title = "Garlic - Write";
 }
 
-<h2>Edit Your Article</h2>
-
+<h2>Write down your thoughts</h2>
+<hr />
 
 <fieldset>
-    @using (Html.BeginForm("EditArticle", "Read", new { post_id = ViewBag.id })) {
+    @using (Html.BeginForm("CreateArticle", "Home")) {
         <div class="form-horizontal">
-            <div class="form-group">
-                <div class="control-label col-md-2" style="font-weight: bold">ID</div>
-                <div class="col-md-10">
-                    @ViewBag.id
-                </div>
-            </div>
-
             <div class="form-group">
                 <div class="control-label col-md-2" style="font-weight: bold">Clove</div>
                 <div class="col-md-10">
@@ -46,10 +37,7 @@
         </div>
     }
 </fieldset>
-<div>
-    @Html.ActionLink("Cancel", "Index", new { article_id = ViewBag.id })
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<div>
+    @Html.ActionLink("Cancel", "Index")
+</div>

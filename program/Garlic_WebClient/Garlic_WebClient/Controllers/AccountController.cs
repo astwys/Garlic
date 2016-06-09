@@ -26,11 +26,11 @@ namespace Garlic_WebClient.Controllers
                               where u.u_username.Equals(model.Username) && u.u_password.Equals(model.Password)
                               select u;
                     login = erg.FirstOrDefault();
-
                 }
 
                 if (login != null) {
-                    System.Web.Security.FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
+                    UserInformation.User = login;
+                    FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
                     return RedirectToLocal(returnUrl);  // Url  ?? "~/Home/Index"
                 } else {
                     ModelState.AddModelError("", "Invalid username or password.");
@@ -45,8 +45,15 @@ namespace Garlic_WebClient.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff () {
             FormsAuthentication.SignOut();
+            UserInformation.User = null;
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Manage () {
+            return View();
+        }
+
+
 
         private ActionResult RedirectToLocal (string returnUrl) {
             if (Url.IsLocalUrl(returnUrl)) {

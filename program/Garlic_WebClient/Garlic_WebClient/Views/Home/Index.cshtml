@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Garlic_WebClient.Models.Fusion>
+﻿@model IEnumerable<Garlic_WebClient.Models.HomePageModel>
 
 @{
     ViewBag.Title = "Garlic - Home";
@@ -10,43 +10,35 @@
             @foreach (var property in Model) {
                 <p id="clove_name">@property.CloveName</p>
                 <p id="clove_description">@property.CloveDescription</p>
+                if (property.CloveID >= 0) {
+                    @Html.ActionLink("Find out more about this clove", "Details", "Clove", new { id = property.CloveID }, new { })
+                }
             }
         </div>
+        <div>@Html.ActionLink("Write something yourself...", "Write", "Home")</div>
         <table id="artilces">
             @foreach (var property in Model) {
                 foreach (var article in property.CloveArticles) {
-                    <li>
-                        <a>@Html.ActionLink(article.a_title, "Index", "Read", new { article_id = article.a_p_id }, new { })</a>
-                        <p>Autor: @article.p_u_username</p>
-                        <p>Votes: @article.voteCount</p>
-                    </li>
+                    <tr>
+                        <td><a>@Html.ActionLink(article.a_title, "Index", "Read", new { article_id = article.a_p_id }, new { })</a></td>
+                        <td><p>Autor: @article.p_u_username</p></td>
+                        <td><p>Votes: @article.voteCount</p></td>
+                    </tr>
                 }
             }
         </table>
-    </div>  
+    </div>
 
     <div id="cloves">
         <div id="header">
-            <p>Cloves</p>
-            <a>&#43;</a>
+            Cloves
+            @Html.ActionLink("+", "Add", "Clove")
         </div>
-        <!--
-        <ul>
-            @foreach (var property in Model) {
-                foreach (var clove in property.Cloves) {
-                    <li>
-                        @*Html.ActionLink(clove.c_name, "Index", "Home", new { clove = clove.c_name }, new { })*@
-                    </li>
-                }
-            }
-        </ul>-->
-
         @using (Html.BeginForm()) {
-            <div class="form-horizontal">
-                @Html.ListBox("clove", null, htmlAttributes: new { @class = "form-control" })
-                <input type="submit" value="Switch" class="btn btn-default" />
+            <div class="form-group">
+                @Html.ListBox("clove", null, htmlAttributes: new { @class = "from-control" })
+                <input type="submit" value="Switch" class="btn btn-default"/>
             </div>
         }
-
     </div>
 </div>

@@ -1,51 +1,32 @@
-﻿@model IEnumerable<Garlic_WebClient.Models.p_posts>
+﻿@using Garlic_WebClient.Models
+@model Garlic_WebClient.Models.p_posts
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.ATitle</h2>
+<h4>@Html.DisplayFor(model => model.p_date)</h4>
+<h4>by @Html.DisplayFor(model => model.p_u_username)</h4>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.p_content)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.p_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.a_articles.a_title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.p_u_username)
-        </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.p_content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.p_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.a_articles.a_title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.u_users.u_password)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.p_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.p_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.p_id })
+            @Html.DisplayFor(model => model.p_content)
         </td>
     </tr>
-}
-
+    @if (Model.p_u_username.Equals(UserInformation.Username)) {
+        <tr>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.p_id }) | 
+            @Html.ActionLink("Delete", "Delete", new { id = Model.p_id })
+        </tr>
+    }
 </table>
+
+

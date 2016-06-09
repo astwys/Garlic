@@ -1,4 +1,4 @@
-﻿@model Garlic_WebClient.c_clove
+﻿@model Garlic_WebClient.Models.c_clove
 
 @{
     ViewBag.Title = "Details";
@@ -7,11 +7,10 @@
 <h2>Details</h2>
 
 <div>
-    <h4>c_clove</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.c_name)
+            Name
         </dt>
 
         <dd>
@@ -19,15 +18,20 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.c_access)
+            Access
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.c_access)
+            @if (Model.c_access) {
+                <div>Public</div>
+            } else {
+                <div>Private </div>
+            }
+
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.c_description)
+            Description
         </dt>
 
         <dd>
@@ -38,5 +42,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.c_id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "Home", new { id = Model.c_id })
 </p>

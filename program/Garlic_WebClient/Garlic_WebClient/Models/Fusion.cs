@@ -4,7 +4,63 @@ using System.Linq;
 using System.Web;
 
 namespace Garlic_WebClient.Models {
-    public class Fusion {
+
+    public static class UserInformation {
+
+        private static garlicEntities db = new garlicEntities();
+
+        private static string username;
+        private static u_users user;
+
+        public static string Username {
+            get {
+                return username;
+            }
+            set {
+                if (value == null) {
+                    user = null;
+                    username = value;
+                } else {
+                    if (user == null) {
+                        user = (from u in db.u_users
+                                where u.u_username.Equals(username)
+                                select u).FirstOrDefault();
+                    } else {
+                        if (!username.Equals(user.u_username)) {
+                            user = (from u in db.u_users
+                                    where u.u_username.Equals(username)
+                                    select u).FirstOrDefault();
+                        }
+                    }
+                }
+            }
+        }
+        public static u_users User {
+            get {
+                return user;
+            }
+            set {
+                if (value == null) {
+                    user = value;
+                    username = null;
+                } else {
+                    if (username == null) {
+                        username = (from u in db.u_users
+                                    where u.u_username.Equals(value.u_username)
+                                    select u.u_username).FirstOrDefault();
+                    } else {
+                        if (!value.u_username.Equals(username)) {
+                            username = (from u in db.u_users
+                                        where u.u_username.Equals(value.u_username)
+                                        select u.u_username).FirstOrDefault();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public class HomePageModel {
 
         garlicEntities db = new garlicEntities();
 
@@ -21,20 +77,21 @@ namespace Garlic_WebClient.Models {
             }
         }
 
-        public List<c_clove> Cloves {
+        public List<c_clove> Cloves { 
             get {
-                return db.c_clove.ToList();
+                return (from c in db.c_clove
+                        where c.c_access == true || c.u_users.Contains(UserInformation.User)
+                        select c).ToList();
             }
         }
 
-        public List<vclovearticles> CloveArticles {
+        public List<vclovearticles> CloveArticles { //TODO filter articles that are not in a pblic clove --> change view to also show access level of articles
             get {
-                if(cloveID < 0)
-                    return (from ca in db.vclovearticles
-                            select ca).Distinct().ToList();
-                return (from ca in db.vclovearticles
-                        where ca.a_c_clove == cloveID
-                        select ca).Distinct().ToList();
+                var clovearticles = (from ca in db.vclovearticles
+                                     select ca).Distinct().ToList();
+                if (cloveID < 0)
+                    return clovearticles;
+                return clovearticles.Where(ca => ca.a_c_clove == cloveID).Distinct().ToList();
             }
         }
 
@@ -52,7 +109,7 @@ namespace Garlic_WebClient.Models {
         public string CloveDescription {
             get {
                 if (cloveID < 0)
-                    return "Hello and welcome to the frontpage. Here you see every single article that has ever been written.\n"+
+                    return "Hello and welcome to the frontpage. Here you see every single article that has ever been written.\n" +
                         "If you liked to narrow down the selection feel free to select from the different Cloves on the right.\nEnjoy!";
                 else
                     return (from ca in db.vclovearticles

@@ -17,11 +17,13 @@ namespace Garlic_WebClient.Controllers
         // GET: Read
         public ActionResult Index(int? article_id)
         {
-            var articles = (from p in db.p_posts
+            var article = (from p in db.p_posts
                             where p.p_id == article_id
-                            select p).Distinct();
-            //var p_posts = db.p_posts.Include(p => p.a_articles).Include(p => p.u_users);
-            return View(articles.ToList());
+                            select p).FirstOrDefault();
+            ViewBag.Clove = article.a_articles.c_clove.c_name;
+            ViewBag.ATitle = article.a_articles.a_title;
+            ViewBag.Comments = article.p_posts2.ToList();
+            return View(article);
         }
 
         // GET: Read/Details/5
@@ -39,34 +41,8 @@ namespace Garlic_WebClient.Controllers
             return View(p_posts);
         }
 
-        // GET: Read/Create
-        public ActionResult Create()
-        {
-            ViewBag.p_id = new SelectList(db.a_articles, "a_p_id", "a_title");
-            ViewBag.p_u_username = new SelectList(db.u_users, "u_username", "u_password");
-            return View();
-        }
-
-        // POST: Read/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "p_id,p_content,p_date,p_u_username")] p_posts p_posts)
-        {
-            if (ModelState.IsValid)
-            {
-                db.p_posts.Add(p_posts);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.p_id = new SelectList(db.a_articles, "a_p_id", "a_title", p_posts.p_id);
-            ViewBag.p_u_username = new SelectList(db.u_users, "u_username", "u_password", p_posts.p_u_username);
-            return View(p_posts);
-        }
-
         // GET: Read/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,30 +54,32 @@ namespace Garlic_WebClient.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.p_id = new SelectList(db.a_articles, "a_p_id", "a_title", p_posts.p_id);
-            ViewBag.p_u_username = new SelectList(db.u_users, "u_username", "u_password", p_posts.p_u_username);
+            ViewBag.id = p_posts.p_id;
+            ViewBag.clove = new SelectList(db.c_clove.Where(c => c.c_access || c.u_users.Contains(UserInformation.User)), "c_id", "c_name");
+            ViewBag.atitle = p_posts.a_articles.a_title;
+            ViewBag.content = p_posts.p_content;
             return View(p_posts);
         }
 
-        // POST: Read/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "p_id,p_content,p_date,p_u_username")] p_posts p_posts)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(p_posts).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.p_id = new SelectList(db.a_articles, "a_p_id", "a_title", p_posts.p_id);
-            ViewBag.p_u_username = new SelectList(db.u_users, "u_username", "u_password", p_posts.p_u_username);
-            return View(p_posts);
+        
+        public ActionResult EditArticle (FormCollection form, int? post_id) {
+
+            int id = post_id == null ? 1 : (int)post_id;
+            int clove = Convert.ToInt32(form["clove"]);
+            string title = form["atitle"];
+            string content = form["content"];
+
+            db.a_articles.Find(id).a_c_clove = clove;
+            db.a_articles.Find(id).a_title = title;
+            db.p_posts.Find(id).p_content = content;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index", new { article_id = id });
         }
 
         // GET: Read/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -135,5 +113,15 @@ namespace Garlic_WebClient.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private ActionResult RedirectToLocal (string returnUrl) {
+            if (Url.IsLocalUrl(returnUrl)) {
+                return Redirect(returnUrl);
+            } else {
+                return RedirectToAction("Index", "Home");
+            }
+
+        }
+
     }
 }

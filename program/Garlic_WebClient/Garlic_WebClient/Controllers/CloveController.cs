@@ -84,7 +84,7 @@ namespace Garlic_WebClient.Controllers
             {
                 db.Entry(c_clove).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", c_clove.c_id);
             }
             return View(c_clove);
         }

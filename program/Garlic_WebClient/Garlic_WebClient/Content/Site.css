@@ -37,16 +37,9 @@ li{
 
 */
 
-#home{
-    display: inline;
-}
-
-#left{
-    float: left;
-}
-
-#cloves{
-    float: right;
+select[multiple]{
+    display: block;
+    height: 300px;
 }
 
 
