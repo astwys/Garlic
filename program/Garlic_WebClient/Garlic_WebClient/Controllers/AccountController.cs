@@ -31,12 +31,12 @@ namespace Garlic_WebClient.Controllers
                 if (login != null) {
                     UserInformation.User = login;
                     FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
+                    Session["Usernaem"] = login.u_username;
                     return RedirectToLocal(returnUrl);  // Url  ?? "~/Home/Index"
                 } else {
                     ModelState.AddModelError("", "Invalid username or password.");
                 }
             }
-
 
             return View(model);
         }

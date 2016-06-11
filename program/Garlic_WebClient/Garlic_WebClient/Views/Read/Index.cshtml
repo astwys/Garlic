@@ -29,4 +29,12 @@
     }
 </table>
 
+<div>
+    @foreach (var comment in ViewBag.Comments) {
+        <p>
+            @comment.content
+        </p>
+    }
+</div>
+
 

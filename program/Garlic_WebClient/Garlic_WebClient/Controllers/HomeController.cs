@@ -45,6 +45,7 @@ namespace Garlic_WebClient.Controllers {
         [HttpPost]
         public ActionResult CreateArticle (FormCollection form) {
 
+            string username = form["username"];
             string clove = form["clove"];
             string title = form["atitle"];
             string content = form["content"];
@@ -54,7 +55,8 @@ namespace Garlic_WebClient.Controllers {
                           select p.p_id).Max()) + 1;
             post.p_content = content;
             post.p_date = DateTime.Now;
-            post.p_u_username = "aadams5f2";
+            //post.p_u_username = "aadams5f2";
+            post.p_u_username = username;
 
             a_articles article = new a_articles();
             article.a_p_id = post.p_id;
@@ -67,9 +69,7 @@ namespace Garlic_WebClient.Controllers {
 
             db.SaveChanges();
 
-            RedirectToLocal("~/Home/Index");
-
-            return View();
+            return RedirectToAction("Index");
         }
 
         private ActionResult RedirectToLocal (string returnUrl) {

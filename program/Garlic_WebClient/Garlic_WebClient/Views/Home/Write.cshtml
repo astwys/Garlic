@@ -7,6 +7,7 @@
 
 <fieldset>
     @using (Html.BeginForm("CreateArticle", "Home")) {
+        @Html.Hidden("username", User.Identity.Name)
         <div class="form-horizontal">
             <div class="form-group">
                 <div class="control-label col-md-2" style="font-weight: bold">Clove</div>

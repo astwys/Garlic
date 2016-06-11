@@ -36,6 +36,7 @@ namespace Garlic_WebClient.Controllers
         }
 
         // GET: Clove/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -44,6 +45,7 @@ namespace Garlic_WebClient.Controllers
         // POST: Clove/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "c_id,c_name,c_access,c_description")] c_clove c_clove)

@@ -90,8 +90,10 @@ namespace Garlic_WebClient.Models {
                 var clovearticles = (from ca in db.vclovearticles
                                      select ca).Distinct().ToList();
 
+                clovearticles = clovearticles.Where(a => a.isPublic.Equals(1)).ToList();
+
                 if (CloveSearch != "") {
-                    clovearticles = clovearticles.Where(s => s.a_title.Contains(CloveSearch)).ToList();
+                    clovearticles = clovearticles.Where(s => s.a_title.ToLower().Contains(CloveSearch)).ToList();
                 }
 
                 if (CloveSort != "") {
@@ -146,7 +148,7 @@ namespace Garlic_WebClient.Models {
                 if (value == null) {
                     cloveSearch = "";
                 } else {
-                    cloveSearch = value;
+                    cloveSearch = value.ToLower();
                 }
             }
         }

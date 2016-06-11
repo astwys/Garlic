@@ -132,6 +132,11 @@ create view vCloveArticles as
 	 where c.c_id = a.a_c_clove
 	 ) as cloveName,
 	(
+	 select c_access
+	 from c_clove c
+	 where c.c_id = a.a_c_clove
+	 ) as isPublic,
+	(
 	 select c.c_description
 	 from c_clove c
 	 where c.c_id = a.a_c_clove

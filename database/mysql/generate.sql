@@ -359,3 +359,36 @@ create view vCloveInfo as
    where a.a_c_clove = c.c_id
    ) as ci_articles
   from c_clove c;
+
+  
+# select all the data needed for the homepage of the asp.net client
+drop view if exists vCloveArticles;
+create view vCloveArticles as 
+  select a.a_p_id, a.a_title, a.a_c_clove, p.p_u_username,
+  (
+   select c.c_name
+   from c_clove c
+   where c.c_id = a.a_c_clove
+   ) as cloveName,
+  (
+   select c_access
+   from c_clove c
+   where c.c_id = a.a_c_clove
+   ) as isPublic,
+  (
+   select c.c_description
+   from c_clove c
+   where c.c_id = a.a_c_clove
+   ) as cloveDesc,
+  (
+   select count(*)
+   from c_comments co
+   where co.c_p_commentOf = p.p_id
+   ) as commentCount,
+  (
+   select count(*)
+   from v_votes v
+   where v.v_p_post = p.p_id
+   ) as voteCount
+  from p_posts p inner join a_articles a
+    on p.p_id = a.a_p_id;

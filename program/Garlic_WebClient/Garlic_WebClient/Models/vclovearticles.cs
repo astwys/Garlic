@@ -19,6 +19,7 @@ namespace Garlic_WebClient.Models
         public Nullable<int> a_c_clove { get; set; }
         public string p_u_username { get; set; }
         public string cloveName { get; set; }
+        public Nullable<int> isPublic { get; set; }
         public string cloveDesc { get; set; }
         public Nullable<long> commentCount { get; set; }
         public Nullable<long> voteCount { get; set; }
