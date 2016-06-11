@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Garlic_WebClient.Models;
+using PagedList;
 
 namespace Garlic_WebClient.Controllers {
 
@@ -11,16 +12,27 @@ namespace Garlic_WebClient.Controllers {
 
         garlicEntities db = new garlicEntities();
 
-        public ActionResult Index (int? clove) {
+        public ActionResult Index (int? clove, string searchstring, string sortOrder) {
             if (!Request.IsAuthenticated)
                 UserInformation.User = null;
 
             var list = new List<HomePageModel>();
             var model = new HomePageModel();
             model.CloveID = clove;
+
+            // search
+            model.CloveSearch = searchstring;
+
+            // sorting
+            ViewBag.TitleSort = String.IsNullOrEmpty(sortOrder) ? "title_asc" : "";
+            ViewBag.AuthorSort = String.IsNullOrEmpty(sortOrder) ? "author_asc" : "";
+            ViewBag.VoteSort = String.IsNullOrEmpty(sortOrder) ? "votes_desc" : "";
+            model.CloveSort = sortOrder;
+
             list.Add(model);
 
             ViewBag.clove = new SelectList(model.Cloves, "c_id", "c_name");
+
             return View(list);            
         }
 

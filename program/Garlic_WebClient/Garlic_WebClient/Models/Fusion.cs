@@ -89,6 +89,25 @@ namespace Garlic_WebClient.Models {
             get {
                 var clovearticles = (from ca in db.vclovearticles
                                      select ca).Distinct().ToList();
+
+                if (CloveSearch != "") {
+                    clovearticles = clovearticles.Where(s => s.a_title.Contains(CloveSearch)).ToList();
+                }
+
+                if (CloveSort != "") {
+                    switch (CloveSort) {
+                        case "title_asc":
+                            clovearticles = clovearticles.OrderBy(a => a.a_title).ToList();
+                            break;
+                        case "author_asc":
+                            clovearticles = clovearticles.OrderBy(a => a.p_u_username).ToList();
+                            break;
+                        case "votes_desc":
+                            clovearticles = clovearticles.OrderByDescending(a => a.voteCount).ToList();
+                            break;
+                    }
+                }
+
                 if (cloveID < 0)
                     return clovearticles;
                 return clovearticles.Where(ca => ca.a_c_clove == cloveID).Distinct().ToList();
@@ -118,5 +137,32 @@ namespace Garlic_WebClient.Models {
             }
         }
 
+        private string cloveSearch;
+        public string CloveSearch {
+            get {
+                return cloveSearch;
+            }
+            set {
+                if (value == null) {
+                    cloveSearch = "";
+                } else {
+                    cloveSearch = value;
+                }
+            }
+        }
+
+        private string cloveSort;
+        public string CloveSort {
+            get {
+                return cloveSort;
+            }
+            set {
+                if (value == null) {
+                    cloveSort = "";
+                } else {
+                    cloveSort = value;
+                }
+            }
+        }
     }
 }

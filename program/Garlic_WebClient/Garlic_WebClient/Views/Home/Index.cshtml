@@ -15,8 +15,21 @@
                 }
             }
         </div>
+
+        @using (@Html.BeginForm()) {
+            <div class="form-horizontal">
+                <input name="searchstring" type="text" />
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        }
+
         <div>@Html.ActionLink("Write something yourself...", "Write", "Home")</div>
         <table id="artilces">
+            <tr>
+                <th>@Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSort })</th>
+                <th>@Html.ActionLink("Author", "Index", new { sortOrder = ViewBag.AuthorSort })</th>
+                <th>@Html.ActionLink("Votes", "Index", new { sortOrder = ViewBag.VoteSort })</th>
+            </tr>
             @foreach (var property in Model) {
                 foreach (var article in property.CloveArticles) {
                     <tr>
