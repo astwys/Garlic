@@ -54,7 +54,7 @@ namespace Garlic_WebClient.Controllers
             {
                 db.c_clove.Add(c_clove);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(c_clove);

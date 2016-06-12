@@ -79,9 +79,11 @@ namespace Garlic_WebClient.Models {
 
         public List<c_clove> Cloves { 
             get {
-                return (from c in db.c_clove
-                        where c.c_access == true || c.u_users.Contains(UserInformation.User)
-                        select c).ToList();
+                var cloves = (from c in db.c_clove
+                                where c.c_access == true || c.u_users.Contains(UserInformation.User)
+                                select c).Distinct().ToList();
+
+                return cloves.OrderBy(c => c.c_name).ToList();
             }
         }
 

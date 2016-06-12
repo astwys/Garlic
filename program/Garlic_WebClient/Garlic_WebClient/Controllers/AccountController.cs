@@ -48,10 +48,38 @@ namespace Garlic_WebClient.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Manage () {
+        public ActionResult Manage (string username) {
+
+            garlicEntities db = new garlicEntities();
+
+            var user = db.u_users.Where(u => u.u_username.Equals(username));
+
+            ViewBag.User = username;
+            ViewBag.Email = user.First().u_email;
+            ViewBag.Password = user.First().u_password;
+
             return View();
         }
 
+        public ActionResult Update (FormCollection form, string username) {
+
+            garlicEntities db = new garlicEntities();
+
+            var password = form["Password"];
+
+            u_users user = (from u in db.u_users
+                            where u.u_username.Equals(username)
+                            select u).ToList().First();
+
+            if (!String.IsNullOrEmpty(password)) {
+                user.u_password = password;
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+
+        }
 
 
         private ActionResult RedirectToLocal (string returnUrl) {
