@@ -37,7 +37,11 @@
             @foreach (var property in Model) {
                 foreach (var article in property.CloveArticles) {
                     <tr>
-                        <td><a>@Html.ActionLink(article.a_title, "Index", "Read", new { article_id = article.a_p_id }, new { })</a></td>
+                        <td>
+                            <a>@Html.ActionLink(article.a_title, "Index", "Read", new { article_id = article.a_p_id }, new { })</a>
+                            <span> | </span>
+                            <a>@Html.ActionLink("+1", "Index", "Home", new { article_id = article.a_p_id }, new { })</a>
+                        </td>
                         <td><p>Autor: @article.p_u_username</p></td>
                         <td><p>Votes: @article.voteCount</p></td>
                     </tr>

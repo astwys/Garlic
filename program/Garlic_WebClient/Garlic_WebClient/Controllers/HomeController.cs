@@ -12,7 +12,7 @@ namespace Garlic_WebClient.Controllers {
 
         garlicEntities db = new garlicEntities();
 
-        public ActionResult Index (int? clove, string searchstring, string sortOrder) {
+        public ActionResult Index (int? clove, string searchstring, string sortOrder, int? article_id) {
             if (!Request.IsAuthenticated)
                 UserInformation.User = null;
 
@@ -28,6 +28,19 @@ namespace Garlic_WebClient.Controllers {
             ViewBag.AuthorSort = String.IsNullOrEmpty(sortOrder) ? "author_asc" : "";
             ViewBag.VoteSort = String.IsNullOrEmpty(sortOrder) ? "votes_desc" : "";
             model.CloveSort = sortOrder;
+
+            // votes
+            if (article_id != null) {
+                v_votes vote = new v_votes
+                {
+                    v_p_post = article_id ?? default(int),
+                    v_upvote = true,
+                    v_date = DateTime.Now
+                };
+
+                db.v_votes.Add(vote);
+                db.SaveChanges();
+            }
 
             list.Add(model);
 
