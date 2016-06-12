@@ -87,7 +87,7 @@ namespace Garlic_WebClient.Models {
             }
         }
 
-        public List<vclovearticles> CloveArticles { //TODO filter articles that are not in a pblic clove --> change view to also show access level of articles
+        public List<vclovearticles> CloveArticles {
             get {
                 var clovearticles = (from ca in db.vclovearticles
                                      select ca).Distinct().ToList();
@@ -123,9 +123,16 @@ namespace Garlic_WebClient.Models {
                 if (cloveID < 0)
                     return "All the things!";
                 else
-                    return (from ca in db.vclovearticles
-                            where ca.a_c_clove == cloveID
-                            select ca.cloveName).First();
+                    try {
+                        return (from ca in db.vclovearticles
+                                where ca.a_c_clove == cloveID
+                                select ca.cloveName).First();
+                    } catch (Exception) {
+
+                        return (from c in db.c_clove
+                                where c.c_id == cloveID
+                                select c.c_name).FirstOrDefault();
+                    }
             }
         }
 
@@ -135,9 +142,16 @@ namespace Garlic_WebClient.Models {
                     return "Hello and welcome to the frontpage. Here you see every single article that has ever been written.\n" +
                         "If you liked to narrow down the selection feel free to select from the different Cloves on the right.\nEnjoy!";
                 else
-                    return (from ca in db.vclovearticles
-                            where ca.a_c_clove == cloveID
-                            select ca.cloveDesc).First();
+                    try {
+                        return (from ca in db.vclovearticles
+                                where ca.a_c_clove == cloveID
+                                select ca.cloveDesc).First();
+                    } catch (Exception) {
+
+                        return (from c in db.c_clove
+                                where c.c_id == cloveID
+                                select c.c_description).FirstOrDefault();
+                    }
             }
         }
 

@@ -8,13 +8,15 @@
     <div id="left">
         <div id="header">
             @foreach (var property in Model) {
-                <p id="clove_name">@property.CloveName</p>
-                <p id="clove_description">@property.CloveDescription</p>
+                <h1 id="clove_name">@property.CloveName</h1>
+                <h4 id="clove_description">@property.CloveDescription</h4>
                 if (property.CloveID >= 0) {
                     @Html.ActionLink("Find out more about this clove", "Details", "Clove", new { id = property.CloveID }, new { })
                 }
             }
         </div>
+       
+        <hr />
 
         @using (@Html.BeginForm()) {
             <div class="form-horizontal">
@@ -23,7 +25,9 @@
             </div>
         }
 
-        <div>@Html.ActionLink("Write something yourself...", "Write", "Home")</div>
+        <hr />
+
+        <div>@Html.ActionLink("Write something yourself...", "Write", "Home")</div><br />
         <table id="artilces">
             <tr>
                 <th>@Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSort })</th>
