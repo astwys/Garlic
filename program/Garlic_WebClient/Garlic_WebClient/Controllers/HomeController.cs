@@ -51,7 +51,7 @@ namespace Garlic_WebClient.Controllers {
 
         [Authorize]
         public ActionResult Write () {
-            ViewBag.clove = new SelectList(db.c_clove, "c_id", "c_name");
+            ViewBag.clove = new SelectList(db.c_clove.OrderBy(c => c.c_name), "c_id", "c_name");
             return View();
         }
 

@@ -180,6 +180,7 @@
       <DependentUpon>GarlicModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MetaDataUsers.cs" />
     <Compile Include="Models\p_posts.cs">
       <DependentUpon>GarlicModel.tt</DependentUpon>
     </Compile>

@@ -22,7 +22,6 @@ namespace Garlic_WebClient.Controllers
                             select p).FirstOrDefault();
             ViewBag.Clove = article.a_articles.c_clove.c_name;
             ViewBag.ATitle = article.a_articles.a_title;
-            ViewBag.Comments = article.p_posts2.ToList();
             return View(article);
         }
 
