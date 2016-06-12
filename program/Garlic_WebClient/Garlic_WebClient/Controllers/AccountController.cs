@@ -31,7 +31,6 @@ namespace Garlic_WebClient.Controllers
                 if (login != null) {
                     UserInformation.User = login;
                     FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
-                    Session["Usernaem"] = login.u_username;
                     return RedirectToLocal(returnUrl);  // Url  ?? "~/Home/Index"
                 } else {
                     ModelState.AddModelError("", "Invalid username or password.");
@@ -62,6 +61,35 @@ namespace Garlic_WebClient.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+        }
+
+        public ActionResult Register(RegisterModel model, string returnUrl) {
+            u_users user;
+
+            if (ModelState.IsValid) {
+                using (var db = new garlicEntities()) {
+                    user = new u_users
+                    {
+                        u_username = model.Username,
+                        u_email = model.Email,
+                        u_password = model.Password
+                    };
+
+                    db.u_users.Add(user);
+                    db.SaveChanges();
+                }
+
+
+                if (user != null) {
+                    UserInformation.User = user;
+                    FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
+                    return RedirectToLocal(returnUrl);  // Url  ?? "~/Home/Index"
+                } else {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                }
+            }
+
+            return View(model);
         }
 
     }
