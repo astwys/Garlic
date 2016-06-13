@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<Garlic_WebClient.Models.HomePageModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/> 
 
 @{
     ViewBag.Title = "Garlic - Home";
@@ -20,7 +22,8 @@
 
         @using (@Html.BeginForm()) {
             <div class="form-horizontal">
-                <input name="searchstring" type="text" />
+                @Html.TextBox("searchstring", ViewBag.CurrentFilter as string)
+                <!--<input name="searchstring" type="text" />-->
                 <input type="submit" value="Search" class="btn btn-default" />
             </div>
         }

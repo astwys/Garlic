@@ -12,13 +12,25 @@ namespace Garlic_WebClient.Controllers {
 
         garlicEntities db = new garlicEntities();
 
+<<<<<<< Updated upstream
         public ActionResult Index (int? clove, string searchstring, string sortOrder, int? article_id) {
+=======
+        public ActionResult Index (int? clove, string searchstring, string sortOrder, string currentFilter, int? page) {
+>>>>>>> Stashed changes
             if (!Request.IsAuthenticated)
                 UserInformation.User = null;
 
             var list = new List<HomePageModel>();
             var model = new HomePageModel();
             model.CloveID = clove;
+
+            // paging
+            if (searchstring != null)
+                page = 1;
+            else
+                searchstring = currentFilter;
+
+            ViewBag.CurrentFilter = searchstring;
 
             // search
             model.CloveSearch = searchstring;
@@ -68,7 +80,6 @@ namespace Garlic_WebClient.Controllers {
                           select p.p_id).Max()) + 1;
             post.p_content = content;
             post.p_date = DateTime.Now;
-            //post.p_u_username = "aadams5f2";
             post.p_u_username = username;
 
             a_articles article = new a_articles();

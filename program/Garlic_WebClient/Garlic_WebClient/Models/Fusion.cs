@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using PagedList;
 
 namespace Garlic_WebClient.Models {
 
@@ -87,7 +88,10 @@ namespace Garlic_WebClient.Models {
             }
         }
 
-        public List<vclovearticles> CloveArticles {
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
+
+        public IPagedList<vclovearticles> CloveArticles {
             get {
                 var clovearticles = (from ca in db.vclovearticles
                                      select ca).Distinct().ToList();
@@ -113,8 +117,8 @@ namespace Garlic_WebClient.Models {
                 }
 
                 if (cloveID < 0)
-                    return clovearticles;
-                return clovearticles.Where(ca => ca.a_c_clove == cloveID).Distinct().ToList();
+                    return clovearticles.ToPagedList(PageNumber, PageSize);
+                return clovearticles.Where(ca => ca.a_c_clove == cloveID).Distinct().ToPagedList(PageNumber, PageSize);
             }
         }
 
