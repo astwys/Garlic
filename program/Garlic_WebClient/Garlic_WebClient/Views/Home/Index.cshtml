@@ -20,7 +20,7 @@
        
         <hr />
 
-        @using (@Html.BeginForm()) {
+        @using (@Html.BeginForm("Index", "Home", FormMethod.Get)) {
             <div class="form-horizontal">
                 @Html.TextBox("searchstring", ViewBag.CurrentFilter as string)
                 <!--<input name="searchstring" type="text" />-->
@@ -43,15 +43,26 @@
                         <td>
                             <a>@Html.ActionLink(article.a_title, "Index", "Read", new { article_id = article.a_p_id }, new { })</a>
                             <span> | </span>
-                            <a>@Html.ActionLink("+1", "Index", "Home", new { article_id = article.a_p_id }, new { })</a>
+                            @*<a>@Html.ActionLink("+1", "Index", "Home", new { article_id = article.a_p_id, page = property.PageNumber, clove = property.CloveID }, new { })</a>*@
+                            <a>@Ajax.ActionLink("+1", "Vote", "Home", new { article_id = article.a_p_id }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "votes" })</a>
                         </td>
-                        <td><p>Autor: @article.p_u_username</p></td>
-                        <td><p>Votes: @article.voteCount</p></td>
+                        <td><p>@article.p_u_username</p></td>
+                        <td><p><span><div id="votes">@article.voteCount</div></span></p></td>
                     </tr>
                 }
             }
         </table>
     </div>
+
+    <hr />
+
+    @foreach (var item in Model) {
+        <div>@(item.CloveArticles.PageCount < item.CloveArticles.PageNumber ? 0 : item.CloveArticles.PageNumber) of @item.CloveArticles.PageCount</div>
+    }
+
+    @Html.PagedListPager(Model.FirstOrDefault().CloveArticles, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+    <hr />
 
     <div id="cloves">
         <div id="header">
@@ -66,3 +77,7 @@
         }
     </div>
 </div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/jquery.jquery.unobtrusive-ajax.min.js")
+}

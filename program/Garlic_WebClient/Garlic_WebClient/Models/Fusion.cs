@@ -89,7 +89,7 @@ namespace Garlic_WebClient.Models {
         }
 
         public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 10;
+        public int PageSize { get; set; } = 36;
 
         public IPagedList<vclovearticles> CloveArticles {
             get {

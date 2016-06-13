@@ -12,11 +12,8 @@ namespace Garlic_WebClient.Controllers {
 
         garlicEntities db = new garlicEntities();
 
-<<<<<<< Updated upstream
-        public ActionResult Index (int? clove, string searchstring, string sortOrder, int? article_id) {
-=======
-        public ActionResult Index (int? clove, string searchstring, string sortOrder, string currentFilter, int? page) {
->>>>>>> Stashed changes
+        public ActionResult Index (int? clove, string searchstring, string sortOrder, string currentFilter, int? page, int? article_id) {
+
             if (!Request.IsAuthenticated)
                 UserInformation.User = null;
 
@@ -29,6 +26,8 @@ namespace Garlic_WebClient.Controllers {
                 page = 1;
             else
                 searchstring = currentFilter;
+
+            model.PageNumber = page ?? 1;
 
             ViewBag.CurrentFilter = searchstring;
 
@@ -43,8 +42,7 @@ namespace Garlic_WebClient.Controllers {
 
             // votes
             if (article_id != null) {
-                v_votes vote = new v_votes
-                {
+                v_votes vote = new v_votes {
                     v_p_post = article_id ?? default(int),
                     v_upvote = true,
                     v_date = DateTime.Now
@@ -58,12 +56,26 @@ namespace Garlic_WebClient.Controllers {
 
             ViewBag.clove = new SelectList(model.Cloves, "c_id", "c_name");
 
-            return View(list);            
+            return View(list);
+        }
+
+        public PartialViewResult Vote (int article_id) {
+
+            v_votes vote = new v_votes {
+                v_p_post = article_id,
+                v_upvote = true,
+                v_date = DateTime.Now
+            };
+
+            db.v_votes.Add(vote);
+            db.SaveChanges();
+
+            return PartialView("_VotePartial", (from v in db.v_votes where v.v_p_post.Equals(article_id) select v).Count());
         }
 
         [Authorize]
         public ActionResult Write () {
-            ViewBag.clove = new SelectList(db.c_clove.OrderBy(c => c.c_name), "c_id", "c_name");
+            ViewBag.clove = new SelectList(new HomePageModel().Cloves, "c_id", "c_name");
             return View();
         }
 
