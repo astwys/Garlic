@@ -15,12 +15,14 @@ using System.Windows.Shapes;
 using System.Configuration;
 using System.Data.SqlClient;
 using Garlic_Client.models;
+using MahApps.Metro.Controls;
 
 namespace Garlic_Client {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow : MetroWindow
+    {
         public MainWindow () {
             mw_model.mainwindow = this;
             InitializeComponent();
@@ -33,7 +35,30 @@ namespace Garlic_Client {
             ReadWindow read = new ReadWindow(); 
             read.Show();
             read.Topmost = true;
-            read.Focus();
+        }
+
+        private void admin_click (object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void newclove_click (object sender, RoutedEventArgs e)
+        {
+            NewCloveWIndow cw = new NewCloveWIndow();
+            cw.Show();
+        }
+
+        private void delete_click(object sender, RoutedEventArgs e)
+        {
+            DeleteWindow delete = new DeleteWindow();
+            delete.Show();
+        }
+
+        private void settings_click (object sender, RoutedEventArgs e)
+        {
+            SettingsWindow set = new SettingsWindow();
+            set.Show();
+            set.Topmost = true;
         }
     }
 }

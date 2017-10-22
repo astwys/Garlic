@@ -1,0 +1,34 @@
+﻿@using Garlic_WebClient.Models
+@model Garlic_WebClient.Models.p_posts
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.ATitle</h2>
+<h4>@Html.DisplayFor(model => model.p_date)</h4>
+<h4>by @Html.DisplayFor(model => model.p_u_username)</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            <b>Content</b>
+        </th>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.p_content)
+        </td>
+    </tr>
+    @if (Model.p_u_username.Equals(UserInformation.Username)) {
+        <tr>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.p_id }) | 
+            @Html.ActionLink("Delete", "Delete", new { id = Model.p_id })
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Back", "Index", "Home")
+
+

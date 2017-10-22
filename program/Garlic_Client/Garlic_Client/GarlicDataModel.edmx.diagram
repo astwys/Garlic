@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ff5accae9e964d8c854ebebbea23b242" Name="Diagram1">
+        <EntityTypeShape EntityType="GarlicModel.a_articles" Width="1.5" PointX="7.5" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.ad_admins" Width="1.5" PointX="0.875" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.c_cloves" Width="1.5" PointX="0.875" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.csm_connectedsocialmedias" Width="1.5" PointX="5.375" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.p_posts" Width="1.5" PointX="4.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.r_rankings" Width="1.5" PointX="7.5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.sm_socialmedias" Width="1.5" PointX="5.375" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.u_users" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.v_votes" Width="1.5" PointX="1" PointY="8.875" IsExpanded="true" />
+        <AssociationConnector Association="GarlicModel.FK_a_articles_p_posts" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.FK_a_articles_r_rankings" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.FK_ad_admins_c_clove" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.FK_csm_connectedsocialmedias_sm_socialmedias" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.FK_csm_connectedsocialmedias_u_users" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.FK_p_posts_u_users" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.FK_v_votes_p_posts" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.co_comments" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.s_subsriptions" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

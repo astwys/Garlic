@@ -11,52 +11,40 @@
         <model:mw_model x:Key="mw" />
     </Window.Resources>
     <Grid DataContext="{Binding Source={StaticResource mw}}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="178*"/>
-            <ColumnDefinition Width="70*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="74*"/>
+            <RowDefinition Height="395*"/>
         </Grid.RowDefinitions>
-
-        <Grid Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="73*"/>
-                <RowDefinition Height="35*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="353*"/>
-                <ColumnDefinition Width="139*"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0"
+        <TextBlock Grid.Column="0"
                        Grid.Row="0"
                        FontSize="50"
                        FontWeight="Medium"
                        Padding="10 10 0 0"
                        Text="Garlic">
-            </TextBlock>
-        </Grid>
+        </TextBlock>
         <!-- inner grid -->
 
         <Grid Grid.Column="0"
-              Grid.Row="1"
-              Grid.ColumnSpan="2">
+              Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="409*"/>
+                <ColumnDefinition Width="83*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40*"/>
-                <RowDefinition Height="150*"/>
-                <RowDefinition Height="175*"/>
+                <RowDefinition Height="43*"/>
+                <RowDefinition Height="163*"/>
+                <RowDefinition Height="153*"/>
+                <RowDefinition Height="36*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0"
+            <TextBlock x:Name="title"
+                       Grid.Row="0"
                        FontSize="20"
                        FontWeight="Medium"
                        Padding="5"
-                       Text="{Binding Path=ArticleTitle}">
-            </TextBlock>
+                       Text="{Binding Path=ArticleTitle}" Grid.ColumnSpan="2"/>
 
-            <ScrollViewer Grid.Row="1">
+            <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2">
                 <TextBlock FontSize="14"
                            Padding="5"
                            TextWrapping="Wrap"
@@ -64,39 +52,46 @@
                 </TextBlock>
             </ScrollViewer>
 
-            <ScrollViewer Grid.Row="2"
-                          Padding="0 20 0 0">
-                <StackPanel>
-                    <!-- one expander per parent comment -->
-                    <!-- each subcomment should be indented by 10 -->
-                    <Expander>
-                        <!-- main comment -->
-                        <Expander.Header>
-                            <TextBlock FontSize="14"
-                                       TextWrapping="Wrap">
-                                jölaskdjflöaksjdfölakjsdfölkjasdflökjasdflkjasdflökjasdlfkjasdlöfkjasldköfjasldkfjaslödkjöalskdfjalskdjfalöskdjfaölsdkfj
-                            </TextBlock>
-                        </Expander.Header>
+            <ItemsControl x:Name="comments"
+                          Grid.Row="2"
+                          ItemsSource="{Binding Path=Comments}"
+                          Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=p_u_username}"
+                                           FontSize="14"
+                                           Foreground="Gray"/>
+                                <TextBlock Text="{Binding Path=p_date}"
+                                           FontSize="14"
+                                           Foreground="Gray"
+                                           Padding="20 0 0 0"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding Path=p_content}"
+                                       FontSize="15"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
-                        <Expander Padding="10 0 0 0">
-                            <!-- subcomment -->
-                            <Expander.Header>
-                                <TextBlock FontSize="14"
-                                       TextWrapping="Wrap">
-                                asdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdfasdffdsaASDFDSASDFasdasdf
-                                </TextBlock>
-                            </Expander.Header>
-                            <TextBlock FontSize="14"
-                                       Padding="20 0 0 0">
-                                This is the final comment that is shown cuase it would get to long
-                            </TextBlock>
-                        </Expander>
-                    </Expander>
-                </StackPanel>
-            </ScrollViewer>
+            <TextBox x:Name="read_comment"
+                     Grid.Row="3"
+                     Grid.ColumnSpan="2"
+                     FontSize="10"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto"
+                     AcceptsReturn="True">
+            </TextBox>
 
+            <Button x:Name="Submit"
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Content="Submit"
+                    FontSize="15"
+                    Command="{Binding SubmitComment}"
+                    CommandParameter="{Binding ElementName=read_comment, Path=Text}"/>
         </Grid>
-
     </Grid>
     <!-- general grid -->
 </Window>

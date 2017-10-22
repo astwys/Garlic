@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7e83745e205641d4b5de23e1bcdbe417" Name="Diagram1">
+        <EntityTypeShape EntityType="GarlicModel.a_articles" Width="1.5" PointX="7.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.c_clove" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.csm_connectedsocialmedias" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.p_posts" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.r_rankings" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.sm_socialmedias" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.u_users" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.v_votes" Width="1.5" PointX="7.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.vclovearticles" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.vcloveinfo" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.vpostinfo" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.vuserrankings" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarlicModel.vuservotes" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="GarlicModel.fk_a_articles_c_clove1" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.fk_a_articles_p_posts1" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.fk_a_articles_r_rankings1" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.fk_sm_socialmedias_has_u_users_sm_socialmedias1" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.fk_sm_socialmedias_has_u_users_u_users1" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.fk_p_posts_u_users" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.fk_v_votes_p_posts1" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.ad_admins" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.c_comments" ManuallyRouted="false" />
+        <AssociationConnector Association="GarlicModel.s_subscriptions" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

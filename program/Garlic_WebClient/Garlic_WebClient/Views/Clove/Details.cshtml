@@ -1,0 +1,46 @@
+﻿@model Garlic_WebClient.Models.c_clove
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c_name)
+        </dd>
+
+        <dt>
+            Access
+        </dt>
+
+        <dd>
+            @if (Model.c_access) {
+                <div>Public</div>
+            } else {
+                <div>Private </div>
+            }
+
+        </dd>
+
+        <dt>
+            Description
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c_description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.c_id }) |
+    @Html.ActionLink("Back to List", "Index", "Home", new { id = Model.c_id })
+</p>

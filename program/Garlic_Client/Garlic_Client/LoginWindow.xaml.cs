@@ -26,38 +26,10 @@ namespace Garlic_Client
             InitializeComponent();
         }
 
-        private void login_click (Object sender, RoutedEventArgs e)
+        private void LoginUC_OnLoaded (object sender, RoutedEventArgs e)
         {
-            mw_model mw = new mw_model();
-            string user = username.Text;
-            string pw = password.Password;
-            Console.WriteLine(user +" "+pw);
-
-            // TODO doesn't really work
-            if (user == null || pw == null)
-            {
-                MessageBox.Show("Please enter a username and password", "OK");
-            }
-
-            mw_model.Username = user;
-            mw_model.Password = pw;
-
-            if (mw.UserExists)
-            {
-                MainWindow m = new MainWindow();
-                m.Show();
-                m.Topmost = true;
-                this.Close();
-            }
-            else
-            {
-                // TODO register new user
-            }
-        }
-
-        private void register_click (Object sender, RoutedEventArgs e)
-        {
-
+            Grid.Children.Clear();
+            Grid.Children.Add(new LoginUC());
         }
     }
 }
